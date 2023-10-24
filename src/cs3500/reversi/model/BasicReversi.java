@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,6 @@ import static java.lang.Math.min;
 
 public class BasicReversi implements ReversiModel {
 
-  public enum CellState {
-    BLACK, WHITE, EMPTY
-  }
   private final ArrayList<ArrayList<ReversiCell>> board;
   private final Map<ReversiCell, CellState> cellStates;
 
@@ -37,7 +35,7 @@ public class BasicReversi implements ReversiModel {
 
 
 
-  public void initCells(int numRows) {
+  private void initCells(int numRows) {
 
     int N = (numRows - 1) / 2;
     for (int q = -N; q <= N; q++) {
@@ -58,7 +56,12 @@ public class BasicReversi implements ReversiModel {
   }
 
   public void move(int x, int y) {
+    List<ReversiCell> cellsToFlip = isLegalMove(x, y);
+    if(cellsToFlip.isEmpty()){
+      throw new IllegalStateException("Not a legal move");
+    }
     placePiece(x, y, turn % 2 == 0 ? CellState.WHITE : CellState.BLACK);
+    cellsToFlip.forEach(this::flipPiece);
     turn++;
   }
 
@@ -74,12 +77,13 @@ public class BasicReversi implements ReversiModel {
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }else{
-      List<List<ReversiCell>> lines = validNeighbors.stream().map(n -> n.cellsInDirection(c.getDirection(n),c.calcDistance(n,numRows))).collect(Collectors.toList());
+      System.out.println(validNeighbors);
+      List<List<ReversiCell>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
       System.out.println(lines);
       for (int i = 0; i < lines.size(); i++){
         List<ReversiCell> line = lines.get(i);
+        List<ReversiCell> result = new ArrayList<>();
         for (ReversiCell reversiCell : line) {
-          List<ReversiCell> result = new ArrayList<>();
           if (getColor(reversiCell) == color) {
             reversiCells.addAll(result);
             break;
@@ -102,12 +106,12 @@ public class BasicReversi implements ReversiModel {
     return false;
   }
 
-  public ArrayList<ArrayList<ReversiCell>> getBoard() {
-    return board;
+  public List<List<ReversiCell>> getBoard() {
+    return Collections.unmodifiableList(board);
   }
 
-  public CellState getColor(ReversiCell c) {
-    return cellStates.get(c);
+  public CellState getColor(Hex h) {
+    return cellStates.get(h);
   }
 
   private void placePiece(int x, int y, CellState color) {

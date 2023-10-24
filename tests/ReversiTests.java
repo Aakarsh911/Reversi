@@ -19,10 +19,10 @@ public class ReversiTests {
   ReversiCell sDirNeg;
   private void initCells(){
 
-    m = new BasicReversi(7);
+    m = new BasicReversi(11);
     m.startGame();
-    ArrayList<ArrayList<ReversiCell>> board = m.getBoard();
-    src = board.get(1).get(1);
+    List<List<ReversiCell>> board = m.getBoard();
+    src = board.get(2).get(2);
     rDirPos = board.get(1).get(2);
     rDirNeg = board.get(1).get(0);
     qDirPos = board.get(0).get(0);
@@ -45,12 +45,15 @@ public class ReversiTests {
   public void testCellsInDirection(){
     initCells();
     List<ReversiCell> rDirPosList = List.of(new ReversiCell(1,-1,0), new ReversiCell(2,-1,-1));
-    Assert.assertEquals(rDirPosList, src.cellsInDirection(new ReversiCell(1,0,-1), 2));
+    Assert.assertEquals(rDirPosList, src.cellsInDirection(new ReversiCell(1,0,-1), 3));
   }
 
   @Test
   public void testLegalMove(){
     initCells();
-    System.out.println(m.isLegalMove(4,1));
+    m.move(6,3);
+    m.move(7,2);
+    System.out.println(m.getCellStates().get(new ReversiCell(-1,0,1)));
   }
+
 }

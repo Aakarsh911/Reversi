@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ReversiCell {
+public class ReversiCell implements Hex{
   public final int q;
   public final int r;
   public final int s;
+
+
   public ReversiCell(int q, int r, int s) {
     this.q = q;
     this.r = r;
