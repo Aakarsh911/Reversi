@@ -29,24 +29,14 @@ public class ReversiTextualView implements ReversiView {
   @Override
   public String toString() {
     String ans = "";
-    int spaces = (model.getBoard().size() - 1) / 2 - 1;
     for (int i = 0; i < model.getBoard().size(); i++) {
-      for (int k = 0; k < spaces + 1; k++) {
+      for (int k = 0; k < Math.abs((model.getBoard().size() / 2) - i); k++) {
         ans += " ";
       }
       for (int j = 0; j < model.getBoard().get(i).size(); j++) {
         ans += drawCell(model.getBoard().get(i).get(j));
       }
       ans += "\n";
-      if (i < (model.getBoard().size() - 1) / 2) {
-        spaces--;
-      }
-      if (i == (model.getBoard().size() - 1) / 2) {
-        spaces = 0;
-      }
-      if (i > (model.getBoard().size() - 1) / 2) {
-        spaces++;
-      }
     }
     ans += model.getTurn() + "'s turn";
     if (model.isGameOver()) {

@@ -14,11 +14,13 @@ public class BasicReversi implements ReversiModel {
 
   private final ArrayList<ArrayList<Hex>> board;
   private final Map<Hex, CellState> cellStates;
-  private int turn;
+  private int turn = 0;
   private final int numRows;
   private int pass = 0;
-  public int whiteScore = 3;
-  public int blackScore = 3;
+  private int whiteScore = 3;
+  private int blackScore = 3;
+
+  private boolean started = false;
 
   public BasicReversi(int numRows) {
     if (numRows % 2 == 0 || numRows < 3) {
@@ -31,7 +33,6 @@ public class BasicReversi implements ReversiModel {
       board.add(row);
     }
     cellStates = new HashMap<>();
-    turn = 0;
   }
 
 
@@ -52,6 +53,10 @@ public class BasicReversi implements ReversiModel {
   }
 
   public void startGame() {
+    if(started){
+      throw new IllegalStateException("Game already started");
+    }
+    started = true;
     initCells(numRows);
     initColors();
   }
@@ -71,7 +76,14 @@ public class BasicReversi implements ReversiModel {
     blackScore = black;
   }
 
+  private void checkStarted() {
+    if(!started){
+      throw new IllegalStateException("Game not started");
+    }
+  }
+
   public void move(int x, int y) {
+    checkStarted();
     List<Hex> cellsToFlip = isLegalMove(x, y);
     if(cellsToFlip.isEmpty()){
       throw new IllegalStateException("Not a legal move");
@@ -116,6 +128,7 @@ public class BasicReversi implements ReversiModel {
   }
 
   public void pass() {
+    checkStarted();
     turn++;
     pass++;
     calculateScore();
