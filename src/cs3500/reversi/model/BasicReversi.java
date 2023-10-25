@@ -14,10 +14,9 @@ public class BasicReversi implements ReversiModel {
 
   private final ArrayList<ArrayList<Hex>> board;
   private final Map<Hex, CellState> cellStates;
-
   private int turn;
-
   private final int numRows;
+  private int pass = 0;
 
   public BasicReversi(int numRows) {
     if (numRows % 2 == 0 || numRows < 3) {
@@ -62,6 +61,7 @@ public class BasicReversi implements ReversiModel {
     }
     placePiece(x, y, turn % 2 == 0 ? CellState.WHITE : CellState.BLACK);
     cellsToFlip.forEach(this::flipPiece);
+    this.pass = 0;
     turn++;
   }
 
@@ -98,9 +98,13 @@ public class BasicReversi implements ReversiModel {
 
   public void pass() {
     turn++;
+    pass++;
   }
 
   public boolean isGameOver() {
+    if (pass == 2) {
+      return true;
+    }
     return false;
   }
 
@@ -150,5 +154,13 @@ public class BasicReversi implements ReversiModel {
 
   public Map<Hex, CellState> getCellStates() {
     return cellStates;
+  }
+
+  public String getTurn() {
+    if (turn % 2 == 0) {
+      return "White";
+    } else {
+      return "Black";
+    }
   }
 }

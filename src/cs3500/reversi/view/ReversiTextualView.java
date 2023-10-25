@@ -1,17 +1,18 @@
 package cs3500.reversi.view;
 
+import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ReadOnlyModel;
 import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.ReversiModel;
 
 public class ReversiTextualView implements ReversiView {
-  ReadOnlyModel model;
+  ReversiModel model;
 
   public ReversiTextualView(ReversiModel model) {
     this.model = model;
   }
 
-  private String drawCell(ReversiCell c) {
+  private String drawCell(Hex c) {
     String ans = "";
     if (model.getColor(c).toString().equals("EMPTY")) {
       ans += "_ ";
@@ -28,7 +29,7 @@ public class ReversiTextualView implements ReversiView {
   @Override
   public String toString() {
     String ans = "";
-    int spaces = (model.getBoard().size() - 1) / 2;
+    int spaces = (model.getBoard().size() - 1) / 2 - 1;
     for (int i = 0; i < model.getBoard().size(); i++) {
       for (int k = 0; k < spaces + 1; k++) {
         ans += " ";
@@ -41,11 +42,18 @@ public class ReversiTextualView implements ReversiView {
         spaces--;
       }
       if (i == (model.getBoard().size() - 1) / 2) {
-        spaces = 1;
+        spaces = 0;
       }
       if (i > (model.getBoard().size() - 1) / 2) {
         spaces++;
       }
+    }
+    ans += model.getTurn() + "'s turn";
+    if (model.isGameOver()) {
+      ans += "\nGame over!";
+    }
+    else {
+      ans += "\nGame not over!";
     }
     return ans;
   }
