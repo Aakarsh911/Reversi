@@ -95,7 +95,8 @@ public class BasicReversi implements ReversiModel {
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }else{
-      List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
+      List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),
+              c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
       for (int i = 0; i < lines.size(); i++){
         List<Hex> line = lines.get(i);
         List<Hex> result = new ArrayList<>();
@@ -122,8 +123,8 @@ public class BasicReversi implements ReversiModel {
 
   public boolean isGameOver() {
     int numCells = 0;
-    for (int i = 0; i < board.size(); i++) {
-      numCells += board.get(i).size();
+    for (ArrayList<Hex> hexes : board) {
+      numCells += hexes.size();
     }
     return pass == 2 || whiteScore == 0 || blackScore == 0 || numCells == whiteScore + blackScore;
   }
@@ -149,15 +150,6 @@ public class BasicReversi implements ReversiModel {
     cellStates.replace(new ReversiCell(1,0,-1), CellState.BLACK);
   }
 
-  private boolean isOpposite(ReversiCell c, ReversiCell d) {
-    if (cellStates.get(c) == CellState.WHITE) {
-      return cellStates.get(d) == CellState.BLACK;
-    } else if (cellStates.get(c) == CellState.BLACK) {
-      return cellStates.get(d) == CellState.WHITE;
-    } else {
-      return false;
-    }
-  }
   private boolean isOpposite(CellState c, Hex d) {
     if (c == CellState.WHITE) {
       return cellStates.get(d) == CellState.BLACK;
@@ -170,10 +162,6 @@ public class BasicReversi implements ReversiModel {
 
   private void flipPiece(Hex c){
     cellStates.replace(c, cellStates.get(c) == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
-  }
-
-  public Map<Hex, CellState> getCellStates() {
-    return cellStates;
   }
 
   public String getTurn() {
