@@ -17,6 +17,8 @@ public class BasicReversi implements ReversiModel {
   private int turn;
   private final int numRows;
   private int pass = 0;
+  public int whiteScore = 3;
+  public int blackScore = 3;
 
   public BasicReversi(int numRows) {
     if (numRows % 2 == 0 || numRows < 3) {
@@ -54,6 +56,21 @@ public class BasicReversi implements ReversiModel {
     initColors();
   }
 
+  public void calculateScore() {
+    int white = 0;
+    int black = 0;
+    for (Hex h : cellStates.keySet()) {
+      if (cellStates.get(h) == CellState.WHITE) {
+        white++;
+      }
+      else if (cellStates.get(h) == CellState.BLACK) {
+        black++;
+      }
+    }
+    whiteScore = white;
+    blackScore = black;
+  }
+
   public void move(int x, int y) {
     List<Hex> cellsToFlip = isLegalMove(x, y);
     if(cellsToFlip.isEmpty()){
@@ -63,6 +80,7 @@ public class BasicReversi implements ReversiModel {
     cellsToFlip.forEach(this::flipPiece);
     this.pass = 0;
     turn++;
+    calculateScore();
   }
 
   public List<Hex> isLegalMove(int x, int y) {
@@ -99,13 +117,15 @@ public class BasicReversi implements ReversiModel {
   public void pass() {
     turn++;
     pass++;
+    calculateScore();
   }
 
   public boolean isGameOver() {
-    if (pass == 2) {
-      return true;
+    int numCells = 0;
+    for (int i = 0; i < board.size(); i++) {
+      numCells += board.get(i).size();
     }
-    return false;
+    return pass == 2 || whiteScore == 0 || blackScore == 0 || numCells == whiteScore + blackScore;
   }
 
   public List<List<Hex>> getBoard() {

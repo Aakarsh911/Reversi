@@ -52,7 +52,7 @@ public class ReversiTests {
   }
 
   @Test
-  public void testLegalMove() {
+  public void testGameOver() {
     initCells();
     BasicReversi m2 = new BasicReversi(11);
     m2.startGame();
@@ -61,6 +61,9 @@ public class ReversiTests {
     m2.pass();
     m2.move(4, 2);
     m2.pass();
+    m2.move(6, 3);
+    m2.pass();
+    m2.move(6, 6);
     ReversiView view = new ReversiTextualView(m2);
     System.out.println(view.toString());
     m.move(6,3);

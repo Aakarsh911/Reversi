@@ -52,9 +52,6 @@ public class ReversiTextualView implements ReversiView {
     if (model.isGameOver()) {
       ans += "\nGame over!";
     }
-    else {
-      ans += "\nGame not over!";
-    }
     return ans;
   }
 }
