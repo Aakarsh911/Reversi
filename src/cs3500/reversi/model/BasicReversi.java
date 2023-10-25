@@ -77,9 +77,7 @@ public class BasicReversi implements ReversiModel {
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }else{
-      System.out.println(validNeighbors);
       List<List<ReversiCell>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
-      System.out.println(lines);
       for (int i = 0; i < lines.size(); i++){
         List<ReversiCell> line = lines.get(i);
         List<ReversiCell> result = new ArrayList<>();

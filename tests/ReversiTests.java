@@ -7,6 +7,8 @@ import java.util.List;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.view.ReversiTextualView;
+import cs3500.reversi.view.ReversiView;
 
 public class ReversiTests {
   BasicReversi m;
@@ -42,18 +44,21 @@ public class ReversiTests {
   }
 
   @Test
-  public void testCellsInDirection(){
+  public void testCellsInDirection() {
     initCells();
     List<ReversiCell> rDirPosList = List.of(new ReversiCell(1,-1,0), new ReversiCell(2,-1,-1));
     Assert.assertEquals(rDirPosList, src.cellsInDirection(new ReversiCell(1,0,-1), 3));
   }
 
   @Test
-  public void testLegalMove(){
+  public void testLegalMove() {
     initCells();
+    BasicReversi m2 = new BasicReversi(15);
+    m2.startGame();
+    ReversiView view = new ReversiTextualView(m2);
+    System.out.println(view.toString());
     m.move(6,3);
     m.move(7,2);
-    System.out.println(m.getCellStates().get(new ReversiCell(-1,0,1)));
   }
 
 }
