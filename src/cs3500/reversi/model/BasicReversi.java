@@ -84,7 +84,7 @@ public class BasicReversi implements ReversiModel {
 
   public void move(int x, int y) {
     checkStarted();
-    List<Hex> cellsToFlip = isLegalMove(x, y);
+    List<Hex> cellsToFlip = getCellsToFlip(x, y);
     if(cellsToFlip.isEmpty()){
       throw new IllegalStateException("Not a legal move");
     }
@@ -95,8 +95,7 @@ public class BasicReversi implements ReversiModel {
     calculateScore();
   }
 
-  public List<Hex> isLegalMove(int x, int y) {
-    List<Hex> reversiCells = new ArrayList<>();
+  public List<Hex> getCellsToFlip(int x, int y) {
     if (getColor(board.get(x).get(y)) != CellState.EMPTY) {
       throw new IllegalStateException("Cell is not empty");
     }
@@ -106,21 +105,26 @@ public class BasicReversi implements ReversiModel {
             .collect(Collectors.toList());
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
-    }else{
+    }
       List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),
               c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
-      for (int i = 0; i < lines.size(); i++){
-        List<Hex> line = lines.get(i);
-        List<Hex> result = new ArrayList<>();
-        for (Hex reversiCell : line) {
-          if (getColor(reversiCell) == color) {
-            reversiCells.addAll(result);
-            break;
-          }else if (getColor(reversiCell) == CellState.EMPTY){
-            result.removeAll(result);
-          }else{
-            result.add(reversiCell);
-          }
+
+    return checkCellsToFlip(lines, color);
+  }
+
+  private List<Hex> checkCellsToFlip(List<List<Hex>> lines, CellState color) {
+    List<Hex> reversiCells = new ArrayList<>();
+    for (int i = 0; i < lines.size(); i++){
+      List<Hex> line = lines.get(i);
+      List<Hex> result = new ArrayList<>();
+      for (Hex reversiCell : line) {
+        if (getColor(reversiCell) == color) {
+          reversiCells.addAll(result);
+          break;
+        }else if (getColor(reversiCell) == CellState.EMPTY){
+          result.removeAll(result);
+        }else{
+          result.add(reversiCell);
         }
       }
     }
