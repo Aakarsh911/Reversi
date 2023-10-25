@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.reversi.model.BasicReversi;
+import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ReversiTextualView;
@@ -12,18 +13,18 @@ import cs3500.reversi.view.ReversiView;
 
 public class ReversiTests {
   BasicReversi m;
-  ReversiCell src;
-  ReversiCell rDirPos;
-  ReversiCell rDirNeg;
-  ReversiCell qDirPos;
-  ReversiCell qDirNeg;
-  ReversiCell sDirPos;
-  ReversiCell sDirNeg;
+  Hex src;
+  Hex rDirPos;
+  Hex rDirNeg;
+  Hex qDirPos;
+  Hex qDirNeg;
+  Hex sDirPos;
+  Hex sDirNeg;
   private void initCells(){
 
     m = new BasicReversi(11);
     m.startGame();
-    List<List<ReversiCell>> board = m.getBoard();
+    List<List<Hex>> board = m.getBoard();
     src = board.get(2).get(2);
     rDirPos = board.get(1).get(2);
     rDirNeg = board.get(1).get(0);
@@ -46,7 +47,7 @@ public class ReversiTests {
   @Test
   public void testCellsInDirection() {
     initCells();
-    List<ReversiCell> rDirPosList = List.of(new ReversiCell(1,-1,0), new ReversiCell(2,-1,-1));
+    List<Hex> rDirPosList = List.of(new ReversiCell(1,-1,0), new ReversiCell(2,-1,-1));
     Assert.assertEquals(rDirPosList, src.cellsInDirection(new ReversiCell(1,0,-1), 3));
   }
 

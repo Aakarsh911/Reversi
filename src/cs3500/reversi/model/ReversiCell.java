@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class ReversiCell implements Hex{
-  public final int q;
-  public final int r;
-  public final int s;
+  private final int q;
+  private final int r;
+  private final int s;
 
 
   public ReversiCell(int q, int r, int s) {
@@ -20,6 +20,7 @@ public class ReversiCell implements Hex{
     return "ReversiCell(" + this.q + ", " + this.r + ", " + this.s + ")";
   }
 
+  @Override
   public boolean equals(Object o) {
     if (o instanceof ReversiCell) {
       ReversiCell c = (ReversiCell) o;
@@ -28,11 +29,12 @@ public class ReversiCell implements Hex{
     return false;
   }
 
+  @Override
   public int hashCode() {
     return this.q * 10 + this.r * 100 + this.s * 1000;
   }
 
-  public List<ReversiCell> neighbors() {
+  public List<Hex> neighbors() {
     return Arrays.asList(new ReversiCell(this.q, this.r + 1, this.s- 1),
             new ReversiCell(this.q, this.r   - 1 , this.s + 1),
             new ReversiCell(this.q   + 1 , this.r, this.s - 1) ,
@@ -41,38 +43,55 @@ public class ReversiCell implements Hex{
             new ReversiCell(this.q   - 1 , this.r   + 1 , this.s));
   }
 
-  public ReversiCell getDirection(ReversiCell c){
-    return new ReversiCell(c.q - this.q, c.r - this.r, c.s - this.s);
+  public Hex getDirection(Hex c){
+    return new ReversiCell(c.getQ() - this.q, c.getR() - this.r, c.getS() - this.s);
   }
 
-  public int calcDistance(ReversiCell c, int numRows) {
+  public int calcDistance(Hex c, int numRows) {
     int N = (numRows - 1) / 2;
-    ReversiCell direction = this.getDirection(c);
-    if (direction.q == 0) {
-      if(direction.r < 0) {
-        return N - c.r;
+    Hex direction = this.getDirection(c);
+    if (direction.getQ() == 0) {
+      if(direction.getQ() < 0) {
+        return N - c.getR();
       }else{
-        return N - c.s;
+        return N - c.getQ();
       }
-    } else if (direction.r == 0) {
-      if(direction.q > 0){
-        return N - c.q;
+    } else if (direction.getR() == 0) {
+      if(direction.getQ() > 0){
+        return N - c.getQ();
       }else{
-        return N - c.s;
+        return N - c.getS();
       }
     } else {
-      if (direction.r > 0){
-        return Math.abs(-N - c.q);
+      if (direction.getR() > 0){
+        return Math.abs(-N - c.getQ());
       }else{
-        return Math.abs(-N - c.r);
+        return Math.abs(-N - c.getR());
       }
     }
   }
-  public List<ReversiCell> cellsInDirection(ReversiCell c, int distance){
-    List<ReversiCell> cells = new ArrayList<>();
+
+  @Override
+  public int getQ() {
+    return this.q;
+  }
+
+  @Override
+  public int getR() {
+    return this.r;
+  }
+
+  @Override
+  public int getS() {
+    return this.s;
+  }
+
+  public List<Hex> cellsInDirection(Hex c, int distance){
+    List<Hex> cells = new ArrayList<>();
     for (int i = 1; i <= distance; i++) {
-      cells.add(new ReversiCell(this.q + c.q * i, this.r + c.r * i, this.s + c.s * i));
+      cells.add(new ReversiCell(this.q + c.getQ() * i, this.r + c.getR() * i, this.s + c.getS() * i));
     }
     return cells;
   }
+
 }
