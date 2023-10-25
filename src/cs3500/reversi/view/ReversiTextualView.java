@@ -6,7 +6,7 @@ import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.ReversiModel;
 
 public class ReversiTextualView implements ReversiView {
-  ReversiModel model;
+  ReadOnlyModel model;
 
   public ReversiTextualView(ReversiModel model) {
     this.model = model;
