@@ -50,23 +50,25 @@ public class ReversiCell implements Hex{
   public int calcDistance(Hex c, int numRows) {
     int N = (numRows - 1) / 2;
     Hex direction = this.getDirection(c);
+    System.out.println("direction: " + direction.getR());
     if (direction.getQ() == 0) {
-      if(direction.getQ() < 0) {
-        return N - c.getR();
+      if(direction.getR() < 0) {
+        return N - r;
       }else{
-        return N - c.getQ();
+        System.out.println("N: " + N + " r: " + q);
+        return N - q;
       }
     } else if (direction.getR() == 0) {
       if(direction.getQ() > 0){
-        return N - c.getQ();
+        return N - q;
       }else{
-        return N - c.getS() + 1;
+        return N - s;
       }
     } else {
       if (direction.getR() > 0){
-        return Math.abs(-N - c.getQ());
+        return Math.abs(-N - q);
       }else{
-        return Math.abs(-N - c.getR());
+        return Math.abs(-N - r);
       }
     }
   }
@@ -86,10 +88,12 @@ public class ReversiCell implements Hex{
     return this.s;
   }
 
-  public List<Hex> cellsInDirection(Hex c, int distance){
+  public List<Hex> cellsInDirection(Hex c, Map<Hex, CellState> cellStates) {
     List<Hex> cells = new ArrayList<>();
-    for (int i = 1; i <= distance; i++) {
-      cells.add(new ReversiCell(this.q + c.getQ() * i, this.r + c.getR() * i, this.s + c.getS() * i));
+    int soFar = 1;
+    while(cellStates.containsKey(new ReversiCell(this.q + c.getQ() * soFar, this.r + c.getR() * soFar, this.s + c.getS() * soFar))){
+      cells.add(new ReversiCell(this.q + c.getQ() * soFar, this.r + c.getR() * soFar, this.s + c.getS() * soFar));
+      soFar++;
     }
     return cells;
   }

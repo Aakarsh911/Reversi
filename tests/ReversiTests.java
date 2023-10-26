@@ -74,8 +74,10 @@ public class ReversiTests {
     m2.move(1, 0);
     m2.pass();
     m2.move(4, 1);
-    System.out.println(view.toString());
+    //m2.pass();
+    m2.move(3, 3);
     m2.move(1, 3);
+    m2.pass();
     System.out.println(view.toString());
   }
 

@@ -106,8 +106,9 @@ public class BasicReversi implements ReversiModel {
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }
+    System.out.println(c.getDirection(validNeighbors.get(0)));
       List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),
-              c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
+              cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
   }
 
@@ -138,29 +139,34 @@ public class BasicReversi implements ReversiModel {
   }
 
   public boolean isGameOver() {
-//    boolean legalMoveFound = false;
-//    for (int i = 0; i < board.size(); i++) {
-//      for (int j = 0; j < board.get(i).size(); j++) {
-//        try {
-//          if (getCellsToFlip(i, j).size() > 0) {
-//            legalMoveFound = true;
-//            break;
-//          }
-//        } catch (IllegalStateException e) {
-//          // do nothing
-//        }
-//      }
-//    }
-//    if (!legalMoveFound) {
-//      pass();
-//      calculateScore();
-//    }
+    boolean legalMoveFound = false;
+    for (int i = 0; i < board.size(); i++) {
+      for (int j = 0; j < board.get(i).size(); j++) {
+        try {
+          if (getCellsToFlip(i, j).size() > 0) {
+            legalMoveFound = true;
+            break;
+          }
+        } catch (IllegalStateException e) {
+          // do nothing
+        }
+      }
+    }
+    if (!legalMoveFound) {
+      pass();
+      calculateScore();
+    }
     int numCells = 0;
     for (ArrayList<Hex> hexes : board) {
       numCells += hexes.size();
     }
     return pass == 2 || whiteScore == 0 || blackScore == 0
             || numCells == whiteScore + blackScore;
+  }
+
+  @Override
+  public Map<Hex, CellState> getBoardState() {
+    return cellStates;
   }
 
   public List<List<Hex>> getBoard() {
