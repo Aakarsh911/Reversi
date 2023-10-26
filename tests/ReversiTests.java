@@ -68,4 +68,18 @@ public class ReversiTests {
     m.move(6,3);
     m.move(7,2);
   }
+
+  @Test
+  public void testNoLegalMoveLeft() {
+    initCells();
+    BasicReversi m2 = new BasicReversi(5);
+    m2.startGame();
+    m2.pass();
+    m2.move(1, 0);
+    m2.pass();
+    m2.move(4, 1);
+    m2.pass();
+    ReversiTextualView view = new ReversiTextualView(m2);
+    System.out.println(view.toString());
+  }
 }

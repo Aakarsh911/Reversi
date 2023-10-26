@@ -38,9 +38,11 @@ public class ReversiTextualView implements ReversiView {
       }
       ans += "\n";
     }
-    ans += model.getTurn() + "'s turn";
     if (model.isGameOver()) {
       ans += "\nGame over!";
+    }
+    else {
+      ans += model.getTurn() + "'s turn";
     }
     return ans;
   }
