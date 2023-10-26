@@ -1,13 +1,11 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ReversiCell;
-import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ReversiTextualView;
 import cs3500.reversi.view.ReversiView;
 
@@ -20,8 +18,8 @@ public class ReversiTests {
   Hex qDirNeg;
   Hex sDirPos;
   Hex sDirNeg;
-  private void initCells(){
 
+  private void initCells(){
     m = new BasicReversi(11);
     m.startGame();
     List<List<Hex>> board = m.getBoard();
@@ -33,6 +31,7 @@ public class ReversiTests {
     sDirPos = board.get(0).get(1);
     sDirNeg = board.get(2).get(1);
   }
+
   @Test
   public void testGetDirection() {
     initCells();
@@ -69,5 +68,4 @@ public class ReversiTests {
     m.move(6,3);
     m.move(7,2);
   }
-
 }

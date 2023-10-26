@@ -23,8 +23,8 @@ public class BasicReversi implements ReversiModel {
   private boolean started = false;
 
   public BasicReversi(int numRows) {
-    if (numRows % 2 == 0 || numRows < 3) {
-      throw new IllegalArgumentException("numRows must be odd and less than 3");
+    if (numRows % 2 == 0 || numRows <= 3) {
+      throw new IllegalArgumentException("numRows must be odd and more than 3");
     }
     this.numRows = numRows;
     board = new ArrayList<>();
@@ -143,7 +143,8 @@ public class BasicReversi implements ReversiModel {
     for (ArrayList<Hex> hexes : board) {
       numCells += hexes.size();
     }
-    return pass == 2 || whiteScore == 0 || blackScore == 0 || numCells == whiteScore + blackScore;
+    return pass == 2 || whiteScore == 0 || blackScore == 0
+            || numCells == whiteScore + blackScore;
   }
 
   public List<List<Hex>> getBoard() {
