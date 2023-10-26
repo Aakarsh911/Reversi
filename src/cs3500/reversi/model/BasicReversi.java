@@ -108,7 +108,6 @@ public class BasicReversi implements ReversiModel {
     }
       List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),
               c.calcDistance(n,numRows)-1)).collect(Collectors.toList());
-
     return checkCellsToFlip(lines, color);
   }
 

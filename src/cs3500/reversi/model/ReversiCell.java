@@ -60,7 +60,7 @@ public class ReversiCell implements Hex{
       if(direction.getQ() > 0){
         return N - c.getQ();
       }else{
-        return N - c.getS();
+        return N - c.getS() + 1;
       }
     } else {
       if (direction.getR() > 0){

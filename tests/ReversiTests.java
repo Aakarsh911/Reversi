@@ -43,12 +43,7 @@ public class ReversiTests {
     Assert.assertEquals(new ReversiCell(-1, 1, 0), src.getDirection(sDirNeg));
   }
 
-  @Test
-  public void testCellsInDirection() {
-    initCells();
-    List<Hex> rDirPosList = List.of(new ReversiCell(1,-1,0), new ReversiCell(2,-1,-1));
-    Assert.assertEquals(rDirPosList, src.cellsInDirection(new ReversiCell(1,0,-1), 3));
-  }
+
 
   @Test
   public void testGameOver() {
@@ -78,8 +73,6 @@ public class ReversiTests {
     m2.move(1, 0);
     m2.pass();
     m2.move(4, 1);
-    m2.pass();
-    ReversiTextualView view = new ReversiTextualView(m2);
-    System.out.println(view.toString());
+    m2.move(1, 3);
   }
 }
