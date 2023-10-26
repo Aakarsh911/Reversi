@@ -69,10 +69,24 @@ public class ReversiTests {
     initCells();
     BasicReversi m2 = new BasicReversi(5);
     m2.startGame();
+    ReversiTextualView view = new ReversiTextualView(m2);
     m2.pass();
     m2.move(1, 0);
     m2.pass();
     m2.move(4, 1);
+    System.out.println(view.toString());
     m2.move(1, 3);
+    System.out.println(view.toString());
+  }
+
+  @Test
+  public void test() {
+    initCells();
+    BasicReversi m2 = new BasicReversi(7);
+    m2.startGame();
+    m2.pass();
+    m2.move(1, 2);
+    ReversiTextualView view = new ReversiTextualView(m2);
+    System.out.println(view.toString());
   }
 }

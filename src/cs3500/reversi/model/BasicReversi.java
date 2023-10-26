@@ -138,23 +138,23 @@ public class BasicReversi implements ReversiModel {
   }
 
   public boolean isGameOver() {
-    boolean legalMoveFound = false;
-    for (int i = 0; i < board.size(); i++) {
-      for (int j = 0; j < board.get(i).size(); j++) {
-        try {
-          if (getCellsToFlip(i, j).size() > 0) {
-            legalMoveFound = true;
-            break;
-          }
-        } catch (IllegalStateException e) {
-          // do nothing
-        }
-      }
-    }
-    if (!legalMoveFound) {
-      pass();
-      calculateScore();
-    }
+//    boolean legalMoveFound = false;
+//    for (int i = 0; i < board.size(); i++) {
+//      for (int j = 0; j < board.get(i).size(); j++) {
+//        try {
+//          if (getCellsToFlip(i, j).size() > 0) {
+//            legalMoveFound = true;
+//            break;
+//          }
+//        } catch (IllegalStateException e) {
+//          // do nothing
+//        }
+//      }
+//    }
+//    if (!legalMoveFound) {
+//      pass();
+//      calculateScore();
+//    }
     int numCells = 0;
     for (ArrayList<Hex> hexes : board) {
       numCells += hexes.size();
