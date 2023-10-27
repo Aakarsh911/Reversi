@@ -74,7 +74,6 @@ public class ReversiTests {
     m2.move(1, 0);
     m2.pass();
     m2.move(4, 1);
-    //m2.pass();
     m2.move(3, 3);
     m2.move(1, 3);
     m2.pass();
@@ -82,11 +81,12 @@ public class ReversiTests {
   }
 
   @Test
-  public void test() {
+  public void testMultipleDirections() {
     initCells();
     BasicReversi m2 = new BasicReversi(7);
     m2.startGame();
-    m2.pass();
+    m2.move(2, 4);
+    m2.move(2, 5);
     m2.move(1, 2);
     ReversiTextualView view = new ReversiTextualView(m2);
     System.out.println(view.toString());

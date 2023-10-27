@@ -106,7 +106,6 @@ public class BasicReversi implements ReversiModel {
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }
-    System.out.println(c.getDirection(validNeighbors.get(0)));
       List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),
               cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
