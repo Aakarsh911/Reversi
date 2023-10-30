@@ -22,7 +22,6 @@ public class BasicReversi implements ReversiModel {
   private int pass = 0; // number of consecutive passes
   private int whiteScore = 3; // number of white pieces on the board
   private int blackScore = 3; // number of black pieces on the board
-  private boolean started = false; // whether the game has started
 
   /**
    * Constructs a BasicReversi object.
@@ -39,8 +38,14 @@ public class BasicReversi implements ReversiModel {
       board.add(row);
     }
     cellStates = new HashMap<>();
+    initCells(numRows);
+    initColors();
   }
 
+  /**
+   * Initializes the cells in the board.
+   * @param numRows the number of rows in the board
+   */
   private void initCells(int numRows) {
     int N = (numRows - 1) / 2;
     for (int q = -N; q <= N; q++) {
@@ -53,15 +58,6 @@ public class BasicReversi implements ReversiModel {
         cellStates.put(h, CellState.EMPTY);
       }
     }
-  }
-
-  public void startGame() throws IllegalStateException {
-    if(started){
-      throw new IllegalStateException("Game already started");
-    }
-    started = true;
-    initCells(numRows);
-    initColors();
   }
 
   public void calculateScore() {
@@ -79,14 +75,17 @@ public class BasicReversi implements ReversiModel {
     blackScore = black;
   }
 
-  private void checkStarted() {
-    if(!started){
-      throw new IllegalStateException("Game not started");
-    }
+  @Override
+  public int getWhiteScore() {
+    return this.whiteScore;
+  }
+
+  @Override
+  public int getBlackScore() {
+    return this.blackScore;
   }
 
   public void move(int x, int y) {
-    checkStarted();
     List<Hex> cellsToFlip = getCellsToFlip(x, y);
     if(cellsToFlip.isEmpty()){
       throw new IllegalStateException("Not a legal move");
@@ -114,6 +113,12 @@ public class BasicReversi implements ReversiModel {
     return checkCellsToFlip(lines, color);
   }
 
+  /**
+   * Checks the cells to flip in the given lines.
+   * @param lines the lines to check
+   * @param color the color of the player
+   * @return the cells to flip
+   */
   private List<Hex> checkCellsToFlip(List<List<Hex>> lines, CellState color) {
     List<Hex> reversiCells = new ArrayList<>();
     for (int i = 0; i < lines.size(); i++){
@@ -134,7 +139,6 @@ public class BasicReversi implements ReversiModel {
   }
 
   public void pass() {
-    checkStarted();
     turn++;
     pass++;
     calculateScore();
@@ -166,23 +170,36 @@ public class BasicReversi implements ReversiModel {
             || numCells == whiteScore + blackScore;
   }
 
-  @Override
-  public Map<Hex, CellState> getBoardState() {
-    return cellStates;
-  }
-
+  /**
+   * Gets the board.
+   * @return the board
+   */
   public List<List<Hex>> getBoard() {
     return Collections.unmodifiableList(board);
   }
 
+  /**
+   * Gets the state of a given cell.
+   * @param h the cell to get the state of
+   * @return the state of the given cell
+   */
   public CellState getColor(Hex h) {
     return cellStates.get(h);
   }
 
+  /**
+   * Places a piece on the board at x and y coordinates.
+   * @param x the x coordinate of the piece
+   * @param y the y coordinate of the piece
+   * @param color the color of the piece
+   */
   private void placePiece(int x, int y, CellState color) {
     cellStates.put(board.get(x).get(y), color);
   }
 
+  /**
+   * Initializes the colors of the cells.
+   */
   private void initColors() {
     cellStates.replace(new ReversiCell(0,-1,1), CellState.BLACK);
     cellStates.replace(new ReversiCell(1,-1,0), CellState.WHITE);
@@ -192,6 +209,12 @@ public class BasicReversi implements ReversiModel {
     cellStates.replace(new ReversiCell(1,0,-1), CellState.BLACK);
   }
 
+  /**
+   * Checks if the given cell is the opposite color of the given color.
+   * @param c the color to check
+   * @param d the direction to check
+   * @return whether or not the given cell is the opposite color of the given direction
+   */
   private boolean isOpposite(CellState c, Hex d) {
     if (c == CellState.WHITE) {
       return cellStates.get(d) == CellState.BLACK;
@@ -202,6 +225,10 @@ public class BasicReversi implements ReversiModel {
     }
   }
 
+  /**
+   * Flips the piece at the given cell.
+   * @param c the cell to flip
+   */
   private void flipPiece(Hex c){
     cellStates.replace(c, cellStates.get(c) == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
   }

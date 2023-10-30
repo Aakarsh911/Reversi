@@ -33,8 +33,19 @@ public interface ReadOnlyModel {
   boolean isGameOver();
 
   /**
-   * gets the map of the board state.
-   * @return the map of the board state
+   * calculates the score of the game.
    */
-  Map<Hex, CellState> getBoardState();
+  void calculateScore();
+
+  /**
+   * gets the score of the white player.
+   * @return the score of the game
+   */
+  int getWhiteScore();
+
+  /**
+   * gets the score of the black player.
+   * @return the score of the game
+   */
+  int getBlackScore();
 }

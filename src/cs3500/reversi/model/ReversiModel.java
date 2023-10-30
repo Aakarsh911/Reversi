@@ -1,11 +1,6 @@
 package cs3500.reversi.model;
 
 public interface ReversiModel extends ReadOnlyModel {
-  /**
-   * Starts the game.
-   * @throws IllegalStateException if the game has already started
-   */
-  void startGame() throws IllegalStateException;
 
   /**
    * Moves the piece at the given coordinates.
