@@ -45,10 +45,7 @@ public class ReversiModelTests {
     m2.move(6, 3);
     m2.pass();
     m2.move(6, 6);
-    ReversiView view = new ReversiTextualView(m2);
-    System.out.println(view.toString());
-    m.move(6,3);
-    m.move(7,2);
+    Assert.assertTrue(m2.isGameOver());
   }
 
   @Test
@@ -63,7 +60,7 @@ public class ReversiModelTests {
     m2.move(3, 3);
     m2.move(1, 3);
     m2.pass();
-    System.out.println(view.toString());
+    Assert.assertTrue(m2.isGameOver());
   }
 
   @Test
@@ -73,8 +70,8 @@ public class ReversiModelTests {
     m2.move(2, 4);
     m2.move(2, 5);
     m2.move(1, 2);
-    ReversiTextualView view = new ReversiTextualView(m2);
-    System.out.println(view.toString());
+    Assert.assertEquals(6, m2.getWhiteScore());
+    Assert.assertEquals(3, m2.getBlackScore());
   }
 
   @Test
