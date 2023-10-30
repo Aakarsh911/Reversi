@@ -18,7 +18,6 @@ public class BasicReversi implements ReversiModel {
   private final ArrayList<ArrayList<Hex>> board; // list of rows
   private final Map<Hex, CellState> cellStates; // map of cells to their states
   private int turn = 0; // which player's turn it is
-  private final int numRows; // number of rows in the board
   private int pass = 0; // number of consecutive passes
   private int whiteScore = 3; // number of white pieces on the board
   private int blackScore = 3; // number of black pieces on the board
@@ -31,7 +30,23 @@ public class BasicReversi implements ReversiModel {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
     }
-    this.numRows = numRows;
+    // number of rows in the board
+    board = new ArrayList<>();
+    for (int i = 0; i < numRows; i++) {
+      ArrayList<Hex> row = new ArrayList<>();
+      board.add(row);
+    }
+    cellStates = new HashMap<>();
+    initCells(numRows);
+    initColors();
+  }
+
+  /**
+   * Constructs a BasicReversi object with 7 rows.
+   */
+  public BasicReversi() {
+    int numRows = 7;
+    // number of rows in the board
     board = new ArrayList<>();
     for (int i = 0; i < numRows; i++) {
       ArrayList<Hex> row = new ArrayList<>();
@@ -97,7 +112,7 @@ public class BasicReversi implements ReversiModel {
     calculateScore();
   }
 
-  public List<Hex> getCellsToFlip(int x, int y) {
+  List<Hex> getCellsToFlip(int x, int y) {
     if (getColor(board.get(x).get(y)) != CellState.EMPTY) {
       throw new IllegalStateException("Cell is not empty");
     }
@@ -121,16 +136,15 @@ public class BasicReversi implements ReversiModel {
    */
   private List<Hex> checkCellsToFlip(List<List<Hex>> lines, CellState color) {
     List<Hex> reversiCells = new ArrayList<>();
-    for (int i = 0; i < lines.size(); i++){
-      List<Hex> line = lines.get(i);
+    for (List<Hex> line : lines) {
       List<Hex> result = new ArrayList<>();
       for (Hex reversiCell : line) {
         if (getColor(reversiCell) == color) {
           reversiCells.addAll(result);
           break;
-        }else if (getColor(reversiCell) == CellState.EMPTY){
+        } else if (getColor(reversiCell) == CellState.EMPTY) {
           result.removeAll(result);
-        }else{
+        } else {
           result.add(reversiCell);
         }
       }
@@ -149,7 +163,7 @@ public class BasicReversi implements ReversiModel {
     for (int i = 0; i < board.size(); i++) {
       for (int j = 0; j < board.get(i).size(); j++) {
         try {
-          if (getCellsToFlip(i, j).size() > 0) {
+          if (!getCellsToFlip(i, j).isEmpty()) {
             legalMoveFound = true;
             break;
           }
@@ -213,7 +227,7 @@ public class BasicReversi implements ReversiModel {
    * Checks if the given cell is the opposite color of the given color.
    * @param c the color to check
    * @param d the direction to check
-   * @return whether or not the given cell is the opposite color of the given direction
+   * @return whether the given cell is the opposite color of the given direction
    */
   private boolean isOpposite(CellState c, Hex d) {
     if (c == CellState.WHITE) {
