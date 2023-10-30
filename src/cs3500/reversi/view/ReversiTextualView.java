@@ -2,12 +2,18 @@ package cs3500.reversi.view;
 
 import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ReadOnlyModel;
-import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.model.ReversiModel;
 
+/**
+ * Represents a textual view for the Reversi game.
+ */
 public class ReversiTextualView implements ReversiView {
-  ReadOnlyModel model;
+  ReadOnlyModel model; // the model to be rendered
 
+  /**
+   * Constructs a textual view for the given model.
+   * @param model the model to be rendered
+   */
   public ReversiTextualView(ReversiModel model) {
     this.model = model;
   }

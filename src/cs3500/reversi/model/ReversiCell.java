@@ -5,17 +5,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents a hexagonal cell in the game of Reversi.
+ */
 public class ReversiCell implements Hex{
-  private final int q;
-  private final int r;
-  private final int s;
+  private final int q; // q coordinate
+  private final int r; // r coordinate
+  private final int s; // s coordinate
 
-
+  /**
+   * Constructs a ReversiCell.
+   * @param q the q coordinate
+   * @param r the r coordinate
+   * @param s the s coordinate
+   */
   public ReversiCell(int q, int r, int s) {
     this.q = q;
     this.r = r;
     this.s = s;
   }
+
   public String toString() {
     return "ReversiCell(" + this.q + ", " + this.r + ", " + this.s + ")";
   }
@@ -47,32 +56,6 @@ public class ReversiCell implements Hex{
     return new ReversiCell(c.getQ() - this.q, c.getR() - this.r, c.getS() - this.s);
   }
 
-  public int calcDistance(Hex c, int numRows) {
-    int N = (numRows - 1) / 2;
-    Hex direction = this.getDirection(c);
-    System.out.println("direction: " + direction.getR());
-    if (direction.getQ() == 0) {
-      if(direction.getR() < 0) {
-        return N - r;
-      }else{
-        System.out.println("N: " + N + " r: " + q);
-        return N - q;
-      }
-    } else if (direction.getR() == 0) {
-      if(direction.getQ() > 0){
-        return N - q;
-      }else{
-        return N - s;
-      }
-    } else {
-      if (direction.getR() > 0){
-        return Math.abs(-N - q);
-      }else{
-        return Math.abs(-N - r);
-      }
-    }
-  }
-
   @Override
   public int getQ() {
     return this.q;
@@ -91,8 +74,10 @@ public class ReversiCell implements Hex{
   public List<Hex> cellsInDirection(Hex c, Map<Hex, CellState> cellStates) {
     List<Hex> cells = new ArrayList<>();
     int soFar = 1;
-    while(cellStates.containsKey(new ReversiCell(this.q + c.getQ() * soFar, this.r + c.getR() * soFar, this.s + c.getS() * soFar))){
-      cells.add(new ReversiCell(this.q + c.getQ() * soFar, this.r + c.getR() * soFar, this.s + c.getS() * soFar));
+    while(cellStates.containsKey(new ReversiCell(this.q + c.getQ()
+            * soFar, this.r + c.getR() * soFar, this.s + c.getS() * soFar))){
+      cells.add(new ReversiCell(this.q + c.getQ() * soFar,
+              this.r + c.getR() * soFar, this.s + c.getS() * soFar));
       soFar++;
     }
     return cells;

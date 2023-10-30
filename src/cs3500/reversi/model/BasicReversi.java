@@ -10,18 +10,24 @@ import java.util.stream.Collectors;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
+/**
+ * Represents a basic implementation of the ReversiModel interface.
+ */
 public class BasicReversi implements ReversiModel {
 
-  private final ArrayList<ArrayList<Hex>> board;
-  private final Map<Hex, CellState> cellStates;
-  private int turn = 0;
-  private final int numRows;
-  private int pass = 0;
-  private int whiteScore = 3;
-  private int blackScore = 3;
+  private final ArrayList<ArrayList<Hex>> board; // list of rows
+  private final Map<Hex, CellState> cellStates; // map of cells to their states
+  private int turn = 0; // which player's turn it is
+  private final int numRows; // number of rows in the board
+  private int pass = 0; // number of consecutive passes
+  private int whiteScore = 3; // number of white pieces on the board
+  private int blackScore = 3; // number of black pieces on the board
+  private boolean started = false; // whether the game has started
 
-  private boolean started = false;
-
+  /**
+   * Constructs a BasicReversi object.
+   * @param numRows the number of rows in the board
+   */
   public BasicReversi(int numRows) {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
@@ -35,10 +41,7 @@ public class BasicReversi implements ReversiModel {
     cellStates = new HashMap<>();
   }
 
-
-
   private void initCells(int numRows) {
-
     int N = (numRows - 1) / 2;
     for (int q = -N; q <= N; q++) {
       int r1 = max(-N, -q - N);
@@ -52,7 +55,7 @@ public class BasicReversi implements ReversiModel {
     }
   }
 
-  public void startGame() {
+  public void startGame() throws IllegalStateException {
     if(started){
       throw new IllegalStateException("Game already started");
     }

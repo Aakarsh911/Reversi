@@ -1,9 +1,22 @@
 package cs3500.reversi.model;
 
-import java.util.ArrayList;
+public interface ReversiModel extends ReadOnlyModel {
+  /**
+   * Starts the game.
+   * @throws IllegalStateException if the game has already started
+   */
+  void startGame() throws IllegalStateException;
 
-public interface ReversiModel extends ReadOnlyModel{
-  public void startGame();
-  public void move(int x, int y);
-  public void pass();
+  /**
+   * Moves the piece at the given coordinates.
+   *
+   * @param x the x coordinate of the piece to move
+   * @param y the y coordinate of the piece to move
+   */
+  void move(int x, int y);
+
+  /**
+   * Passes the turn.
+   */
+  void pass();
 }

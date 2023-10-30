@@ -9,6 +9,9 @@ import cs3500.reversi.model.ReversiCell;
 import cs3500.reversi.view.ReversiTextualView;
 import cs3500.reversi.view.ReversiView;
 
+/**
+ * Tests for the Reversi game.
+ */
 public class ReversiTests {
   BasicReversi m;
   Hex src;
