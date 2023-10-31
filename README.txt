@@ -17,7 +17,7 @@ Key components:
     the score, and the current player.
     3. ReversiView: This is the view interface that contains all the functions that BasicReversiView needs for
     displaying the board, the score, and the current player.
-    7. Hex: This is the interface that contains all the functions that the ReversiCell class needs. This interface
+    4. Hex: This is the interface that contains all the functions that the ReversiCell class needs. This interface
     defines functions that are essential for setting up the board in the BasicReversi class.
 
  Key subcomponents:
