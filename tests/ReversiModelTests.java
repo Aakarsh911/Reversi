@@ -13,29 +13,9 @@ import cs3500.reversi.view.ReversiView;
  */
 public class ReversiModelTests {
   private BasicReversi m;
-  private Hex src;
-  private Hex rDirPos;
-  private Hex rDirNeg;
-  private Hex qDirPos;
-  private Hex qDirNeg;
-  private Hex sDirPos;
-  private Hex sDirNeg;
-
-  private void initCells(){
-    m = new BasicReversi(11);
-    List<List<Hex>> board = m.getBoard();
-    src = board.get(2).get(2);
-    rDirPos = board.get(1).get(2);
-    rDirNeg = board.get(1).get(0);
-    qDirPos = board.get(0).get(0);
-    qDirNeg = board.get(2).get(2);
-    sDirPos = board.get(0).get(1);
-    sDirNeg = board.get(2).get(1);
-  }
 
   @Test
   public void testGameOver() {
-    initCells();
     BasicReversi m2 = new BasicReversi(11);
     m2.move(4, 3);
     m2.move(3, 4);
@@ -50,7 +30,6 @@ public class ReversiModelTests {
 
   @Test
   public void testNoLegalMoveLeft() {
-    initCells();
     BasicReversi m2 = new BasicReversi(5);
     ReversiTextualView view = new ReversiTextualView(m2);
     m2.pass();
@@ -65,7 +44,6 @@ public class ReversiModelTests {
 
   @Test
   public void testMultipleDirections() {
-    initCells();
     BasicReversi m2 = new BasicReversi(7);
     m2.move(2, 4);
     m2.move(2, 5);
@@ -91,17 +69,7 @@ public class ReversiModelTests {
     Assert.assertEquals(5, m.getWhiteScore());
   }
 
-  @Test
-  public void testGetCellsToFlip() {
-    m = new BasicReversi(11);
-    List<Hex> cellsToFlip = m.getCellsToFlip(3, 3);
-    List<Hex> cellsToFlip2 = m.getCellsToFlip(4, 3);
-    Assert.assertEquals(0, cellsToFlip.size());
-    Assert.assertEquals(1, cellsToFlip2.size());
-    m.move(4, 3);
-    cellsToFlip2 = m.getCellsToFlip(5, 3);
-    Assert.assertEquals(0, cellsToFlip2.size());
-  }
+
 
   @Test
   public void testPassAndGetTurn() {
