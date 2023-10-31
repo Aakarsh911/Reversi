@@ -15,7 +15,13 @@ import static java.lang.Math.min;
  */
 public class BasicReversi implements ReversiModel {
 
+  /**
+   * INVARIANT: board.size() is always odd and more than 3
+   */
   private final ArrayList<ArrayList<Hex>> board; // list of rows
+  /**
+   * INVARIANT: cellStates.size() is always equal to the total number of cells in board
+   */
   private final Map<Hex, CellState> cellStates; // map of cells to their states
   private int turn = 0; // which player's turn it is
   private int pass = 0; // number of consecutive passes
@@ -24,13 +30,15 @@ public class BasicReversi implements ReversiModel {
 
   /**
    * Constructs a BasicReversi object.
+   * Ensures numRows is odd and more than 3.
+   * Adds cells to the board and adds them to cellStates simultaneously to ensure invariant.
+   * @throws IllegalArgumentException if numRows is even or less than 3
    * @param numRows the number of rows in the board
    */
   public BasicReversi(int numRows) {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
     }
-    // number of rows in the board
     board = new ArrayList<>();
     for (int i = 0; i < numRows; i++) {
       ArrayList<Hex> row = new ArrayList<>();
@@ -43,10 +51,12 @@ public class BasicReversi implements ReversiModel {
 
   /**
    * Constructs a BasicReversi object with 7 rows.
+   * Ensures numRows is odd and more than 3.
+   * Adds cells to the board and adds them to cellStates simultaneously to ensure invariant.
+   * @throws IllegalArgumentException if numRows is even or less than 3
    */
   public BasicReversi() {
     int numRows = 7;
-    // number of rows in the board
     board = new ArrayList<>();
     for (int i = 0; i < numRows; i++) {
       ArrayList<Hex> row = new ArrayList<>();
@@ -213,16 +223,20 @@ public class BasicReversi implements ReversiModel {
 
   /**
    * Places a piece on the board at x and y coordinates.
+   * Uses and maintains the invariant that all the elements in cellStates are in board.
+   * This is done by using the .replace() method in the Map interface.
    * @param x the x coordinate of the piece
    * @param y the y coordinate of the piece
    * @param color the color of the piece
    */
   private void placePiece(int x, int y, CellState color) {
-    cellStates.put(board.get(x).get(y), color);
+    cellStates.replace(board.get(x).get(y), color);
   }
 
   /**
    * Initializes the colors of the cells.
+   * Uses and maintains the invariant that all the elements in cellStates are in board.
+   * This is done by using the .replace() method in the Map interface.
    */
   private void initColors() {
     cellStates.replace(new ReversiCell(0,-1,1), CellState.BLACK);
