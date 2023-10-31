@@ -120,7 +120,7 @@ public class BasicReversi implements ReversiModel {
    * @param y the y coordinate of the cell
    * @return the cells to flip
    */
-  List<Hex> getCellsToFlip(int x, int y) {
+  private List<Hex> getCellsToFlip(int x, int y) {
     if (getColor(board.get(x).get(y)) != CellState.EMPTY) {
       throw new IllegalStateException("Cell is not empty");
     }
