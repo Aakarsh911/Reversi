@@ -1,7 +1,6 @@
 package cs3500.reversi.model;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a read only model for the game of Reversi.

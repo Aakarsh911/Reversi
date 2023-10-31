@@ -62,19 +62,20 @@ public class BasicReversi implements ReversiModel {
    * @param numRows the number of rows in the board
    */
   private void initCells(int numRows) {
-    int N = (numRows - 1) / 2;
-    for (int q = -N; q <= N; q++) {
-      int r1 = max(-N, -q - N);
-      int r2 = min( N, -q + N);
+    int n = (numRows - 1) / 2;
+    for (int q = -n; q <= n; q++) {
+      int r1 = max(-n, -q - n);
+      int r2 = min( n, -q + n);
       for (int r = r1; r <= r2; r++) {
         int s = -q - r;
         ReversiCell h = new ReversiCell(r, q, s);
-        board.get(q + N).add(h);
+        board.get(q + n).add(h);
         cellStates.put(h, CellState.EMPTY);
       }
     }
   }
 
+  @Override
   public void calculateScore() {
     int white = 0;
     int black = 0;
@@ -100,9 +101,10 @@ public class BasicReversi implements ReversiModel {
     return this.blackScore;
   }
 
+  @Override
   public void move(int x, int y) {
     List<Hex> cellsToFlip = getCellsToFlip(x, y);
-    if(cellsToFlip.isEmpty()){
+    if (cellsToFlip.isEmpty()) {
       throw new IllegalStateException("Not a legal move");
     }
     placePiece(x, y, turn % 2 == 0 ? CellState.WHITE : CellState.BLACK);
@@ -112,6 +114,12 @@ public class BasicReversi implements ReversiModel {
     calculateScore();
   }
 
+  /**
+   * Gets the cells to flip for the given cell.
+   * @param x the x coordinate of the cell
+   * @param y the y coordinate of the cell
+   * @return the cells to flip
+   */
   List<Hex> getCellsToFlip(int x, int y) {
     if (getColor(board.get(x).get(y)) != CellState.EMPTY) {
       throw new IllegalStateException("Cell is not empty");
@@ -123,8 +131,8 @@ public class BasicReversi implements ReversiModel {
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }
-      List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n),
-              cellStates)).collect(Collectors.toList());
+    List<List<Hex>> lines = validNeighbors.stream().map(n -> c.cellsInDirection(c.getDirection(n)
+            , cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
   }
 
@@ -152,12 +160,14 @@ public class BasicReversi implements ReversiModel {
     return reversiCells;
   }
 
+  @Override
   public void pass() {
     turn++;
     pass++;
     calculateScore();
   }
 
+  @Override
   public boolean isGameOver() {
     boolean legalMoveFound = false;
     for (int i = 0; i < board.size(); i++) {
@@ -243,10 +253,11 @@ public class BasicReversi implements ReversiModel {
    * Flips the piece at the given cell.
    * @param c the cell to flip
    */
-  private void flipPiece(Hex c){
+  private void flipPiece(Hex c) {
     cellStates.replace(c, cellStates.get(c) == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
   }
 
+  @Override
   public String getTurn() {
     if (turn % 2 == 0) {
       return "White";

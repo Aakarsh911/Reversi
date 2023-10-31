@@ -2,10 +2,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import cs3500.reversi.model.BasicReversi;
-import cs3500.reversi.view.ReversiTextualView;
 
+/**
+ * Tests for the Reversi game that explain how that game can be played.
+ */
 public class ExampleReversi {
+
   private BasicReversi m;
+
   @Test
   public void examplePass() {
     m = new BasicReversi();
@@ -17,7 +21,7 @@ public class ExampleReversi {
   }
 
   @Test
-  public void exampleValidMove(){
+  public void exampleValidMove() {
     m = new BasicReversi();
     m.move(4, 1);
     Assert.assertEquals("Black", m.getTurn());
@@ -27,13 +31,13 @@ public class ExampleReversi {
   }
 
   @Test
-  public void exampleInvalidMoveFilledCell(){
+  public void exampleInvalidMoveFilledCell() {
     m = new BasicReversi();
     Assert.assertThrows(IllegalStateException.class, () -> m.move(4, 3));
   }
 
   @Test
-  public void exampleInvalidMoveNoEdge(){
+  public void exampleInvalidMoveNoEdge() {
     m = new BasicReversi();
     m.move(4, 1);
     Assert.assertThrows(IllegalStateException.class, () -> m.move(4, 0));

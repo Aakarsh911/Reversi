@@ -6,7 +6,6 @@ import java.util.List;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
 import cs3500.reversi.view.ReversiTextualView;
-import cs3500.reversi.view.ReversiView;
 
 /**
  * Tests for the Reversi game.

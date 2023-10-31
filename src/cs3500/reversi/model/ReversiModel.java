@@ -1,5 +1,8 @@
 package cs3500.reversi.model;
 
+/**
+ * Represents a model for the game of Reversi.
+ */
 public interface ReversiModel extends ReadOnlyModel {
 
   /**

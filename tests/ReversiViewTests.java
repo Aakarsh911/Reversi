@@ -2,10 +2,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import cs3500.reversi.model.BasicReversi;
-import cs3500.reversi.model.ReadOnlyModel;
 import cs3500.reversi.view.ReversiTextualView;
-import cs3500.reversi.view.ReversiView;
 
+/**
+ * Tests for the Reversi game.
+ */
 public class ReversiViewTests {
 
   @Test
