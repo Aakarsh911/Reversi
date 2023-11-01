@@ -269,7 +269,8 @@ public class BasicReversi implements ReversiModel {
    * @param h the hex to flip
    */
   private void flipPiece(Hex h) {
-    this.cellStates.replace(h, cellStates.get(h) == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
+    this.cellStates.replace(h, cellStates.get(h)
+            == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
   }
 
   @Override
