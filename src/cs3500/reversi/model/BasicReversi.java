@@ -135,14 +135,14 @@ public class BasicReversi implements ReversiModel {
     if (getColor(board.get(x).get(y)) != CellState.EMPTY) {
       throw new IllegalStateException("Cell is not empty");
     }
-    Hex hex = board.get(x).get(y);
+    Hex h = board.get(x).get(y);
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
-    List<Hex> validNeighbors = hex.neighbors().stream().filter(n -> isOpposite(color, n))
+    List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
             .collect(Collectors.toList());
     if (validNeighbors.isEmpty()) {
       throw new IllegalStateException("No valid neighbors");
     }
-    List<List<Hex>> lines = validNeighbors.stream().map(n -> hex.cellsInDirection(hex.getDirection(n)
+    List<List<Hex>> lines = validNeighbors.stream().map(n -> h.cellsInDirection(h.getDirection(n)
             , cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
   }
@@ -266,10 +266,10 @@ public class BasicReversi implements ReversiModel {
 
   /**
    * Flips the piece at the given cell.
-   * @param hex the cell to flip
+   * @param h the hex to flip
    */
-  private void flipPiece(Hex hex) {
-    this.cellStates.replace(hex, cellStates.get(hex) == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
+  private void flipPiece(Hex h) {
+    this.cellStates.replace(h, cellStates.get(h) == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
   }
 
   @Override
