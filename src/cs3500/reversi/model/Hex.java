@@ -24,19 +24,19 @@ public interface Hex {
   /**
    * Gets the direction of this cell.
    *
-   * @param c the cell to get the direction of
+   * @param hex the cell to get the direction of
    * @return the direction of this cell
    */
-  Hex getDirection(Hex c);
+  Hex getDirection(Hex hex);
 
   /**
    * Gets all the cells in a given direction from this cell.
    *
-   * @param c     the cell to get the direction of
+   * @param hex     the cell to get the direction of
    * @param board the board to get the cells from
    * @return the cells in a given direction from this cell
    */
-  List<Hex> cellsInDirection(Hex c, Map<Hex, CellState> board);
+  List<Hex> cellsInDirection(Hex hex, Map<Hex, CellState> board);
 
   /**
    * Gets the q coordinate of this cell.

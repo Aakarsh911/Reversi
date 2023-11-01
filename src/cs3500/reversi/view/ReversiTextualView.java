@@ -18,6 +18,20 @@ public class ReversiTextualView implements ReversiView {
     this.model = model;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof ReversiTextualView) {
+      ReversiTextualView v = (ReversiTextualView) o;
+      return this.model.equals(v.model);
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return this.model.hashCode();
+  }
+
   private String drawCell(Hex c) {
     String ans = "";
     if (model.getColor(c).toString().equals("EMPTY")) {
@@ -35,12 +49,13 @@ public class ReversiTextualView implements ReversiView {
   @Override
   public String toString() {
     String ans = "";
-    for (int i = 0; i < model.getBoard().size(); i++) {
-      for (int k = 0; k < Math.abs((model.getBoard().size() / 2) - i); k++) {
+    for (int rowNum = 0; rowNum < model.getBoard().size(); rowNum++) {
+      for (int currSpaceCount = 0; currSpaceCount <
+              Math.abs((model.getBoard().size() / 2) - rowNum); currSpaceCount++) {
         ans += " ";
       }
-      for (int j = 0; j < model.getBoard().get(i).size(); j++) {
-        ans += drawCell(model.getBoard().get(i).get(j));
+      for (int numCol = 0; numCol < model.getBoard().get(rowNum).size(); numCol++) {
+        ans += drawCell(model.getBoard().get(rowNum).get(numCol));
       }
       ans += "\n";
     }

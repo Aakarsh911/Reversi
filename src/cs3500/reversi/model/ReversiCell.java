@@ -9,9 +9,9 @@ import java.util.Map;
  * Represents a hexagonal cell in the game of Reversi.
  */
 public class ReversiCell implements Hex {
-  private final int q; // q coordinate
-  private final int r; // r coordinate
-  private final int s; // s coordinate
+  private final int q; // q coordinate from the cube coordinate system
+  private final int r; // r coordinate from the cube coordinate system
+  private final int s; // s coordinate from the cube coordinate system
 
   /**
    * Constructs a ReversiCell.
@@ -54,8 +54,8 @@ public class ReversiCell implements Hex {
   }
 
   @Override
-  public Hex getDirection(Hex c) {
-    return new ReversiCell(c.getQ() - this.q, c.getR() - this.r, c.getS() - this.s);
+  public Hex getDirection(Hex hex) {
+    return new ReversiCell(hex.getQ() - this.q, hex.getR() - this.r, hex.getS() - this.s);
   }
 
   @Override
@@ -74,16 +74,15 @@ public class ReversiCell implements Hex {
   }
 
   @Override
-  public List<Hex> cellsInDirection(Hex c, Map<Hex, CellState> cellStates) {
+  public List<Hex> cellsInDirection(Hex hex, Map<Hex, CellState> cellStates) {
     List<Hex> cells = new ArrayList<>();
-    int soFar = 1;
-    while (cellStates.containsKey(new ReversiCell(this.q + c.getQ()
-            * soFar, this.r + c.getR() * soFar, this.s + c.getS() * soFar))) {
-      cells.add(new ReversiCell(this.q + c.getQ() * soFar,
-              this.r + c.getR() * soFar, this.s + c.getS() * soFar));
-      soFar++;
+    int counter = 1; // counter to keep track of how many cells have been added
+    while (cellStates.containsKey(new ReversiCell(this.q + hex.getQ()
+            * counter, this.r + hex.getR() * counter, this.s + hex.getS() * counter))) {
+      cells.add(new ReversiCell(this.q + hex.getQ() * counter,
+              this.r + hex.getR() * counter, this.s + hex.getS() * counter));
+      counter++;
     }
     return cells;
   }
-
 }
