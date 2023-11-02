@@ -99,4 +99,13 @@ public class ReversiModelTests {
     m.move(3, 4);
     Assert.assertEquals("BLACK", m.getColor(m.getBoard().get(3).get(4)).toString());
   }
+
+  @Test
+  public void testBasicAi() {
+    m = new BasicReversi(11);
+    ReversiTextualView view = new ReversiTextualView(m);
+    m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
+    System.out.println(view.toString());
+    System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
+  }
 }

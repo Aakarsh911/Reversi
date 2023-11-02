@@ -178,6 +178,26 @@ public class BasicReversi implements ReversiModel {
     calculateScore();
   }
 
+  public ArrayList<Integer> bestMoveWithMostFlips() {
+    ArrayList<Integer> bestMove = new ArrayList<>();
+    int mostFlips = 0;
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
+        try {
+          if (getCellsToFlip(rowNum, colNum).size() > mostFlips) {
+            bestMove.removeAll(bestMove);
+            bestMove.add(rowNum);
+            bestMove.add(colNum);
+            mostFlips = getCellsToFlip(rowNum, colNum).size();
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+    }
+    return bestMove;
+  }
+
   @Override
   public boolean isGameOver() {
     boolean legalMoveFound = false;
