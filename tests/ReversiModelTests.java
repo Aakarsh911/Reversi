@@ -105,7 +105,10 @@ public class ReversiModelTests {
     m = new BasicReversi(11);
     ReversiTextualView view = new ReversiTextualView(m);
     m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
-    System.out.println(view.toString());
+    m.move(7, 4);
     System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
+    System.out.println(m.maxMinSmartAi().get(0) + " " + m.maxMinSmartAi().get(1));
+    m.move(6, 6);
+    System.out.println(view);
   }
 }

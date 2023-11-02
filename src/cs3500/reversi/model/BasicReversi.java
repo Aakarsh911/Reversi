@@ -180,15 +180,15 @@ public class BasicReversi implements ReversiModel {
 
   public ArrayList<Integer> bestMoveWithMostFlips() {
     ArrayList<Integer> bestMove = new ArrayList<>();
-    int mostFlips = 0;
+    int bestScore = Integer.MIN_VALUE;
     for (int rowNum = 0; rowNum < board.size(); rowNum++) {
       for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
         try {
-          if (getCellsToFlip(rowNum, colNum).size() > mostFlips) {
+          if (getCellsToFlip(rowNum, colNum).size() > bestScore) {
             bestMove.removeAll(bestMove);
             bestMove.add(rowNum);
             bestMove.add(colNum);
-            mostFlips = getCellsToFlip(rowNum, colNum).size();
+            bestScore = getCellsToFlip(rowNum, colNum).size();
           }
         } catch (IllegalStateException e) {
           continue;
@@ -196,6 +196,107 @@ public class BasicReversi implements ReversiModel {
       }
     }
     return bestMove;
+  }
+
+  public ArrayList<Integer> maxMinSmartAi() {
+    // generate list of all possible moves
+    ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
+        try {
+          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
+            ArrayList<Integer> move = new ArrayList<>();
+            move.add(rowNum);
+            move.add(colNum);
+            possibleMoves.add(move);
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+    }
+    BasicReversi copy = new BasicReversi(11);
+    copy.board.clear();
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      ArrayList<Hex> row = new ArrayList<>();
+      copy.board.add(row);
+    }
+    copy.cellStates.clear();
+    copy.initCells(11);
+    copy.initColors();
+
+    // make the move on the copy and calculate all the next possible moves and make a mao for each move
+    Map<ArrayList<Integer>, ArrayList<ArrayList<Integer>>> possibleMovesMap = new HashMap<>();
+    for (ArrayList<Integer> move : possibleMoves) {
+      try {
+        copy.move(move.get(0), move.get(1));
+      }
+      catch (IllegalStateException e) {
+        continue;
+      }
+      ArrayList<ArrayList<Integer>> nextPossibleMoves = new ArrayList<>();
+      for (int rowNum = 0; rowNum < copy.board.size(); rowNum++) {
+        for (int colNum = 0; colNum < copy.board.get(rowNum).size(); colNum++) {
+          try {
+            if (!copy.getCellsToFlip(rowNum, colNum).isEmpty()) {
+              ArrayList<Integer> nextMove = new ArrayList<>();
+              nextMove.add(rowNum);
+              nextMove.add(colNum);
+              nextPossibleMoves.add(nextMove);
+            }
+          } catch (IllegalStateException e) {
+            continue;
+          }
+        }
+      }
+      possibleMovesMap.put(move, nextPossibleMoves);
+      copy.board.clear();
+      for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+        ArrayList<Hex> row = new ArrayList<>();
+        copy.board.add(row);
+      }
+      copy.cellStates.clear();
+      copy.initCells(11);
+      copy.initColors();
+    }
+    // find the move that whose maximum number of flips of the vlaue in the mao is the minimum out of all values
+    int min = Integer.MAX_VALUE;
+    for (ArrayList<Integer> move : possibleMovesMap.keySet()) {
+      int max = Integer.MIN_VALUE;
+      for (ArrayList<Integer> nextMove : possibleMovesMap.get(move)) {
+        try {
+          if (getCellsToFlip(nextMove.get(0), nextMove.get(1)).size() > max) {
+            max = getCellsToFlip(nextMove.get(0), nextMove.get(1)).size();
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+      if (max < min) {
+        min = max;
+      }
+    }
+
+    // find the move that has the minimum number of flips
+    ArrayList<Integer> bestMove = new ArrayList<>();
+    for (ArrayList<Integer> move : possibleMovesMap.keySet()) {
+      int max = Integer.MIN_VALUE;
+      for (ArrayList<Integer> nextMove : possibleMovesMap.get(move)) {
+        try {
+          if (getCellsToFlip(nextMove.get(0), nextMove.get(1)).size() > max) {
+            max = getCellsToFlip(nextMove.get(0), nextMove.get(1)).size();
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+      if (max == min) {
+        bestMove = move;
+        break;
+      }
+    }
+    return bestMove;
+
   }
 
   @Override
