@@ -101,14 +101,31 @@ public class ReversiModelTests {
   }
 
   @Test
-  public void testBasicAi() {
+  public void testBasicAndSmartAi() {
     m = new BasicReversi(11);
     ReversiTextualView view = new ReversiTextualView(m);
     m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
     m.move(7, 4);
+    m.move(6, 6);
+    m.move(4, 3);
+    m.move(6, 3);
+    m.move(4, 6);
+    m.move(3, 2);
+    m.move(2, 1);
     System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
     System.out.println(m.maxMinSmartAi().get(0) + " " + m.maxMinSmartAi().get(1));
-    m.move(6, 6);
+    System.out.println(view);
+  }
+
+  @Test
+  public void testBasicAndSmartAi2() {
+    m = new BasicReversi(15);
+    ReversiTextualView view = new ReversiTextualView(m);
+    m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
+    m.move(4, 5);
+    m.move(4, 6);
+    System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
+    System.out.println(m.maxMinSmartAi().get(0) + " " + m.maxMinSmartAi().get(1));
     System.out.println(view);
   }
 }

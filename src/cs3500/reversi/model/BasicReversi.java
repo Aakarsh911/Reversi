@@ -231,7 +231,7 @@ public class BasicReversi implements ReversiModel {
       try {
         copy.move(move.get(0), move.get(1));
       }
-      catch (IllegalStateException e) {
+      catch (Exception e) {
         continue;
       }
       ArrayList<ArrayList<Integer>> nextPossibleMoves = new ArrayList<>();
@@ -295,8 +295,10 @@ public class BasicReversi implements ReversiModel {
         break;
       }
     }
+    if (bestMove.isEmpty()) {
+      bestMove = this.bestMoveWithMostFlips();
+    }
     return bestMove;
-
   }
 
   @Override
