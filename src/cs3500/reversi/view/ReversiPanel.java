@@ -53,7 +53,11 @@ public class ReversiPanel extends JPanel {
         int x = k * 17 + 20 + (j * 34);
         int y = 20 + (i * 30);
         SimpleHexagon hex = new SimpleHexagon(x, y, 20);
-        g2d.setColor(Color.GRAY);
+        if(hex.isHighlighted){
+          g2d.setColor(Color.BLUE);
+        }else{
+          g2d.setColor(Color.GRAY);
+        }
         g2d.fill(hex);
         this.hexagons.add(hex);
         g2d.setColor(Color.BLACK);
@@ -72,13 +76,12 @@ public class ReversiPanel extends JPanel {
 
   private class MouseEventsListener extends MouseInputAdapter {
     @Override
-    public void mousePressed(MouseEvent e) {
-      ReversiPanel.this.mouseIsDown = true;
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-      ReversiPanel.this.mouseIsDown = false;
+    public void mouseClicked(MouseEvent e) {
+      for(SimpleHexagon hex: hexagons){
+        if(hex.contains(e.getPoint())){
+          hex.isHighlighted = true;
+        }
+      }
     }
   }
 }
