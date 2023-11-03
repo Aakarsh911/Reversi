@@ -27,6 +27,7 @@ public class BasicReversi implements ReversiModel {
   private int pass = 0; // number of consecutive passes
   private int whiteScore = 3; // number of white pieces on the board
   private int blackScore = 3; // number of black pieces on the board
+  private int numRows = 7; // number of rows in the board
 
   /**
    * Constructs a BasicReversi object.
@@ -39,6 +40,7 @@ public class BasicReversi implements ReversiModel {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
     }
+    this.numRows = numRows;
     board = new ArrayList<>();
     // rowNum here represents the row number
     for (int rowNum = 0; rowNum < numRows; rowNum++) {
@@ -57,7 +59,6 @@ public class BasicReversi implements ReversiModel {
    * @throws IllegalArgumentException if numRows is even or less than or equal to 3
    */
   public BasicReversi() {
-    int numRows = 7;
     board = new ArrayList<>();
     for (int i = 0; i < numRows; i++) {
       ArrayList<Hex> row = new ArrayList<>();
@@ -123,6 +124,23 @@ public class BasicReversi implements ReversiModel {
     this.pass = 0;
     this.turn++;
     this.calculateScore();
+    boolean legalMoveFound = false;
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
+        try {
+          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
+            legalMoveFound = true;
+            break;
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+    }
+    if (!legalMoveFound) {
+      this.pass();
+      this.calculateScore();
+    }
   }
 
   /**
@@ -215,14 +233,14 @@ public class BasicReversi implements ReversiModel {
         }
       }
     }
-    BasicReversi copy = new BasicReversi(11);
+    BasicReversi copy = new BasicReversi(this.numRows);
     copy.board.clear();
     for (int rowNum = 0; rowNum < board.size(); rowNum++) {
       ArrayList<Hex> row = new ArrayList<>();
       copy.board.add(row);
     }
     copy.cellStates.clear();
-    copy.initCells(11);
+    copy.initCells(this.numRows);
     copy.initColors();
 
     // make the move on the copy and calculate all the next possible moves and make a mao for each move
@@ -256,7 +274,7 @@ public class BasicReversi implements ReversiModel {
         copy.board.add(row);
       }
       copy.cellStates.clear();
-      copy.initCells(11);
+      copy.initCells(this.numRows);
       copy.initColors();
     }
     // find the move that whose maximum number of flips of the vlaue in the mao is the minimum out of all values
@@ -303,23 +321,6 @@ public class BasicReversi implements ReversiModel {
 
   @Override
   public boolean isGameOver() {
-    boolean legalMoveFound = false;
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
-        try {
-          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
-            legalMoveFound = true;
-            break;
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-    }
-    if (!legalMoveFound) {
-      this.pass();
-      this.calculateScore();
-    }
     int numCells = 0;
     for (ArrayList<Hex> hexes : board) {
       numCells += hexes.size();
