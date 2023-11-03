@@ -46,46 +46,28 @@ public class ReversiPanel extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g.create();
-    // draw the board with correct spacing
-    int k = (model.getBoard().size() - 1) / 2;
+    int k;
     for (int i = 0; i < model.getBoard().size(); i++) {
       for (int j = 0; j < model.getBoard().get(i).size(); j++) {
+        k = Math.abs(model.getBoard().size() / 2 - i);
+        int x = k * 17 + 20 + (j * 34);
+        int y = 20 + (i * 30);
+        SimpleHexagon hex = new SimpleHexagon(x, y, 20);
         g2d.setColor(Color.GRAY);
-        g2d.fill(new SimpleHexagon(k * 17 + 20 + (j * 34), 20 + (i * 30), 20));
-        this.hexagons.add(new SimpleHexagon(k * 17 + 20 + (j * 34), 20 + (i * 30), 20));
+        g2d.fill(hex);
+        this.hexagons.add(hex);
         g2d.setColor(Color.BLACK);
-        g2d.draw(new SimpleHexagon(k * 17 + 20 + (j * 34), 20 + (i * 30), 20));
+        g2d.draw(hex);
         if (model.getColor(model.getBoard().get(i).get(j)).toString().equals("BLACK")) {
           g2d.setColor(Color.BLACK);
-          g2d.fillOval(k * 17 + 20 + (j * 34) - 10, 20 + (i * 30) - 10, 20, 20);
+          g2d.fillOval(x - 10, y - 10, 20, 20);
         }
         else if (model.getColor(model.getBoard().get(i).get(j)).toString().equals("WHITE")) {
           g2d.setColor(Color.WHITE);
-          g2d.fillOval(k * 17 + 20 + (j * 34) - 10, 20 + (i * 30) - 10, 20, 20);
+          g2d.fillOval(x - 10, y - 10, 20, 20);
         }
       }
-      if (i < model.getBoard().size() / 2) {
-        k--;
-      }
-      else if (i == model.getBoard().size() / 2) {
-        k = 1;
-      }
-      else {
-        k++;
-      }
     }
-//    g2d.setColor(Color.GRAY);
-//    g2d.fill(new SimpleHexagon(20, 20, 20));
-//    g2d.fill(new SimpleHexagon(54, 20, 20));
-//    g2d.fill(new SimpleHexagon(88, 20, 20));
-//    g2d.fill(new SimpleHexagon(37, 50, 20));
-//    g2d.fill(new SimpleHexagon(71, 50, 20));
-//    g2d.setColor(Color.BLACK);
-//    g2d.draw(new SimpleHexagon(20, 20, 20));
-//    g2d.draw(new SimpleHexagon(54, 20, 20));
-//    g2d.draw(new SimpleHexagon(88, 20, 20));
-//    g2d.draw(new SimpleHexagon(37, 50, 20));
-//    g2d.draw(new SimpleHexagon(71, 50, 20));
   }
 
   private class MouseEventsListener extends MouseInputAdapter {
