@@ -24,8 +24,8 @@ public class ReversiPanel extends JPanel {
 
   private int yOfHighlightedHexagon = 0;
 
-  int x = 0;
-  int y = 0;
+  private int x = 0;
+  private int y = 0;
 
   public ReversiPanel(ReadOnlyModel model) {
     setDoubleBuffered(true);
@@ -78,20 +78,25 @@ public class ReversiPanel extends JPanel {
       }
       this.hexagons.add(row);
     }
-    if (x == xOfHighlightedHexagon && y == yOfHighlightedHexagon) {
-      g2d.setColor(Color.GRAY);
-      xOfHighlightedHexagon = 0;
-      yOfHighlightedHexagon = 0;
-    }
-    else {
-      g2d.setColor(Color.CYAN);
-      xOfHighlightedHexagon = x;
-      yOfHighlightedHexagon = y;
-    }
+    int yIndex = (x - Math.abs(model.getBoard().size() / 2 - ((y - 20) / 30)) * 17 - 20) / 34;
     if (x != 0 && y != 0) {
-      g2d.fill(new SimpleHexagon(x, y, 20));
-      g2d.setColor(Color.BLACK);
-      g2d.draw(new SimpleHexagon(x, y, 20));
+      if(model.getColor(model.getBoard().get((y - 20) / 30).get(yIndex)).toString().equals("EMPTY")) {
+        if (x == xOfHighlightedHexagon && y == yOfHighlightedHexagon) {
+          g2d.setColor(Color.GRAY);
+          xOfHighlightedHexagon = 0;
+          yOfHighlightedHexagon = 0;
+        }
+        else {
+          g2d.setColor(Color.CYAN);
+          xOfHighlightedHexagon = x;
+          yOfHighlightedHexagon = y;
+        }
+        if (x != 0 && y != 0) {
+          g2d.fill(new SimpleHexagon(x, y, 20));
+          g2d.setColor(Color.BLACK);
+          g2d.draw(new SimpleHexagon(x, y, 20));
+        }
+      }
     }
   }
 

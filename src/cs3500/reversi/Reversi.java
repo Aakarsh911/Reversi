@@ -1,7 +1,5 @@
 package cs3500.reversi;
 
-import javax.swing.*;
-
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ReversiFrame;
