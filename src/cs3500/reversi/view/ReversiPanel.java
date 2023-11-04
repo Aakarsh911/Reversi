@@ -53,6 +53,8 @@ public class ReversiPanel extends JPanel {
   protected void paintComponent(Graphics g) {
     this.hexagons = new ArrayList<>();
     Graphics2D g2d = (Graphics2D) g.create();
+    g2d.setColor(Color.DARK_GRAY);
+    g2d.fill(new Rectangle(getPreferredSize()));
     drawHexagons(g2d);
     int yIndex = (x - Math.abs(model.getBoard().size() / 2 - ((y - 20) / 30)) * 17 - 20) / 34;
     if (x != 0 && y != 0) {
@@ -70,7 +72,7 @@ public class ReversiPanel extends JPanel {
         int y = 20 + (i * 30);
         SimpleHexagon hex = new SimpleHexagon(x, y, 20);
         row.add(hex);
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(Color.LIGHT_GRAY);
         g2d.fill(hex);
         g2d.setColor(Color.BLACK);
         g2d.draw(hex);
@@ -90,7 +92,7 @@ public class ReversiPanel extends JPanel {
   private void handleHighlighting(Graphics2D g2d, int yIndex) {
     if(model.getColor(model.getBoard().get((y - 20) / 30).get(yIndex)).toString().equals("EMPTY")) {
       if (x == xOfHighlightedHexagon && y == yOfHighlightedHexagon) {
-        g2d.setColor(Color.GRAY);
+        g2d.setColor(Color.LIGHT_GRAY);
         xOfHighlightedHexagon = 0;
         yOfHighlightedHexagon = 0;
       }
@@ -145,6 +147,5 @@ public class ReversiPanel extends JPanel {
       }
       repaint();
     }
-
   }
 }
