@@ -113,16 +113,24 @@ public class ReversiPanel extends JPanel {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+      boolean isCellClicked = false;
       for (int i = 0; i < hexagons.size(); i++) {
         for (int j = 0; j < hexagons.get(i).size(); j++) {
           hexagons.get(i).get(j).isHighlighted = false;
           if (hexagons.get(i).get(j).contains(e.getPoint())) {
+            if (!isCellClicked) {
+              isCellClicked = true;
+            }
             hexagons.get(i).get(j).isHighlighted = true;
             x = hexagons.get(i).get(j).x;
             y = hexagons.get(i).get(j).y;
             System.out.println("Clicked on " + i + " " + j);
           }
         }
+      }
+      if (!isCellClicked) {
+        x = 0;
+        y = 0;
       }
       repaint();
     }
