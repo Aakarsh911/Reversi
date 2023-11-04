@@ -51,9 +51,16 @@ public class ReversiPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
     this.hexagons = new ArrayList<>();
     Graphics2D g2d = (Graphics2D) g.create();
+    drawHexagons(g2d);
+    int yIndex = (x - Math.abs(model.getBoard().size() / 2 - ((y - 20) / 30)) * 17 - 20) / 34;
+    if (x != 0 && y != 0) {
+      handleHighlighting(g2d, yIndex);
+    }
+  }
+
+  private void drawHexagons(Graphics2D g2d) {
     int k;
     for (int i = 0; i < model.getBoard().size(); i++) {
       ArrayList<SimpleHexagon> row = new ArrayList<>();
@@ -78,25 +85,29 @@ public class ReversiPanel extends JPanel {
       }
       this.hexagons.add(row);
     }
-    int yIndex = (x - Math.abs(model.getBoard().size() / 2 - ((y - 20) / 30)) * 17 - 20) / 34;
-    if (x != 0 && y != 0) {
-      if(model.getColor(model.getBoard().get((y - 20) / 30).get(yIndex)).toString().equals("EMPTY")) {
-        if (x == xOfHighlightedHexagon && y == yOfHighlightedHexagon) {
-          g2d.setColor(Color.GRAY);
-          xOfHighlightedHexagon = 0;
-          yOfHighlightedHexagon = 0;
-        }
-        else {
-          g2d.setColor(Color.CYAN);
-          xOfHighlightedHexagon = x;
-          yOfHighlightedHexagon = y;
-        }
-        if (x != 0 && y != 0) {
-          g2d.fill(new SimpleHexagon(x, y, 20));
-          g2d.setColor(Color.BLACK);
-          g2d.draw(new SimpleHexagon(x, y, 20));
-        }
+  }
+
+  private void handleHighlighting(Graphics2D g2d, int yIndex) {
+    if(model.getColor(model.getBoard().get((y - 20) / 30).get(yIndex)).toString().equals("EMPTY")) {
+      if (x == xOfHighlightedHexagon && y == yOfHighlightedHexagon) {
+        g2d.setColor(Color.GRAY);
+        xOfHighlightedHexagon = 0;
+        yOfHighlightedHexagon = 0;
       }
+      else {
+        g2d.setColor(Color.CYAN);
+        xOfHighlightedHexagon = x;
+        yOfHighlightedHexagon = y;
+      }
+      if (x != 0 && y != 0) {
+        g2d.fill(new SimpleHexagon(x, y, 20));
+        g2d.setColor(Color.BLACK);
+        g2d.draw(new SimpleHexagon(x, y, 20));
+      }
+    }
+    else {
+      xOfHighlightedHexagon = x;
+      yOfHighlightedHexagon = y;
     }
   }
 
