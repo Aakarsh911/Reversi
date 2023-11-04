@@ -149,4 +149,18 @@ public class ReversiModelTests {
     System.out.println(m.maxMinSmartAi().get(0) + " " + m.maxMinSmartAi().get(1));
     System.out.println(view);
   }
+
+  @Test
+  public void AIvsAI() {
+    m = new BasicReversi(21);
+    ReversiTextualView view = new ReversiTextualView(m);
+    while (!m.isGameOver()) {
+      m.move(m.maxMinSmartAi().get(0), m.maxMinSmartAi().get(1));
+      System.out.println(view);
+      if (!m.isGameOver()) {
+        m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
+      }
+      System.out.println(view);
+    }
+  }
 }

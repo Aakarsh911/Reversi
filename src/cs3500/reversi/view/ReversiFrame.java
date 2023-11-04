@@ -18,5 +18,4 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
   public void addFeaturesListener(ViewFeatures features) {
     this.panel.addFeaturesListener(features);
   }
-
 }

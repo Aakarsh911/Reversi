@@ -16,8 +16,6 @@ public class ReversiPanel extends JPanel {
 
   private final List<ViewFeatures> featuresList = new ArrayList<>();
 
-  private boolean mouseIsDown;
-
   private ArrayList<ArrayList<SimpleHexagon>> hexagons = new ArrayList<>();
 
   private int xOfHighlightedHexagon = 0;
@@ -114,15 +112,6 @@ public class ReversiPanel extends JPanel {
   }
 
   private class MouseEventsListener extends MouseInputAdapter {
-    @Override
-    public void mousePressed(MouseEvent e) {
-      ReversiPanel.this.mouseIsDown = true;
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-      ReversiPanel.this.mouseIsDown = false;
-    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -144,6 +133,8 @@ public class ReversiPanel extends JPanel {
       if (!isCellClicked) {
         x = 0;
         y = 0;
+        xOfHighlightedHexagon = 0;
+        yOfHighlightedHexagon = 0;
       }
       repaint();
     }

@@ -17,7 +17,7 @@ public interface ReadOnlyModel {
    * @param h the cell to get the state of
    * @return the state of the given cell
    */
-  CellState getColor(Hex h);
+  String getColor(Hex h);
 
   /**
    * gets which player's turn it is.

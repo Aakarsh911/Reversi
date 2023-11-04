@@ -150,7 +150,7 @@ public class BasicReversi implements ReversiModel {
    * @return the cells to flip
    */
   private List<Hex> getCellsToFlip(int x, int y) {
-    if (getColor(board.get(x).get(y)) != CellState.EMPTY) {
+    if (!getColor(board.get(x).get(y)).equals("EMPTY")) {
       throw new IllegalStateException("Cell is not empty");
     }
     Hex h = board.get(x).get(y);
@@ -176,10 +176,10 @@ public class BasicReversi implements ReversiModel {
     for (List<Hex> line : lines) {
       List<Hex> result = new ArrayList<>();
       for (Hex reversiCell : line) {
-        if (getColor(reversiCell) == color) {
+        if (getColor(reversiCell) == color.toString()) {
           reversiCells.addAll(result);
           break;
-        } else if (getColor(reversiCell) == CellState.EMPTY) {
+        } else if (getColor(reversiCell) == "EMPTY") {
           result.removeAll(result);
         } else {
           result.add(reversiCell);
@@ -322,6 +322,24 @@ public class BasicReversi implements ReversiModel {
   @Override
   public boolean isGameOver() {
     int numCells = 0;
+    boolean legalMoveFound = false;
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
+        try {
+          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
+            legalMoveFound = true;
+            break;
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+    }
+    if (!legalMoveFound && pass == 1) {
+      this.pass();
+      this.calculateScore();
+      return true;
+    }
     for (ArrayList<Hex> hexes : board) {
       numCells += hexes.size();
     }
@@ -342,8 +360,8 @@ public class BasicReversi implements ReversiModel {
    * @param h the cell to get the state of
    * @return the state of the given cell
    */
-  public CellState getColor(Hex h) {
-    return this.cellStates.get(h);
+  public String getColor(Hex h) {
+    return this.cellStates.get(h).toString();
   }
 
   /**
