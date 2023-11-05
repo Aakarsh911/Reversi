@@ -35,7 +35,7 @@ public class ReversiPanel extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(model.getBoard().size() * 35, model.getBoard().size() * 31);
+    return new Dimension(model.getBoard().size() * 34 + 5, model.getBoard().size() * 31);
   }
 
   private Dimension getPreferredLogicalSize() {
@@ -74,11 +74,11 @@ public class ReversiPanel extends JPanel {
         g2d.fill(hex);
         g2d.setColor(Color.BLACK);
         g2d.draw(hex);
-        if (model.getColor(model.getBoard().get(i).get(j)).toString().equals("BLACK")) {
+        if (model.getColor(model.getBoard().get(i).get(j)).equals("BLACK")) {
           g2d.setColor(Color.BLACK);
           g2d.fillOval(x - 10, y - 10, 20, 20);
         }
-        else if (model.getColor(model.getBoard().get(i).get(j)).toString().equals("WHITE")) {
+        else if (model.getColor(model.getBoard().get(i).get(j)).equals("WHITE")) {
           g2d.setColor(Color.WHITE);
           g2d.fillOval(x - 10, y - 10, 20, 20);
         }
@@ -120,9 +120,7 @@ public class ReversiPanel extends JPanel {
         for (int j = 0; j < hexagons.get(i).size(); j++) {
           hexagons.get(i).get(j).isHighlighted = false;
           if (hexagons.get(i).get(j).contains(e.getPoint())) {
-            if (!isCellClicked) {
-              isCellClicked = true;
-            }
+            isCellClicked = true;
             hexagons.get(i).get(j).isHighlighted = true;
             x = hexagons.get(i).get(j).x;
             y = hexagons.get(i).get(j).y;

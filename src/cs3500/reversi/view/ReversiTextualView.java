@@ -34,13 +34,13 @@ public class ReversiTextualView implements ReversiView {
 
   private String drawCell(Hex c) {
     String ans = "";
-    if (model.getColor(c).toString().equals("EMPTY")) {
+    if (model.getColor(c).equals("EMPTY")) {
       ans += "_ ";
     }
-    else if (model.getColor(c).toString().equals("BLACK")) {
+    else if (model.getColor(c).equals("BLACK")) {
       ans += "X ";
     }
-    else if (model.getColor(c).toString().equals("WHITE")) {
+    else if (model.getColor(c).equals("WHITE")) {
       ans += "O ";
     }
     return ans;
