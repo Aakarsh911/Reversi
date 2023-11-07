@@ -15,7 +15,7 @@ public class ReversiModelTests {
 
   @Test
   public void testGameOver() {
-    BasicReversi m2 = new BasicReversi(11);
+    BasicReversi m2 = new BasicReversi(11,2);
     m2.move(4, 3);
     m2.move(3, 4);
     m2.pass();
@@ -29,7 +29,7 @@ public class ReversiModelTests {
 
   @Test
   public void testNoLegalMoveLeft() {
-    BasicReversi m2 = new BasicReversi(5);
+    BasicReversi m2 = new BasicReversi(5,2);
     ReversiTextualView view = new ReversiTextualView(m2);
     m2.pass();
     m2.move(1, 0);
@@ -43,7 +43,7 @@ public class ReversiModelTests {
 
   @Test
   public void testMultipleDirections() {
-    BasicReversi m2 = new BasicReversi(7);
+    BasicReversi m2 = new BasicReversi(7,2);
     m2.move(2, 4);
     m2.move(2, 5);
     m2.move(1, 2);
