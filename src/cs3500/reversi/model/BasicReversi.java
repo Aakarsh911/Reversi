@@ -241,7 +241,8 @@ public class BasicReversi implements ReversiModel {
     for (int rowNum = 0; rowNum < board.size(); rowNum++) {
       for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
         try {
-          if (getCellsToFlip(rowNum, colNum).size() > bestScore) {
+          if (getCellsToFlip(rowNum, colNum).size() > bestScore
+                  && !getCellsToFlip(rowNum, colNum).isEmpty()) {
             bestMove.removeAll(bestMove);
             bestMove.add(rowNum);
             bestMove.add(colNum);

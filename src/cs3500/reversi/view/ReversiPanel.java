@@ -1,6 +1,5 @@
 package cs3500.reversi.view;
 
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -37,11 +36,6 @@ public class ReversiPanel extends JPanel {
   public Dimension getPreferredSize() {
     return new Dimension(model.getBoard().size() * 34 + 5, model.getBoard().size() * 31);
   }
-
-  private Dimension getPreferredLogicalSize() {
-    return new Dimension(40, 40);
-  }
-
 
   public void addFeaturesListener(ViewFeatures features) {
     this.featuresList.add(features);
