@@ -18,4 +18,9 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
   public void addFeaturesListener(ViewFeatures features) {
     this.panel.addFeaturesListener(features);
   }
+
+  @Override
+  public void setHotKey(KeyStroke key, String featureName) {
+    this.panel.getInputMap().put(key, featureName);
+  }
 }
