@@ -8,6 +8,7 @@ public class SimpleHexagon extends Path2D.Double {
   int x;
   int y;
   public SimpleHexagon(double x, double y, double radius) {
+    this.isHighlighted = false;
     this.x = (int) x;
     this.y = (int) y;
     moveTo(x + radius * Math.cos(Math.PI / 6), y + radius * Math.sin(Math.PI / 6));

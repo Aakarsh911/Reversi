@@ -47,4 +47,6 @@ public interface ReadOnlyModel {
    * @return the score of the game
    */
   int getBlackScore();
+
+
 }
