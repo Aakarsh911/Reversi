@@ -48,5 +48,9 @@ public interface ReadOnlyModel {
    */
   int getBlackScore();
 
+  int getNumRows();
 
+  void clearBoard();
+
+  void clearCellStates();
 }

@@ -111,7 +111,7 @@ public class BasicReversi implements ReversiModel {
    *
    * @param numRows the number of rows in the board
    */
-  private void initCells(int numRows) {
+  void initCells(int numRows) {
     int n = (numRows - 1) / 2; // n here represents the radius of the board
     for (int r = -n; r <= n; r++) { // r here represents the r value in the cube coordinates
       int r1 = max(-n, -r - n); // r1 represents the max between -n and -r - n
@@ -423,7 +423,7 @@ public class BasicReversi implements ReversiModel {
    * Uses and maintains the invariant that all the elements in cellStates are in board.
    * This is done by using the .replace() method in the Map interface.
    */
-  private void initColors() {
+  void initColors() {
     this.cellStates.replace(new ReversiCell(0, -1, 1), CellState.BLACK);
     this.cellStates.replace(new ReversiCell(1, -1, 0), CellState.WHITE);
     this.cellStates.replace(new ReversiCell(-1, 0, 1), CellState.WHITE);
@@ -466,6 +466,25 @@ public class BasicReversi implements ReversiModel {
     } else {
       return "Black";
     }
+  }
+
+  @Override
+  public int getNumRows() {
+    return this.numRows;
+  }
+
+  @Override
+  public void clearBoard() {
+    this.board.clear();
+    for (int rowNum = 0; rowNum < numRows; rowNum++) {
+      ArrayList<Hex> row = new ArrayList<>();
+      board.add(row);
+    }
+  }
+
+  @Override
+  public void clearCellStates() {
+    this.cellStates.clear();
   }
 
   @Override

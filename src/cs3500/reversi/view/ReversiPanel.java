@@ -2,7 +2,6 @@ package cs3500.reversi.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,7 @@ public class ReversiPanel extends JPanel {
     this.selectedCell[1] = -1;
     setDoubleBuffered(true);
     this.model = model;
-    this.drawHexagons();
+    this.initHexagons();
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
     this.getActionMap().put("move", new AbstractAction() {
@@ -69,10 +68,10 @@ public class ReversiPanel extends JPanel {
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.setColor(Color.DARK_GRAY);
     g2d.fill(new Rectangle(getPreferredSize()));
-    handleHighlighting(g2d);
+    drawHexagons(g2d);
   }
 
-  private void drawHexagons() {
+  private void initHexagons() {
     int k;
     for (int i = 0; i < model.getBoard().size(); i++) {
       ArrayList<SimpleHexagon> row = new ArrayList<>();
@@ -87,7 +86,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private void handleHighlighting(Graphics2D g2d) {
+  private void drawHexagons(Graphics2D g2d) {
     for (int row = 0; row < hexagons.size(); row++) {
       for (int col = 0; col < hexagons.get(row).size(); col++) {
         g2d.setColor(Color.LIGHT_GRAY);

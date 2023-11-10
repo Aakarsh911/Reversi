@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ReversiStrategy {
   List<Integer> chooseMove(BasicReversi board, int player);
-  }
+}
 

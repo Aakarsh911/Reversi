@@ -3,7 +3,7 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicAI implements ReversiStrategy{
+public class BasicAI implements ReversiStrategy {
 
   @Override
   public List<Integer> chooseMove(BasicReversi model, int player) {
