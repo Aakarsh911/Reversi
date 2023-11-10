@@ -1,11 +1,14 @@
 package cs3500.reversi.model;
 
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import cs3500.reversi.view.ReversiTextualView;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -70,6 +73,28 @@ public class BasicReversi implements ReversiModel {
     cellStates = new HashMap<>();
     initCells(numRows);
     initColors();
+  }
+
+  public BasicReversi(BasicReversi original) {
+    this.numRows = original.numRows;
+    this.turn = original.turn;
+    this.pass = original.pass;
+    this.whiteScore = original.whiteScore;
+    this.blackScore = original.blackScore;
+
+    // Copy players
+    this.players[0] = original.players[0];
+    this.players[1] = original.players[1];
+
+    // Copy the board
+    this.board = new ArrayList<>();
+    for (int i = 0; i < original.board.size(); i++) {
+      ArrayList<Hex> row = new ArrayList<>(original.board.get(i));
+      this.board.add(row);
+    }
+
+    // Copy cell states
+    this.cellStates = new HashMap<>(original.cellStates);
   }
 
   public BasicReversi(int numRows) {
@@ -195,9 +220,6 @@ public class BasicReversi implements ReversiModel {
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
     List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
             .collect(Collectors.toList());
-    if (validNeighbors.isEmpty()) {
-      throw new IllegalStateException("No valid neighbors");
-    }
     List<List<Hex>> lines = validNeighbors.stream().map(n -> h.cellsInDirection(h.getDirection(n)
             , cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
@@ -358,6 +380,55 @@ public class BasicReversi implements ReversiModel {
     return bestMove;
   }
 
+  public List<Integer> chooseMove2(BasicReversi model, int player) {
+    List<List<Hex>> board = model.getBoard();
+    ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
+
+    // Find all possible moves
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
+        try {
+          if (!model.getCellsToFlip(rowNum, colNum).isEmpty()) {
+            ArrayList<Integer> move = new ArrayList<>();
+            move.add(rowNum);
+            move.add(colNum);
+            possibleMoves.add(move);
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+    }
+
+    // Find the move with the minimum flips for the next player using BasicAI's evaluation
+    int minFlips = Integer.MAX_VALUE;
+    List<Integer> bestMove = new ArrayList<>();
+    for (ArrayList<Integer> move : possibleMoves) {
+      try {
+        // Create a copy of the board and play the move on the copy
+        BasicReversi copyModel = model.copy();
+        copyModel.move(move.get(0), move.get(1));
+
+        // Use BasicAI to evaluate the move on the copied board
+        List<Integer> basicMove = copyModel.bestMoveWithMostFlips();
+        int flips = copyModel.getCellsToFlip(basicMove.get(0), basicMove.get(1)).size();
+
+        if (flips < minFlips) {
+          minFlips = flips;
+          bestMove = move;
+        }
+      } catch (Exception e) {
+        continue;
+      }
+    }
+    if (bestMove.isEmpty()) {
+      bestMove = this.bestMoveWithMostFlips();
+    }
+    return bestMove;
+  }
+
+
+
   @Override
   public boolean isGameOver() {
     int numCells = 0;
@@ -480,6 +551,10 @@ public class BasicReversi implements ReversiModel {
       ArrayList<Hex> row = new ArrayList<>();
       board.add(row);
     }
+  }
+
+  public BasicReversi copy() {
+    return new BasicReversi(this);
   }
 
   @Override

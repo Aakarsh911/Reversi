@@ -5,6 +5,7 @@ import java.util.List;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
+import cs3500.reversi.model.Player;
 import cs3500.reversi.view.ReversiTextualView;
 
 /**
@@ -155,12 +156,29 @@ public class ReversiModelTests {
     m = new BasicReversi(21);
     ReversiTextualView view = new ReversiTextualView(m);
     while (!m.isGameOver()) {
-      m.move(m.maxMinSmartAi().get(0), m.maxMinSmartAi().get(1));
+      m.move(m.chooseMove2(m, 0).get(0), m.chooseMove2(m, 0).get(1));
       System.out.println(view);
       if (!m.isGameOver()) {
         m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
       }
       System.out.println(view);
     }
+  }
+
+  @Test
+  public void testAI() {
+    m = new BasicReversi(11);
+    ReversiTextualView view = new ReversiTextualView(m);
+    m.move(4, 6);
+    m.move(4, 7);
+    m.move(3, 4);
+    m.move(7, 4);
+    m.move(4, 8);
+    m.move(2, 3);
+    m.move(8, 3);
+    //m.move(6, 6);
+    System.out.println(view);
+    System.out.println(m.chooseMove2(m, 0).get(0) + " " + m.chooseMove2(m, 0).get(1));
+    System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
   }
 }

@@ -53,4 +53,5 @@ public interface ReadOnlyModel {
   void clearBoard();
 
   void clearCellStates();
+
 }
