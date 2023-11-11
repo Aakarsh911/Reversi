@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MiniMaxAI implements ReversiStrategy {
-  BasicAI basicAI;
+  private final BasicAI basicAI = new BasicAI();
+  private final CornerAI cornerAI = new CornerAI();
+
   @Override
   public List<Integer> chooseMove(BasicReversi model, int player) {
     List<List<Hex>> board = model.getBoard();
@@ -47,7 +49,7 @@ public class MiniMaxAI implements ReversiStrategy {
       }
     }
     if (bestMove.isEmpty()) {
-      bestMove = basicAI.chooseMove(model, player);
+      bestMove = cornerAI.chooseMove(model, player);
     }
     return bestMove;
   }

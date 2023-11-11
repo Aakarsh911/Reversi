@@ -50,8 +50,4 @@ public interface ReadOnlyModel {
 
   int getNumRows();
 
-  void clearBoard();
-
-  void clearCellStates();
-
 }

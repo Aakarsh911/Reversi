@@ -1,6 +1,5 @@
 package cs3500.reversi.model;
 
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import cs3500.reversi.view.ReversiTextualView;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -257,176 +255,6 @@ public class BasicReversi implements ReversiModel {
     calculateScore();
   }
 
-  public ArrayList<Integer> bestMoveWithMostFlips() {
-    ArrayList<Integer> bestMove = new ArrayList<>();
-    int bestScore = Integer.MIN_VALUE;
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
-        try {
-          if (getCellsToFlip(rowNum, colNum).size() > bestScore
-                  && !getCellsToFlip(rowNum, colNum).isEmpty()) {
-            bestMove.removeAll(bestMove);
-            bestMove.add(rowNum);
-            bestMove.add(colNum);
-            bestScore = getCellsToFlip(rowNum, colNum).size();
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-    }
-    return bestMove;
-  }
-
-  public ArrayList<Integer> maxMinSmartAi() {
-    // generate list of all possible moves
-    ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
-        try {
-          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
-            ArrayList<Integer> move = new ArrayList<>();
-            move.add(rowNum);
-            move.add(colNum);
-            possibleMoves.add(move);
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-    }
-    BasicReversi copy = new BasicReversi(this.numRows,1);
-    copy.board.clear();
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      ArrayList<Hex> row = new ArrayList<>();
-      copy.board.add(row);
-    }
-    copy.cellStates.clear();
-    copy.initCells(this.numRows);
-    copy.initColors();
-
-    // make the move on the copy and calculate all the next possible moves and make a mao for each move
-    Map<ArrayList<Integer>, ArrayList<ArrayList<Integer>>> possibleMovesMap = new HashMap<>();
-    for (ArrayList<Integer> move : possibleMoves) {
-      try {
-        copy.move(move.get(0), move.get(1));
-      } catch (Exception e) {
-        continue;
-      }
-      ArrayList<ArrayList<Integer>> nextPossibleMoves = new ArrayList<>();
-      for (int rowNum = 0; rowNum < copy.board.size(); rowNum++) {
-        for (int colNum = 0; colNum < copy.board.get(rowNum).size(); colNum++) {
-          try {
-            if (!copy.getCellsToFlip(rowNum, colNum).isEmpty()) {
-              ArrayList<Integer> nextMove = new ArrayList<>();
-              nextMove.add(rowNum);
-              nextMove.add(colNum);
-              nextPossibleMoves.add(nextMove);
-            }
-          } catch (IllegalStateException e) {
-            continue;
-          }
-        }
-      }
-      possibleMovesMap.put(move, nextPossibleMoves);
-      copy.board.clear();
-      for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-        ArrayList<Hex> row = new ArrayList<>();
-        copy.board.add(row);
-      }
-      copy.cellStates.clear();
-      copy.initCells(this.numRows);
-      copy.initColors();
-    }
-    // find the move that whose maximum number of flips of the vlaue in the mao is the minimum out of all values
-    int min = Integer.MAX_VALUE;
-    for (ArrayList<Integer> move : possibleMovesMap.keySet()) {
-      int max = Integer.MIN_VALUE;
-      for (ArrayList<Integer> nextMove : possibleMovesMap.get(move)) {
-        try {
-          if (getCellsToFlip(nextMove.get(0), nextMove.get(1)).size() > max) {
-            max = getCellsToFlip(nextMove.get(0), nextMove.get(1)).size();
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-      if (max < min) {
-        min = max;
-      }
-    }
-
-    // find the move that has the minimum number of flips
-    ArrayList<Integer> bestMove = new ArrayList<>();
-    for (ArrayList<Integer> move : possibleMovesMap.keySet()) {
-      int max = Integer.MIN_VALUE;
-      for (ArrayList<Integer> nextMove : possibleMovesMap.get(move)) {
-        try {
-          if (getCellsToFlip(nextMove.get(0), nextMove.get(1)).size() > max) {
-            max = getCellsToFlip(nextMove.get(0), nextMove.get(1)).size();
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-      if (max == min) {
-        bestMove = move;
-        break;
-      }
-    }
-    if (bestMove.isEmpty()) {
-      bestMove = this.bestMoveWithMostFlips();
-    }
-    return bestMove;
-  }
-
-  public List<Integer> chooseMove2(BasicReversi model, int player) {
-    List<List<Hex>> board = model.getBoard();
-    ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
-
-    // Find all possible moves
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
-        try {
-          if (!model.getCellsToFlip(rowNum, colNum).isEmpty()) {
-            ArrayList<Integer> move = new ArrayList<>();
-            move.add(rowNum);
-            move.add(colNum);
-            possibleMoves.add(move);
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-    }
-
-    // Find the move with the minimum flips for the next player using BasicAI's evaluation
-    int minFlips = Integer.MAX_VALUE;
-    List<Integer> bestMove = new ArrayList<>();
-    for (ArrayList<Integer> move : possibleMoves) {
-      try {
-        // Create a copy of the board and play the move on the copy
-        BasicReversi copyModel = model.copy();
-        copyModel.move(move.get(0), move.get(1));
-
-        // Use BasicAI to evaluate the move on the copied board
-        List<Integer> basicMove = copyModel.bestMoveWithMostFlips();
-        int flips = copyModel.getCellsToFlip(basicMove.get(0), basicMove.get(1)).size();
-
-        if (flips < minFlips) {
-          minFlips = flips;
-          bestMove = move;
-        }
-      } catch (Exception e) {
-        continue;
-      }
-    }
-    if (bestMove.isEmpty()) {
-      bestMove = this.bestMoveWithMostFlips();
-    }
-    return bestMove;
-  }
-
 
 
   @Override
@@ -544,22 +372,8 @@ public class BasicReversi implements ReversiModel {
     return this.numRows;
   }
 
-  @Override
-  public void clearBoard() {
-    this.board.clear();
-    for (int rowNum = 0; rowNum < numRows; rowNum++) {
-      ArrayList<Hex> row = new ArrayList<>();
-      board.add(row);
-    }
-  }
-
-  public BasicReversi copy() {
+  BasicReversi copy() {
     return new BasicReversi(this);
-  }
-
-  @Override
-  public void clearCellStates() {
-    this.cellStates.clear();
   }
 
   @Override

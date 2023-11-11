@@ -2,12 +2,12 @@ package cs3500.reversi.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
@@ -20,6 +20,7 @@ public class ReversiPanel extends JPanel {
 
 
   private final int[] selectedCell = new int[2];
+  private int[] hoveredCell = new int[]{-1, -1};
 
 
   public ReversiPanel(ReadOnlyModel model) {
@@ -101,6 +102,12 @@ public class ReversiPanel extends JPanel {
           g2d.setColor(Color.WHITE);
           g2d.fillOval(hex.x - 10, hex.y - 10, 20, 20);
         }
+        if (row == hoveredCell[0] && col == hoveredCell[1]) {
+          g2d.setColor(Color.YELLOW);
+          g2d.fill(hexagons.get(row).get(col));
+          g2d.setColor(Color.BLACK);
+          g2d.draw(hexagons.get(row).get(col));
+        }
       }
     }
     String color = "";
@@ -115,7 +122,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private class MouseEventsListener extends MouseInputAdapter {
+  private class MouseEventsListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {

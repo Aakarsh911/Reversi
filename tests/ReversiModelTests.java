@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import cs3500.reversi.model.AvoidAdjacentBorderCellsAI;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.Player;
@@ -102,83 +103,9 @@ public class ReversiModelTests {
   }
 
   @Test
-  public void testBasicAndSmartAi() {
-    m = new BasicReversi(11);
-    ReversiTextualView view = new ReversiTextualView(m);
-    m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
-    m.move(7, 4);
-    m.move(6, 6);
-    m.move(4, 3);
-    m.move(6, 3);
-    m.move(4, 6);
-    m.move(3, 2);
-    m.move(2, 1);
-    System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
-    System.out.println(m.maxMinSmartAi().get(0) + " " + m.maxMinSmartAi().get(1));
-    System.out.println(view);
-  }
-
-  @Test
-  public void testBasicAndSmartAi2() {
-    m = new BasicReversi(7);
-    ReversiTextualView view = new ReversiTextualView(m);
-    m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
-    m.move(5, 2);
-    m.move(4, 4);
-    m.move(4, 5);
-    m.move(6, 1);
-    m.move(2, 1);
-    m.move(1, 0);
-    m.move(4, 1);
-    m.move(5, 0);
-    m.move(2, 4);
-    m.move(1, 4);
-    m.move(0, 1);
-    m.move(0, 2);
-    m.move(2, 0);
-    m.move(5, 4);
-    m.move(2, 5);
-    m.move(3, 6);
-    m.move(0, 0);
-    m.move(0, 3);
-    m.move(4, 0);
-    m.move(3, 0);
-    m.move(6, 2);
-    m.move(6, 3);
-    m.pass();
-    System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
-    System.out.println(m.maxMinSmartAi().get(0) + " " + m.maxMinSmartAi().get(1));
-    System.out.println(view);
-  }
-
-  @Test
-  public void AIvsAI() {
-    m = new BasicReversi(21);
-    ReversiTextualView view = new ReversiTextualView(m);
-    while (!m.isGameOver()) {
-      m.move(m.chooseMove2(m, 0).get(0), m.chooseMove2(m, 0).get(1));
-      System.out.println(view);
-      if (!m.isGameOver()) {
-        m.move(m.bestMoveWithMostFlips().get(0), m.bestMoveWithMostFlips().get(1));
-      }
-      System.out.println(view);
-    }
-  }
-
-  @Test
-  public void testAI() {
-    m = new BasicReversi(11);
-    ReversiTextualView view = new ReversiTextualView(m);
-    m.move(4, 6);
-    m.move(4, 7);
-    m.move(3, 4);
-    m.move(7, 4);
-    m.move(4, 8);
-    m.move(2, 3);
-    m.move(8, 3);
-    //m.move(6, 6);
-    System.out.println(view);
-    System.out.println(m.chooseMove2(m, 0).get(0) + " " + m.chooseMove2(m, 0).get(1));
-    System.out.println(m.bestMoveWithMostFlips().get(0) + " " + m.bestMoveWithMostFlips().get(1));
+  public void testBorder() {
+    m = new BasicReversi(15);
+    AvoidAdjacentBorderCellsAI ai = new AvoidAdjacentBorderCellsAI();
+    ai.chooseMove(m, 1);
   }
 }
