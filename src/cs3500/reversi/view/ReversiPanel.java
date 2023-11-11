@@ -31,6 +31,7 @@ public class ReversiPanel extends JPanel {
     this.initHexagons();
     MouseEventsListener listener = new MouseEventsListener();
     this.addMouseListener(listener);
+    this.addMouseMotionListener(listener);
     this.getActionMap().put("move", new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -103,10 +104,15 @@ public class ReversiPanel extends JPanel {
           g2d.fillOval(hex.x - 10, hex.y - 10, 20, 20);
         }
         if (row == hoveredCell[0] && col == hoveredCell[1]) {
-          g2d.setColor(Color.YELLOW);
-          g2d.fill(hexagons.get(row).get(col));
-          g2d.setColor(Color.BLACK);
-          g2d.draw(hexagons.get(row).get(col));
+          if (model.isLegalMove(hoveredCell[0], hoveredCell[1])) {
+            if (model.getTurn().equals("White")) {
+              g2d.setColor(new Color(255, 255, 255, 175));
+            }
+            else {
+              g2d.setColor(new Color(0, 0, 0, 175));
+            }
+            g2d.fillOval(hexagons.get(row).get(col).x - 10, hexagons.get(row).get(col).y - 10, 20, 20);
+          }
         }
       }
     }
@@ -145,6 +151,22 @@ public class ReversiPanel extends JPanel {
       if (!isCellClicked) {
         selectedCell[0] = -1;
         selectedCell[1] = -1;
+      }
+      repaint();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+      hoveredCell[0] = -1;
+      hoveredCell[1] = -1;
+
+      for (int i = 0; i < hexagons.size(); i++) {
+        for (int j = 0; j < hexagons.get(i).size(); j++) {
+          if (hexagons.get(i).get(j).contains(e.getPoint())) {
+            hoveredCell[0] = i;
+            hoveredCell[1] = j;
+          }
+        }
       }
       repaint();
     }

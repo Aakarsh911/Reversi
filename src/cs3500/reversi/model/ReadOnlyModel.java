@@ -50,4 +50,6 @@ public interface ReadOnlyModel {
 
   int getNumRows();
 
+  boolean isLegalMove(int row, int col);
+
 }

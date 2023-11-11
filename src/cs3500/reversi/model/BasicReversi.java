@@ -377,6 +377,15 @@ public class BasicReversi implements ReversiModel {
   }
 
   @Override
+  public boolean isLegalMove(int row, int col) {
+    try {
+      return !getCellsToFlip(row, col).isEmpty();
+    } catch (IllegalStateException e) {
+      return false;
+    }
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (o instanceof BasicReversi) {
       BasicReversi r = (BasicReversi) o;
