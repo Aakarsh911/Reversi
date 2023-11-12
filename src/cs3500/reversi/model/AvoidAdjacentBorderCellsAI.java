@@ -34,7 +34,7 @@ public class AvoidAdjacentBorderCellsAI implements ReversiStrategy {
       }
     }
     if (possibleMoves.isEmpty()) {
-      return new BasicAI().chooseMove(board, player);
+      throw new IllegalStateException("No possible moves");
     }
     return possibleMoves.get(0);
   }

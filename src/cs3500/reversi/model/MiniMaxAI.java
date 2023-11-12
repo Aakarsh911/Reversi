@@ -5,7 +5,6 @@ import java.util.List;
 
 public class MiniMaxAI implements ReversiStrategy {
   private final BasicAI basicAI = new BasicAI();
-  private final CornerAI cornerAI = new CornerAI();
 
   @Override
   public List<Integer> chooseMove(BasicReversi model, int player) {
@@ -49,7 +48,7 @@ public class MiniMaxAI implements ReversiStrategy {
       }
     }
     if (bestMove.isEmpty()) {
-      bestMove = cornerAI.chooseMove(model, player);
+      throw new IllegalStateException("No possible moves");
     }
     return bestMove;
   }

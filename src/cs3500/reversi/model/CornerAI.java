@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CornerAI implements ReversiStrategy {
-  private final AvoidAdjacentBorderCellsAI notAdjacentAI = new AvoidAdjacentBorderCellsAI();
 
   @Override
   public List<Integer> chooseMove(BasicReversi model, int player) {
@@ -37,7 +36,7 @@ public class CornerAI implements ReversiStrategy {
       }
     }
     if (possibleMoves.isEmpty()) {
-      return notAdjacentAI.chooseMove(model, player);
+      throw new IllegalStateException("No possible moves");
     }
     return bestMove;
   }

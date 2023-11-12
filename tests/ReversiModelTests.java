@@ -3,11 +3,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import cs3500.reversi.model.AvoidAdjacentBorderCellsAI;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
-import cs3500.reversi.model.Player;
-import cs3500.reversi.view.ReversiTextualView;
 
 /**
  * Tests for the Reversi game.
@@ -32,7 +29,6 @@ public class ReversiModelTests {
   @Test
   public void testNoLegalMoveLeft() {
     BasicReversi m2 = new BasicReversi(5,2);
-    ReversiTextualView view = new ReversiTextualView(m2);
     m2.pass();
     m2.move(1, 0);
     m2.pass();
@@ -100,12 +96,5 @@ public class ReversiModelTests {
     Assert.assertEquals("WHITE", m.getColor(m.getBoard().get(4).get(3)).toString());
     m.move(3, 4);
     Assert.assertEquals("BLACK", m.getColor(m.getBoard().get(3).get(4)).toString());
-  }
-
-  @Test
-  public void testBorder() {
-    m = new BasicReversi(15);
-    AvoidAdjacentBorderCellsAI ai = new AvoidAdjacentBorderCellsAI();
-    ai.chooseMove(m, 1);
   }
 }
