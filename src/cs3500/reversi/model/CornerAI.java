@@ -16,28 +16,12 @@ public class CornerAI implements ReversiStrategy {
     ArrayList<Integer> corner5 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1), 0));
     ArrayList<Integer> corner6 = new ArrayList<>(Arrays.asList(model.getBoard().size() - 1, (model.getBoard().size() - 1) / 2));
     List<List<Integer>> corners = new ArrayList<>(Arrays.asList(corner1, corner2, corner3, corner4, corner5, corner6));
-    ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
-    // Find all possible moves
-    for (int rowNum = 0; rowNum < model.getBoard().size(); rowNum++) {
-      for (int colNum = 0; colNum < model.getBoard().get(rowNum).size(); colNum++) {
-        try {
-          if (!model.getCellsToFlip(rowNum, colNum).isEmpty()) {
-            ArrayList<Integer> move = new ArrayList<>();
-            move.add(rowNum);
-            move.add(colNum);
-            possibleMoves.add(move);
-            if (corners.contains(move)) {
-              return Optional.of(move);
-            }
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
+
+    for (int i = 0; i < corners.size(); i++) {
+      if (!model.getCellsToFlip(corners.get(i).get(0), corners.get(i).get(1)).isEmpty()) {
+        return Optional.of(corners.get(i));
       }
     }
-    if (possibleMoves.isEmpty()) {
-      return Optional.empty();
-    }
-    return Optional.of(possibleMoves.get(0));
+    return Optional.empty();
   }
 }
