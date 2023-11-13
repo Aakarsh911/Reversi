@@ -16,8 +16,6 @@ public class TryTwo implements ReversiStrategy {
     if (first.chooseMove(board, player).isPresent()) {
       return first.chooseMove(board, player);
     }
-    else {
-      return second.chooseMove(board, player);
-    }
+    return second.chooseMove(board, player);
   }
 }
