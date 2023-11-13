@@ -7,7 +7,7 @@ import java.util.List;
  * Represents a mock strategy that returns a list of cells to flip that is the size of the sum of
  * the row and column.
  */
-public class MockBasicStratgey extends BasicReversi{
+public class MockBasicStrategy extends BasicReversi{
   @Override
   List<Hex> getCellsToFlip(int row, int col) {
     List<Hex> list = new ArrayList<>();
