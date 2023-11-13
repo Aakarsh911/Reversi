@@ -97,4 +97,39 @@ public class ReversiModelTests {
     m.move(3, 4);
     Assert.assertEquals("BLACK", m.getColor(m.getBoard().get(3).get(4)).toString());
   }
+
+  @Test
+  public void testGetNumRows() {
+    m = new BasicReversi(11);
+    Assert.assertEquals(11, m.getNumRows());
+    BasicReversi m2 = new BasicReversi(5);
+    Assert.assertEquals(5, m2.getNumRows());
+  }
+
+  @Test
+  public void testIsLegalMove() {
+    m = new BasicReversi(11);
+    Assert.assertTrue(m.isLegalMove(4, 3));
+    Assert.assertFalse(m.isLegalMove(4, 4));
+    Assert.assertFalse(m.isLegalMove(0, 0));
+    Assert.assertTrue(m.isLegalMove(6, 6));
+    Assert.assertFalse(m.isLegalMove(-2, 7));
+    Assert.assertFalse(m.isLegalMove(-2, -4));
+    Assert.assertFalse(m.isLegalMove(2, 27));
+  }
+
+  @Test
+  public void testAnyLegalMovesForCurrentPlayer() {
+    BasicReversi m2 = new BasicReversi(5,2);
+    m2.pass();
+    Assert.assertTrue(m2.anyLegalMovesForCurrentPlayer());
+    m2.move(1, 0);
+    m2.pass();
+    m2.move(4, 1);
+    Assert.assertTrue(m2.anyLegalMovesForCurrentPlayer());
+    m2.move(3, 3);
+    m2.move(1, 3);
+    m2.pass();
+    Assert.assertFalse(m2.anyLegalMovesForCurrentPlayer());
+  }
 }

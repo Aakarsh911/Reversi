@@ -5,9 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a strategy that chooses a move that is not adjacent to the corner cells.
+ */
 public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi board, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi board, Player player) {
     List<List<Integer>> corners = CornerAI.getCorners(board);
 
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
@@ -20,12 +23,14 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
 
     // Return the move that flips the most pieces
     int maxFlips = Integer.MIN_VALUE;
-    List<Integer> bestMove = getMoveWithMostFlips(board, possibleMoves, maxFlips, new ArrayList<>());
+    List<Integer> bestMove = getMoveWithMostFlips(board, possibleMoves,
+            maxFlips, new ArrayList<>());
     return Optional.of(bestMove);
   }
 
   private static boolean isValidCell(BasicReversi board, int row, int col) {
-    return row >= 0 && row < board.getBoard().size() && col >= 0 && col < board.getBoard().get(row).size();
+    return row >= 0 && row < board.getBoard().size() && col >= 0
+            && col < board.getBoard().get(row).size();
   }
 
   private static List<Integer> getMoveWithMostFlips(BasicReversi board, ArrayList<ArrayList<Integer>>
@@ -43,7 +48,8 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
     return bestMove;
   }
 
-  private static void removeAllAdjacentMoves(BasicReversi board, List<List<Integer>> adjacentBorderCell,
+  private static void removeAllAdjacentMoves(BasicReversi board,
+                                             List<List<Integer>> adjacentBorderCell,
                                              ArrayList<ArrayList<Integer>> possibleMoves) {
     for (int rowNum = 0; rowNum < board.getBoard().size(); rowNum++) {
       for (int colNum = 0; colNum < board.getBoard().get(rowNum).size(); colNum++) {
@@ -70,5 +76,4 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
       }
     }
   }
-
 }

@@ -44,23 +44,6 @@ public class BasicReversi implements ReversiModel {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
     }
-    switch (numHumans) {
-      case 0: {
-        players[0] = new AIPlayer();
-        players[1] = new AIPlayer();
-        break;
-      }
-      case 1:
-        players[0] = new Person();
-        players[1] = new AIPlayer();
-        break;
-      case 2:
-        players[0] = new Person();
-        players[1] = new Person();
-        break;
-      default:
-        throw new IllegalArgumentException("numHumans must be 0, 1, or 2");
-    }
     this.numRows = numRows;
     board = new ArrayList<>();
     // rowNum here represents the row number
@@ -184,23 +167,6 @@ public class BasicReversi implements ReversiModel {
     this.pass = 0;
     this.turn++;
     this.calculateScore();
-    boolean legalMoveFound = false;
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
-        try {
-          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
-            legalMoveFound = true;
-            break;
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-    }
-    if (!legalMoveFound) {
-      this.pass();
-      this.calculateScore();
-    }
   }
 
   /**
@@ -371,7 +337,7 @@ public class BasicReversi implements ReversiModel {
   public boolean isLegalMove(int row, int col) {
     try {
       return !getCellsToFlip(row, col).isEmpty();
-    } catch (IllegalStateException e) {
+    } catch (Exception e) {
       return false;
     }
   }

@@ -48,10 +48,21 @@ public interface ReadOnlyModel {
    */
   int getBlackScore();
 
+  /**
+   * gets the number of rows in the board.
+   * @return the number of rows in the board
+   */
   int getNumRows();
 
+  /**
+   * checks if a given move is legal.
+   * @param row the row of the move
+   * @param col the column of the move
+   */
   boolean isLegalMove(int row, int col);
 
+  /**
+   * checks if there is any legal move for the current player
+   */
   boolean anyLegalMovesForCurrentPlayer();
-
 }

@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a MiniMax AI for Reversi. This strategy outputs the move that flips the least cells
+ * for the next player.
+ */
 public class MiniMaxAI implements ReversiStrategy {
   private final BasicAI basicAI = new BasicAI();
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi model, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
     List<List<Hex>> board = model.getBoard();
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves
@@ -37,7 +41,8 @@ public class MiniMaxAI implements ReversiStrategy {
         copyModel.move(move.get(0), move.get(1));
 
         // Use BasicAI to evaluate the move on the copied board
-        List<Integer> basicMove = basicAI.chooseMove(copyModel, player).isPresent() ? basicAI.chooseMove(copyModel, player).get() : new ArrayList<>();
+        List<Integer> basicMove = basicAI.chooseMove(copyModel, player).isPresent()
+                ? basicAI.chooseMove(copyModel, player).get() : new ArrayList<>();
         int flips = copyModel.getCellsToFlip(basicMove.get(0), basicMove.get(1)).size();
 
         if (flips < minFlips) {

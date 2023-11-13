@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a basic AI for Reversi. This strategy outputs the move that flips the most cells.
+ */
 public class BasicAI implements ReversiStrategy {
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi model, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
     ArrayList<Integer> bestMove = new ArrayList<>();
     List<List<Hex>> board = model.getBoard();
     int bestScore = Integer.MIN_VALUE;

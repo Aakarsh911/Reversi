@@ -4,6 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReversiStrategy {
-  Optional<List<Integer>> chooseMove(BasicReversi board, int player);
+  /**
+   * Chooses a move for the given player.
+   * @param board the board to choose a move on
+   * @param player the player to choose a move for
+   * @return the move to make
+   */
+  Optional<List<Integer>> chooseMove(BasicReversi board, Player player);
 }
 

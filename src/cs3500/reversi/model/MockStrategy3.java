@@ -3,6 +3,9 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a mock model that is used to test the cells that the strategy iterates through.
+ */
 public class MockStrategy3 extends BasicReversi {
 
   private List<List<Integer>> iterated = new ArrayList<>();

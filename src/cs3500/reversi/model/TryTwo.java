@@ -3,6 +3,9 @@ package cs3500.reversi.model;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a strategy that tries two strategies. These can be nested to try more than two strategies.
+ */
 public class TryTwo implements ReversiStrategy {
   ReversiStrategy first;
   ReversiStrategy second;
@@ -12,7 +15,7 @@ public class TryTwo implements ReversiStrategy {
   }
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi board, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi board, Player player) {
     if (first.chooseMove(board, player).isPresent()) {
       return first.chooseMove(board, player);
     }

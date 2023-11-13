@@ -5,10 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Represents a strategy that chooses the first corner it can.
+ */
 public class CornerAI implements ReversiStrategy {
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi model, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
     List<List<Integer>> corners = getCorners(model);
 
     for (int i = 0; i < corners.size(); i++) {
@@ -19,6 +22,12 @@ public class CornerAI implements ReversiStrategy {
     return Optional.empty();
   }
 
+  /**
+   * Gets the corners of the board.
+   *
+   * @param model the model to get the corners from
+   * @return the corners of the board
+   */
   static List<List<Integer>> getCorners(BasicReversi model) {
     ArrayList<Integer> corner1 = new ArrayList<>(Arrays.asList(0, 0));
     ArrayList<Integer> corner2 = new ArrayList<>(Arrays.asList(0, (model.getBoard().size() - 1) / 2));
