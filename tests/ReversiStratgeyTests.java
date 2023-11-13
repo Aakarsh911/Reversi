@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import cs3500.reversi.model.AvoidAdjacentCornerCellsAI;
@@ -28,10 +30,23 @@ public class ReversiStratgeyTests {
     Assert.assertEquals(list, model.getIterated());
   }
 
+  static List<List<Integer>> getCorners(BasicReversi model) {
+    ArrayList<Integer> corner1 = new ArrayList<>(Arrays.asList(0, 0));
+    ArrayList<Integer> corner2 = new ArrayList<>(Arrays.asList(0, (model.getBoard().size() - 1) / 2));
+    ArrayList<Integer> corner3 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2, 0));
+    ArrayList<Integer> corner4 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2, model.getBoard().size() - 1));
+    ArrayList<Integer> corner5 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1), 0));
+    ArrayList<Integer> corner6 = new ArrayList<>(Arrays.asList(model.getBoard().size() - 1, (model.getBoard().size() - 1) / 2));
+    List<List<Integer>> corners = new ArrayList<>(Arrays.asList(corner1, corner2, corner3, corner4, corner5, corner6));
+    return corners;
+  }
+
   @Test
-  public void test() {
-    BasicReversi model = new BasicReversi(11);
-    AvoidAdjacentCornerCellsAI ai2 = new AvoidAdjacentCornerCellsAI();
-    ai2.chooseMove(model, 1);
+  public void testAvoidAdjacentCornerCellsAI() {
+    MockStrategy3 model = new MockStrategy3();
+    AvoidAdjacentCornerCellsAI ai = new AvoidAdjacentCornerCellsAI();
+    ai.chooseMove(model, 1);
+    List<List<Integer>> corner = getCorners(model);
+    List<List<Integer>> iterated = model.getIterated();
   }
 }

@@ -13,7 +13,6 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves that are not adjacent to the border
     removeAllAdjacentMoves(board, corners, possibleMoves);
-    System.out.println(possibleMoves);
 
     if (possibleMoves.isEmpty()) {
       return Optional.empty();
@@ -44,32 +43,32 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
     return bestMove;
   }
 
-  private static void removeAllAdjacentMoves(BasicReversi board, List<List<Integer>>
-          adjacentBorderCell, ArrayList<ArrayList<Integer>> possibleMoves) {
+  private static void removeAllAdjacentMoves(BasicReversi board, List<List<Integer>> adjacentBorderCell,
+                                             ArrayList<ArrayList<Integer>> possibleMoves) {
     for (int rowNum = 0; rowNum < board.getBoard().size(); rowNum++) {
       for (int colNum = 0; colNum < board.getBoard().get(rowNum).size(); colNum++) {
-        try {
-          if (!board.getCellsToFlip(rowNum, colNum).isEmpty()) {
-            ArrayList<Integer> move = new ArrayList<>();
-            move.add(rowNum);
-            move.add(colNum);
-            int[][] hexagonAdjacency = {
-                    {-1, -1}, {-1, 0}, {0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, 1}, {1, -1}
-            };
-            for (int i = 0; i < hexagonAdjacency.length; i++) {
-              int[] adjacentCell = hexagonAdjacency[i];
-              if (isValidCell(board, rowNum + adjacentCell[0], colNum + adjacentCell[1])) {
-                ArrayList<Integer> adjacentCellList = new ArrayList<>(Arrays.asList(rowNum + adjacentCell[0], colNum + adjacentCell[1]));
-                if (!adjacentBorderCell.contains(adjacentCellList)) {
-                  possibleMoves.add(move);
-                }
-              }
-            }
+        ArrayList<Integer> move = new ArrayList<>();
+        move.add(rowNum);
+        move.add(colNum);
+        int[][] hexagonAdjacency = {
+                {-1, -1}, {-1, 0}, {0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, 1}, {1, -1}
+        };
+        boolean isAdjacent = false;
+        for (int i = 0; i < hexagonAdjacency.length; i++) {
+          int[] adjacentCell = hexagonAdjacency[i];
+          int adjacentRow = rowNum + adjacentCell[0];
+          int adjacentCol = colNum + adjacentCell[1];
+          if (isValidCell(board, adjacentRow, adjacentCol) &&
+                  adjacentBorderCell.contains(Arrays.asList(adjacentRow, adjacentCol))) {
+            isAdjacent = true;
+            break;
           }
-        } catch (IllegalStateException e) {
-          continue;
+        }
+        if (!isAdjacent) {
+          possibleMoves.add(move);
         }
       }
     }
   }
+
 }
