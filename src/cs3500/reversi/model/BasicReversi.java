@@ -260,20 +260,7 @@ public class BasicReversi implements ReversiModel {
   @Override
   public boolean isGameOver() {
     int numCells = 0;
-    boolean legalMoveFound = false;
-    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
-      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
-        try {
-          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
-            legalMoveFound = true;
-            break;
-          }
-        } catch (IllegalStateException e) {
-          continue;
-        }
-      }
-    }
-    if (!legalMoveFound && pass == 1) {
+    if (!this.anyLegalMovesForCurrentPlayer() && pass == 1) {
       this.pass();
       this.calculateScore();
       return true;
@@ -372,6 +359,10 @@ public class BasicReversi implements ReversiModel {
     return this.numRows;
   }
 
+  /**
+   * Creates a copy of this BasicReversi.
+   * @return a copy of this BasicReversi
+   */
   BasicReversi copy() {
     return new BasicReversi(this);
   }
@@ -383,6 +374,22 @@ public class BasicReversi implements ReversiModel {
     } catch (IllegalStateException e) {
       return false;
     }
+  }
+
+  @Override
+  public boolean anyLegalMovesForCurrentPlayer() {
+    for (int rowNum = 0; rowNum < board.size(); rowNum++) {
+      for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
+        try {
+          if (!getCellsToFlip(rowNum, colNum).isEmpty()) {
+            return true;
+          }
+        } catch (IllegalStateException e) {
+          continue;
+        }
+      }
+    }
+    return false;
   }
 
   @Override

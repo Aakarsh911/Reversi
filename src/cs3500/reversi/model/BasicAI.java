@@ -2,11 +2,12 @@ package cs3500.reversi.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BasicAI implements ReversiStrategy {
 
   @Override
-  public List<Integer> chooseMove(BasicReversi model, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi model, int player) {
     ArrayList<Integer> bestMove = new ArrayList<>();
     List<List<Hex>> board = model.getBoard();
     int bestScore = Integer.MIN_VALUE;
@@ -24,6 +25,6 @@ public class BasicAI implements ReversiStrategy {
         }
       }
     }
-    return bestMove;
+    return Optional.of(bestMove);
   }
 }

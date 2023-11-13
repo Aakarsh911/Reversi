@@ -3,12 +3,12 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class CornerAI implements ReversiStrategy {
 
   @Override
-  public List<Integer> chooseMove(BasicReversi model, int player) {
-    ArrayList<Integer> bestMove = new ArrayList<>();
+  public Optional<List<Integer>> chooseMove(BasicReversi model, int player) {
     ArrayList<Integer> corner1 = new ArrayList<>(Arrays.asList(0, 0));
     ArrayList<Integer> corner2 = new ArrayList<>(Arrays.asList(0, (model.getBoard().size() - 1) / 2));
     ArrayList<Integer> corner3 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2, 0));
@@ -27,7 +27,7 @@ public class CornerAI implements ReversiStrategy {
             move.add(colNum);
             possibleMoves.add(move);
             if (corners.contains(move)) {
-              return move;
+              return Optional.of(move);
             }
           }
         } catch (IllegalStateException e) {
@@ -36,8 +36,8 @@ public class CornerAI implements ReversiStrategy {
       }
     }
     if (possibleMoves.isEmpty()) {
-      throw new IllegalStateException("No possible moves");
+      return Optional.empty();
     }
-    return bestMove;
+    return Optional.of(possibleMoves.get(0));
   }
 }

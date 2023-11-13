@@ -1,6 +1,7 @@
 package cs3500.reversi.model;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TryTwo implements ReversiStrategy {
   ReversiStrategy first;
@@ -11,10 +12,11 @@ public class TryTwo implements ReversiStrategy {
   }
 
   @Override
-  public List<Integer> chooseMove(BasicReversi board, int player) throws IllegalStateException {
-    try {
+  public Optional<List<Integer>> chooseMove(BasicReversi board, int player) {
+    if (first.chooseMove(board, player).isPresent()) {
       return first.chooseMove(board, player);
-    } catch (IllegalStateException e) {
+    }
+    else {
       return second.chooseMove(board, player);
     }
   }

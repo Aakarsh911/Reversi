@@ -52,4 +52,6 @@ public interface ReadOnlyModel {
 
   boolean isLegalMove(int row, int col);
 
+  boolean anyLegalMovesForCurrentPlayer();
+
 }

@@ -3,10 +3,11 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class AvoidAdjacentBorderCellsAI implements ReversiStrategy {
   @Override
-  public List<Integer> chooseMove(BasicReversi board, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi board, int player) {
     ArrayList<ArrayList<Integer>> adjacentBorderCell = new ArrayList<>();
     for (int i = 0; i < board.getBoard().size(); i++) {
       for (int j = 0; j < board.getBoard().get(i).size(); j++) {
@@ -34,8 +35,8 @@ public class AvoidAdjacentBorderCellsAI implements ReversiStrategy {
       }
     }
     if (possibleMoves.isEmpty()) {
-      throw new IllegalStateException("No possible moves");
+      return Optional.empty();
     }
-    return possibleMoves.get(0);
+    return Optional.of(possibleMoves.get(0));
   }
 }

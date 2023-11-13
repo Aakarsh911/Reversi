@@ -2,12 +2,13 @@ package cs3500.reversi.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MiniMaxAI implements ReversiStrategy {
   private final BasicAI basicAI = new BasicAI();
 
   @Override
-  public List<Integer> chooseMove(BasicReversi model, int player) {
+  public Optional<List<Integer>> chooseMove(BasicReversi model, int player) {
     List<List<Hex>> board = model.getBoard();
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves
@@ -48,8 +49,8 @@ public class MiniMaxAI implements ReversiStrategy {
       }
     }
     if (bestMove.isEmpty()) {
-      throw new IllegalStateException("No possible moves");
+      return Optional.empty();
     }
-    return bestMove;
+    return Optional.of(bestMove);
   }
 }
