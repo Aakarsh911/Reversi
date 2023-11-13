@@ -3,7 +3,7 @@ package cs3500.reversi.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockStrategy extends BasicReversi {
+public class MockStrategy3 extends BasicReversi {
 
   private List<List<Integer>> iterated = new ArrayList<>();
 

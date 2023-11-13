@@ -14,5 +14,6 @@ public final class Reversi {
     view.setHotKey(KeyStroke.getKeyStroke("M"), "move");
     view.setHotKey(KeyStroke.getKeyStroke("P"), "pass");
     view.setVisible(true);
+
   }
 }

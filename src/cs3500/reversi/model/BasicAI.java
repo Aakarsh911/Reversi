@@ -19,7 +19,7 @@ public class BasicAI implements ReversiStrategy {
             bestMove.add(rowNum);
             bestMove.add(colNum);
             bestScore = model.getCellsToFlip(rowNum, colNum).size();
-          }
+          } 
         } catch (IllegalStateException e) {
           continue;
         }
