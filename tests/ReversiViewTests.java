@@ -35,6 +35,7 @@ public class ReversiViewTests {
     BasicReversi m = new BasicReversi(11);
     ReversiTextualView view = new ReversiTextualView(m);
     m.move(4, 3);
+    System.out.println(view.toString());
     Assert.assertEquals("     _ _ _ _ _ _ \n" +
             "    _ _ _ _ _ _ _ \n" +
             "   _ _ _ _ _ _ _ _ \n" +

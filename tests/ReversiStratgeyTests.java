@@ -1,18 +1,14 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.ListResourceBundle;
 
-import cs3500.reversi.model.AvoidAdjacentBorderCellsAI;
+import cs3500.reversi.model.AvoidAdjacentCornerCellsAI;
 import cs3500.reversi.model.BasicAI;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.CornerAI;
 import cs3500.reversi.model.MockBasicStratgey;
 import cs3500.reversi.model.MockStrategy3;
-import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.ReversiStrategy;
 
 public class ReversiStratgeyTests {
@@ -34,8 +30,8 @@ public class ReversiStratgeyTests {
 
   @Test
   public void test() {
-    BasicReversi model = new BasicReversi();
-    AvoidAdjacentBorderCellsAI ai2 = new AvoidAdjacentBorderCellsAI();
+    BasicReversi model = new BasicReversi(11);
+    AvoidAdjacentCornerCellsAI ai2 = new AvoidAdjacentCornerCellsAI();
     ai2.chooseMove(model, 1);
   }
 }

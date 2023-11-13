@@ -5,29 +5,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-public class AvoidAdjacentBorderCellsAI implements ReversiStrategy {
+public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
   @Override
   public Optional<List<Integer>> chooseMove(BasicReversi board, int player) {
     List<List<Integer>> corners = CornerAI.getCorners(board);
-    List<List<Integer>> adjacentCornerCells = new ArrayList<>();
-    for (int i = 0; i < corners.size(); i++) {
-      adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) + 1, corners.get(i).get(1))));
-      adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0), corners.get(i).get(1) + 1)));
-      adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) + 1, corners.get(i).get(1) + 1)));
 
-    }
-    System.out.println(adjacentCornerCells);
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves that are not adjacent to the border
-    removeAllAdjacentMoves(board, adjacentCornerCells, possibleMoves);
+    removeAllAdjacentMoves(board, corners, possibleMoves);
+    System.out.println(possibleMoves);
+
     if (possibleMoves.isEmpty()) {
       return Optional.empty();
     }
-    // return the move that flips the most pieces
+
+    // Return the move that flips the most pieces
     int maxFlips = Integer.MIN_VALUE;
-    List<Integer> bestMove = new ArrayList<>();
-    bestMove = getMoveWithMostFlips(board, possibleMoves, maxFlips, bestMove);
+    List<Integer> bestMove = getMoveWithMostFlips(board, possibleMoves, maxFlips, new ArrayList<>());
     return Optional.of(bestMove);
+  }
+
+  private static boolean isValidCell(BasicReversi board, int row, int col) {
+    return row >= 0 && row < board.getBoard().size() && col >= 0 && col < board.getBoard().get(row).size();
   }
 
   private static List<Integer> getMoveWithMostFlips(BasicReversi board, ArrayList<ArrayList<Integer>>
@@ -54,8 +53,17 @@ public class AvoidAdjacentBorderCellsAI implements ReversiStrategy {
             ArrayList<Integer> move = new ArrayList<>();
             move.add(rowNum);
             move.add(colNum);
-            if (!adjacentBorderCell.contains(move)) {
-              possibleMoves.add(move);
+            int[][] hexagonAdjacency = {
+                    {-1, -1}, {-1, 0}, {0, -1}, {0, 1}, {1, 0}, {1, 1}, {-1, 1}, {1, -1}
+            };
+            for (int i = 0; i < hexagonAdjacency.length; i++) {
+              int[] adjacentCell = hexagonAdjacency[i];
+              if (isValidCell(board, rowNum + adjacentCell[0], colNum + adjacentCell[1])) {
+                ArrayList<Integer> adjacentCellList = new ArrayList<>(Arrays.asList(rowNum + adjacentCell[0], colNum + adjacentCell[1]));
+                if (!adjacentBorderCell.contains(adjacentCellList)) {
+                  possibleMoves.add(move);
+                }
+              }
             }
           }
         } catch (IllegalStateException e) {
