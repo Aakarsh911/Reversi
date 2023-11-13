@@ -37,7 +37,7 @@ public class MiniMaxAI implements ReversiStrategy {
         copyModel.move(move.get(0), move.get(1));
 
         // Use BasicAI to evaluate the move on the copied board
-        List<Integer> basicMove = basicAI.chooseMove(copyModel, player);
+        List<Integer> basicMove = basicAI.chooseMove(copyModel, player).isPresent() ? basicAI.chooseMove(copyModel, player).get() : new ArrayList<>();
         int flips = copyModel.getCellsToFlip(basicMove.get(0), basicMove.get(1)).size();
 
         if (flips < minFlips) {
