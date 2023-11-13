@@ -11,24 +11,10 @@ public class AvoidAdjacentBorderCellsAI implements ReversiStrategy {
     List<List<Integer>> corners = CornerAI.getCorners(board);
     List<List<Integer>> adjacentCornerCells = new ArrayList<>();
     for (int i = 0; i < corners.size(); i++) {
-      if (corners.get(i).get(0) < board.getBoard().size() - 1) {
-        adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) + 1, corners.get(i).get(1))));
-      }
-      if (corners.get(i).get(0) > 0) {
-        adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) - 1, corners.get(i).get(1))));
-      }
-      if (corners.get(i).get(1) < board.getBoard().size() - 1) {
-        adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0), corners.get(i).get(1) + 1)));
-      }
-      if (corners.get(i).get(1) > 0) {
-        adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0), corners.get(i).get(1) - 1)));
-      }
-      if (corners.get(i).get(0) < board.getBoard().size() - 1 && corners.get(i).get(1) < board.getBoard().size() - 1) {
-        adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) + 1, corners.get(i).get(1) + 1)));
-      }
-      if (corners.get(i).get(0) > 0 && corners.get(i).get(1) > 0) {
-        adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) - 1, corners.get(i).get(1) - 1)));
-      }
+      adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) + 1, corners.get(i).get(1))));
+      adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0), corners.get(i).get(1) + 1)));
+      adjacentCornerCells.add(new ArrayList<>(Arrays.asList(corners.get(i).get(0) + 1, corners.get(i).get(1) + 1)));
+
     }
     System.out.println(adjacentCornerCells);
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
