@@ -32,11 +32,6 @@ public interface ReadOnlyModel {
   boolean isGameOver();
 
   /**
-   * calculates the score of the game.
-   */
-  void calculateScore();
-
-  /**
    * gets the score of the white player.
    * @return the score of the game
    */

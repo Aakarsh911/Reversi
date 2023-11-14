@@ -57,11 +57,6 @@ public class MockBasicStrategy implements ReversiModel {
   }
 
   @Override
-  public void calculateScore() {
-
-  }
-
-  @Override
   public int getWhiteScore() {
     return fakeScore;
   }

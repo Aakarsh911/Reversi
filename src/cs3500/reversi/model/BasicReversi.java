@@ -102,8 +102,11 @@ public class BasicReversi implements ReversiModel {
     }
   }
 
-  @Override
-  public void calculateScore() {
+  /**
+   * Calculates the score of the game by correctly counting the number of white and black pieces.
+   * and updating the whiteScore and blackScore fields.
+   */
+  private void calculateScore() {
     int white = 0;
     int black = 0;
     for (Hex h : cellStates.keySet()) {
