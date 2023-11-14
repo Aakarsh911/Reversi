@@ -158,6 +158,9 @@ public class BasicReversi implements ReversiModel {
 
   @Override
   public void move(int x, int y) {
+    if (!getColor(board.get(x).get(y)).equals("EMPTY")) {
+      throw new IllegalStateException("Cell is not empty");
+    }
     List<Hex> cellsToFlip = getCellsToFlip(x, y);
     if (cellsToFlip.isEmpty()) {
       throw new IllegalStateException("Not a legal move");
@@ -177,9 +180,6 @@ public class BasicReversi implements ReversiModel {
    * @return the cells to flip
    */
   List<Hex> getCellsToFlip(int x, int y) {
-    if (!getColor(board.get(x).get(y)).equals("EMPTY")) {
-      throw new IllegalStateException("Cell is not empty");
-    }
     Hex h = board.get(x).get(y);
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
     List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
