@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import cs3500.reversi.model.AvoidAdjacentCornerCellsAI;
 import cs3500.reversi.model.BasicAI;

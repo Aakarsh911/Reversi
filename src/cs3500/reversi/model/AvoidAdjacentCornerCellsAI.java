@@ -21,13 +21,14 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
     // Find all possible moves that are not adjacent to the border
     removeAllAdjacentMoves(model, corners, possibleMoves);
 
+    if (possibleMoves.isEmpty()) {
+      return Optional.empty();
+    }
+
     // Return the move that flips the most pieces
     int maxFlips = Integer.MIN_VALUE;
     List<Integer> bestMove = getMoveWithMostFlips(model, possibleMoves,
             maxFlips, new ArrayList<>());
-    if (possibleMoves.isEmpty() || bestMove.isEmpty()) {
-      return Optional.empty();
-    }
     return Optional.of(bestMove);
   }
 
@@ -40,9 +41,8 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
           possibleMoves, int maxFlips, List<Integer> bestMove) {
     for (ArrayList<Integer> move : possibleMoves) {
       try {
-        int flips = board.getCellsToFlip(move.get(0), move.get(1)).size();
-        if (flips > maxFlips && flips != 0) {
-          maxFlips = flips;
+        if (board.getCellsToFlip(move.get(0), move.get(1)).size() > maxFlips) {
+          maxFlips = board.getCellsToFlip(move.get(0), move.get(1)).size();
           bestMove = move;
         }
       } catch (IllegalStateException e) {

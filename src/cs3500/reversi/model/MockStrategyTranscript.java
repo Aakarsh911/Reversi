@@ -19,6 +19,11 @@ public class MockStrategyTranscript extends BasicReversi {
     return new ArrayList<>();
   }
 
+  @Override
+  public boolean anyLegalMovesForCurrentPlayer() {
+    return true;
+  }
+
   public List<List<Integer>> getIterated() {
     return iterated;
   }
