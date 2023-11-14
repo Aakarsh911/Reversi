@@ -1,1 +1,2 @@
-[[1, 2], [2, 4], [2, 5], [4, 1], [4, 4], [4, 5], [5, 0]]
+[[3, 4], [4, 3], [4, 6], [6, 3], [6, 6], [7, 4]]
+This is the transcript when it's black's turn and the game is in the initial state and the number of rows of the board are 11

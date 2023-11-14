@@ -10,6 +10,7 @@ import cs3500.reversi.model.CornerAI;
 import cs3500.reversi.model.MiniMaxAI;
 import cs3500.reversi.model.MockBasicStrategy;
 import cs3500.reversi.model.MockStrategyTranscript;
+import cs3500.reversi.model.MockStrategyTranscriptForBasicAI;
 import cs3500.reversi.model.Person;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.ReversiStrategy;
@@ -93,5 +94,16 @@ public class ReversiStrategyTests {
     Assert.assertEquals(List.of(2, 4), move1);
     Assert.assertEquals(List.of(2, 4), move2);
     Assert.assertEquals(move1, move2);
+  }
+
+  @Test
+  public void testBasicAITranscript() {
+    MockStrategyTranscriptForBasicAI model = new MockStrategyTranscriptForBasicAI(11);
+    model.pass();
+    BasicAI ai = new BasicAI();
+    ai.chooseMove(model, new Person("black"));
+    List<List<Integer>> checkList = List.of(List.of(3, 4), List.of(4, 3), List.of(4, 6),
+            List.of(6, 3), List.of(6, 6), List.of(7, 4));
+    Assert.assertEquals(checkList, model.getIterated());
   }
 }
