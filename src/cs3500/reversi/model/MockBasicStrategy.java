@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-
  Represents a mock strategy that returns a list of cells to flip that is the size of the sum of
  the row and column.
  */

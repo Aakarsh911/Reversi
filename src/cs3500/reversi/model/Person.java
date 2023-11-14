@@ -1,5 +1,8 @@
 package cs3500.reversi.model;
 
+/**
+ * Represents a person playing the game.
+ */
 public class Person implements Player {
 
   String color;
