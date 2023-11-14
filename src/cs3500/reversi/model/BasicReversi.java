@@ -158,11 +158,8 @@ public class BasicReversi implements ReversiModel {
 
   @Override
   public void move(int x, int y) {
-    if (!getColor(board.get(x).get(y)).equals("EMPTY")) {
-      throw new IllegalStateException("Cell is not empty");
-    }
     List<Hex> cellsToFlip = getCellsToFlip(x, y);
-    if (cellsToFlip.isEmpty()) {
+    if (!isLegalMove(x, y)) {
       throw new IllegalStateException("Not a legal move");
     }
     placePiece(x, y, turn % 2 == 0 ? CellState.WHITE : CellState.BLACK);
@@ -325,21 +322,17 @@ public class BasicReversi implements ReversiModel {
     return this.numRows;
   }
 
-  /**
-   * Creates a copy of this BasicReversi.
-   * @return a copy of this BasicReversi
-   */
-  BasicReversi copy() {
+  @Override
+  public ReversiModel copy() {
     return new BasicReversi(this);
   }
 
   @Override
   public boolean isLegalMove(int row, int col) {
-    try {
-      return !getCellsToFlip(row, col).isEmpty();
-    } catch (Exception e) {
+    if (row < 0 || row >= board.size() || col < 0 || col >= board.get(row).size()) {
       return false;
     }
+    return !getCellsToFlip(row, col).isEmpty() && getColor(board.get(row).get(col)).equals("EMPTY");
   }
 
   @Override

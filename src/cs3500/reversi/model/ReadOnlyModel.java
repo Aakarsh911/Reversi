@@ -65,4 +65,10 @@ public interface ReadOnlyModel {
    * checks if there is any legal move for the current player
    */
   boolean anyLegalMovesForCurrentPlayer();
+
+  /**
+   * Creates a copy of this BasicReversi.
+   * @return a copy of this BasicReversi
+   */
+  ReversiModel copy();
 }

@@ -2,12 +2,19 @@ package cs3500.reversi.model;
 
 public class Person implements Player {
 
-  public Person() {
-    int[] i = new int[2];
+  String color;
+
+  public Person(String color) {
+    this.color = color;
   }
 
   @Override
   public void notifyTurn() {
 
+  }
+
+  @Override
+  public String getColor() {
+    return color;
   }
 }

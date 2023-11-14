@@ -11,17 +11,16 @@ import java.util.Optional;
 public class CornerAI implements ReversiStrategy {
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
-    if (!model.anyLegalMovesForCurrentPlayer()) {
-      model.pass();
-      return Optional.empty();
-    }
+  public Optional<List<Integer>> chooseMove(ReadOnlyModel model, Player player) {
     List<List<Integer>> corners = getCorners(model);
-
+    List<List<Integer>> legalMoves = new ArrayList<>();
     for (int i = 0; i < corners.size(); i++) {
-      if (!model.getCellsToFlip(corners.get(i).get(0), corners.get(i).get(1)).isEmpty()) {
-        return Optional.of(corners.get(i));
+      if (model.isLegalMove(corners.get(i).get(0), corners.get(i).get(1))) {
+        legalMoves.add(corners.get(i));
       }
+    }
+    if (!legalMoves.isEmpty()) {
+      return Optional.of(legalMoves.get(0));
     }
     return Optional.empty();
   }
@@ -32,7 +31,7 @@ public class CornerAI implements ReversiStrategy {
    * @param model the model to get the corners from
    * @return the corners of the board
    */
-  static List<List<Integer>> getCorners(BasicReversi model) {
+  static List<List<Integer>> getCorners(ReadOnlyModel model) {
     ArrayList<Integer> corner1 = new ArrayList<>(Arrays.asList(0, 0));
     ArrayList<Integer> corner2 = new ArrayList<>(Arrays.asList(0, (model.getBoard().size() - 1) / 2));
     ArrayList<Integer> corner3 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2, 0));

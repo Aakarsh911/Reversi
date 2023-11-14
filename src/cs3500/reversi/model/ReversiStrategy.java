@@ -10,6 +10,6 @@ public interface ReversiStrategy {
    * @param player the player to choose a move for
    * @return the move to make
    */
-  Optional<List<Integer>> chooseMove(BasicReversi board, Player player);
+  Optional<List<Integer>> chooseMove(ReadOnlyModel board, Player player);
 }
 

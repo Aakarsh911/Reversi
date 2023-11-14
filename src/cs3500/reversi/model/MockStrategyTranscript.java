@@ -11,12 +11,12 @@ public class MockStrategyTranscript extends BasicReversi {
   private List<List<Integer>> iterated = new ArrayList<>();
 
   @Override
-  public List<Hex> getCellsToFlip(int row, int col) {
-    List<Integer> move = new ArrayList<>();
+  public boolean isLegalMove(int row, int col) {
+    ArrayList<Integer> move = new ArrayList<>();
     move.add(row);
     move.add(col);
     iterated.add(move);
-    return new ArrayList<>();
+    return true;
   }
 
   @Override
@@ -26,5 +26,10 @@ public class MockStrategyTranscript extends BasicReversi {
 
   public List<List<Integer>> getIterated() {
     return iterated;
+  }
+
+  @Override
+  public ReversiModel copy() {
+    return this;
   }
 }

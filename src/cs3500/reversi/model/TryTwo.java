@@ -15,7 +15,7 @@ public class TryTwo implements ReversiStrategy {
   }
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi board, Player player) {
+  public Optional<List<Integer>> chooseMove(ReadOnlyModel board, Player player) {
     if (first.chooseMove(board, player).isPresent()) {
       return first.chooseMove(board, player);
     }

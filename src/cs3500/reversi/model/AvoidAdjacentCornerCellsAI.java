@@ -10,11 +10,7 @@ import java.util.Optional;
  */
 public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
-    if (!model.anyLegalMovesForCurrentPlayer()) {
-      model.pass();
-      return Optional.empty();
-    }
+  public Optional<List<Integer>> chooseMove(ReadOnlyModel model, Player player) {
     List<List<Integer>> corners = CornerAI.getCorners(model);
 
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
@@ -28,31 +24,33 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
     // Return the move that flips the most pieces
     int maxFlips = Integer.MIN_VALUE;
     List<Integer> bestMove = getMoveWithMostFlips(model, possibleMoves,
-            maxFlips, new ArrayList<>());
+            maxFlips, new ArrayList<>(), player);
     return Optional.of(bestMove);
   }
 
-  private static boolean isValidCell(BasicReversi board, int row, int col) {
+  private static boolean isValidCell(ReadOnlyModel board, int row, int col) {
     return row >= 0 && row < board.getBoard().size() && col >= 0
             && col < board.getBoard().get(row).size();
   }
 
-  private static List<Integer> getMoveWithMostFlips(BasicReversi board, ArrayList<ArrayList<Integer>>
-          possibleMoves, int maxFlips, List<Integer> bestMove) {
+  private static List<Integer> getMoveWithMostFlips(ReadOnlyModel board, ArrayList<ArrayList<Integer>>
+          possibleMoves, int maxFlips, List<Integer> bestMove, Player player) {
     for (ArrayList<Integer> move : possibleMoves) {
-      try {
-        if (board.getCellsToFlip(move.get(0), move.get(1)).size() > maxFlips) {
-          maxFlips = board.getCellsToFlip(move.get(0), move.get(1)).size();
-          bestMove = move;
-        }
-      } catch (IllegalStateException e) {
+      ReversiModel copy = board.copy();
+      if (!copy.isLegalMove(move.get(0), move.get(1))) {
         continue;
+      }
+      copy.move(move.get(0), move.get(1));
+      int score = player.getColor().equals("white") ? copy.getWhiteScore() : copy.getBlackScore();
+      if (score > maxFlips) {
+        maxFlips = score;
+        bestMove = move;
       }
     }
     return bestMove;
   }
 
-  private static void removeAllAdjacentMoves(BasicReversi board,
+  private static void removeAllAdjacentMoves(ReadOnlyModel board,
                                              List<List<Integer>> adjacentBorderCell,
                                              ArrayList<ArrayList<Integer>> possibleMoves) {
     for (int rowNum = 0; rowNum < board.getBoard().size(); rowNum++) {

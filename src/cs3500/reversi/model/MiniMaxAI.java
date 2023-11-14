@@ -12,18 +12,14 @@ public class MiniMaxAI implements ReversiStrategy {
   private final BasicAI basicAI = new BasicAI();
 
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
-    if (!model.anyLegalMovesForCurrentPlayer()) {
-      model.pass();
-      return Optional.empty();
-    }
+  public Optional<List<Integer>> chooseMove(ReadOnlyModel model, Player player) {
     List<List<Hex>> board = model.getBoard();
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves
     for (int rowNum = 0; rowNum < board.size(); rowNum++) {
       for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {
         try {
-          if (!model.getCellsToFlip(rowNum, colNum).isEmpty()) {
+          if (model.isLegalMove(rowNum, colNum)) {
             ArrayList<Integer> move = new ArrayList<>();
             move.add(rowNum);
             move.add(colNum);
@@ -41,13 +37,15 @@ public class MiniMaxAI implements ReversiStrategy {
     for (ArrayList<Integer> move : possibleMoves) {
       try {
         // Create a copy of the board and play the move on the copy
-        BasicReversi copyModel = model.copy();
+        ReversiModel copyModel = model.copy();
         copyModel.move(move.get(0), move.get(1));
 
         // Use BasicAI to evaluate the move on the copied board
         List<Integer> basicMove = basicAI.chooseMove(copyModel, player).isPresent()
                 ? basicAI.chooseMove(copyModel, player).get() : new ArrayList<>();
-        int flips = copyModel.getCellsToFlip(basicMove.get(0), basicMove.get(1)).size();
+        copyModel.move(basicMove.get(0), basicMove.get(1));
+        int flips = player.getColor().equals("white") ? copyModel.getWhiteScore()
+                : copyModel.getBlackScore();
 
         if (flips < minFlips) {
           minFlips = flips;
