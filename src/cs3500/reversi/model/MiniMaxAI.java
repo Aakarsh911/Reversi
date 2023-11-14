@@ -13,6 +13,10 @@ public class MiniMaxAI implements ReversiStrategy {
 
   @Override
   public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
+    if (!model.anyLegalMovesForCurrentPlayer()) {
+      model.pass();
+      return Optional.empty();
+    }
     List<List<Hex>> board = model.getBoard();
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves

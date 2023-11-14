@@ -39,3 +39,6 @@ Key components:
     ReadOnlyModel - reversi\src\model\ReadOnlyModel
     ReversiView - reversi\src\view\ReversiView
     Hex - reversi\src\model\Hex
+
+***EXTRA CREDIT***: AvoidAdjacentAI, CornerAI, MiniMaxAI, and TryTwo classes are part of the extra credit. These classes are
+located in the reversi\src\model folder.

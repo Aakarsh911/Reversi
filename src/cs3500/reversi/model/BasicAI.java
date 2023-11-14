@@ -11,6 +11,10 @@ public class BasicAI implements ReversiStrategy {
 
   @Override
   public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
+    if (!model.anyLegalMovesForCurrentPlayer()) {
+      model.pass();
+      return Optional.empty();
+    }
     ArrayList<Integer> bestMove = new ArrayList<>();
     List<List<Hex>> board = model.getBoard();
     int bestScore = Integer.MIN_VALUE;

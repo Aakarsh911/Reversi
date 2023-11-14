@@ -12,6 +12,10 @@ public class CornerAI implements ReversiStrategy {
 
   @Override
   public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
+    if (!model.anyLegalMovesForCurrentPlayer()) {
+      model.pass();
+      return Optional.empty();
+    }
     List<List<Integer>> corners = getCorners(model);
 
     for (int i = 0; i < corners.size(); i++) {

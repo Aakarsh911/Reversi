@@ -10,21 +10,24 @@ import java.util.Optional;
  */
 public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
   @Override
-  public Optional<List<Integer>> chooseMove(BasicReversi board, Player player) {
-    List<List<Integer>> corners = CornerAI.getCorners(board);
+  public Optional<List<Integer>> chooseMove(BasicReversi model, Player player) {
+    if (!model.anyLegalMovesForCurrentPlayer()) {
+      model.pass();
+      return Optional.empty();
+    }
+    List<List<Integer>> corners = CornerAI.getCorners(model);
 
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves that are not adjacent to the border
-    removeAllAdjacentMoves(board, corners, possibleMoves);
-
-    if (possibleMoves.isEmpty()) {
-      return Optional.empty();
-    }
+    removeAllAdjacentMoves(model, corners, possibleMoves);
 
     // Return the move that flips the most pieces
     int maxFlips = Integer.MIN_VALUE;
-    List<Integer> bestMove = getMoveWithMostFlips(board, possibleMoves,
+    List<Integer> bestMove = getMoveWithMostFlips(model, possibleMoves,
             maxFlips, new ArrayList<>());
+    if (possibleMoves.isEmpty() || bestMove.isEmpty()) {
+      return Optional.empty();
+    }
     return Optional.of(bestMove);
   }
 
@@ -37,8 +40,9 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
           possibleMoves, int maxFlips, List<Integer> bestMove) {
     for (ArrayList<Integer> move : possibleMoves) {
       try {
-        if (board.getCellsToFlip(move.get(0), move.get(1)).size() > maxFlips) {
-          maxFlips = board.getCellsToFlip(move.get(0), move.get(1)).size();
+        int flips = board.getCellsToFlip(move.get(0), move.get(1)).size();
+        if (flips > maxFlips && flips != 0) {
+          maxFlips = flips;
           bestMove = move;
         }
       } catch (IllegalStateException e) {
