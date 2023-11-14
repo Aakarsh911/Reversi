@@ -1,2 +1,0 @@
-A Player should each have their own view, and then use input of choice to inform the controller
-connected to that view once the player has made their move.
