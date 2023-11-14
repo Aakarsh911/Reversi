@@ -30,31 +30,6 @@ public class BasicReversi implements ReversiModel {
   private int blackScore = 3; // number of black pieces on the board
   private int numRows = 7; // number of rows in the board
 
-  private final Player[] players = new Player[2];
-
-  /**
-   * Constructs a BasicReversi object.
-   * Ensures numRows is odd and more than 3.
-   * Adds cells to the board and adds them to cellStates simultaneously to ensure invariant.
-   *
-   * @param numRows the number of rows in the board
-   * @throws IllegalArgumentException if numRows is even or less than or equal to 3
-   */
-  public BasicReversi(int numRows, int numHumans) {
-    if (numRows % 2 == 0 || numRows <= 3) {
-      throw new IllegalArgumentException("numRows must be odd and more than 3");
-    }
-    this.numRows = numRows;
-    board = new ArrayList<>();
-    // rowNum here represents the row number
-    for (int rowNum = 0; rowNum < numRows; rowNum++) {
-      ArrayList<Hex> row = new ArrayList<>();
-      board.add(row);
-    }
-    cellStates = new HashMap<>();
-    initCells(numRows);
-    initColors();
-  }
 
   public BasicReversi(BasicReversi original) {
     this.numRows = original.numRows;
@@ -62,10 +37,6 @@ public class BasicReversi implements ReversiModel {
     this.pass = original.pass;
     this.whiteScore = original.whiteScore;
     this.blackScore = original.blackScore;
-
-    // Copy players
-    this.players[0] = original.players[0];
-    this.players[1] = original.players[1];
 
     // Copy the board
     this.board = new ArrayList<>();
@@ -117,7 +88,7 @@ public class BasicReversi implements ReversiModel {
    *
    * @param numRows the number of rows in the board
    */
-  void initCells(int numRows) {
+  private void initCells(int numRows) {
     int n = (numRows - 1) / 2; // n here represents the radius of the board
     for (int r = -n; r <= n; r++) { // r here represents the r value in the cube coordinates
       int r1 = max(-n, -r - n); // r1 represents the max between -n and -r - n
@@ -176,7 +147,7 @@ public class BasicReversi implements ReversiModel {
    * @param y the column of the cell
    * @return the cells to flip
    */
-  List<Hex> getCellsToFlip(int x, int y) {
+  private List<Hex> getCellsToFlip(int x, int y) {
     Hex h = board.get(x).get(y);
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
     List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
@@ -217,8 +188,6 @@ public class BasicReversi implements ReversiModel {
     this.pass++;
     calculateScore();
   }
-
-
 
   @Override
   public boolean isGameOver() {
