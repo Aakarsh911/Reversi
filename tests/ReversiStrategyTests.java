@@ -13,6 +13,7 @@ import cs3500.reversi.model.MockStrategyTranscript;
 import cs3500.reversi.model.Person;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.ReversiStrategy;
+import cs3500.reversi.model.TryTwo;
 
 /**
  * Tests for the ReversiStrategy interface.
@@ -78,5 +79,19 @@ public class ReversiStrategyTests {
     Assert.assertEquals(List.of(2, 4), move1);
     Assert.assertEquals(List.of(4, 6), move2);
     Assert.assertNotEquals(move1, move2);
+  }
+
+  @Test
+  public void testTryTwoTriesTheNextCorrectly() {
+    BasicReversi m = new BasicReversi(11);
+    ReversiStrategy ai1 = new TryTwo(new CornerAI(), new MiniMaxAI());
+    ReversiStrategy ai2 = new MiniMaxAI();
+    m.move(3, 4);
+    m.move(2, 3);
+    List<Integer> move1 = ai1.chooseMove(m, new Person("white")).get();
+    List<Integer> move2 = ai2.chooseMove(m, new Person("white")).get();
+    Assert.assertEquals(List.of(2, 4), move1);
+    Assert.assertEquals(List.of(2, 4), move2);
+    Assert.assertEquals(move1, move2);
   }
 }
