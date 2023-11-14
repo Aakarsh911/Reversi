@@ -22,8 +22,8 @@ public class ReversiStrategyTests {
   public void testBasicStrategyWithMockModelAndResolveTies() {
     ReversiStrategy ai = new BasicAI();
     ReversiModel model = new MockBasicStrategy();
-    // this test shows that the BasicAI resolves ties correctly as (6, 3) would also flip the
-    // same number of cells as (3, 6) but because (3, 6) is the first move that flips the most
+    // this test shows that the BasicAI resolves ties correctly as (2, 0) would also flip the
+    // same number of cells as (1, 1) but because (1, 1) is the first move that flips the most
     // cells, it is chosen
     Assert.assertEquals(List.of(1, 1), ai.chooseMove(model, new Person("white")).get());
   }
