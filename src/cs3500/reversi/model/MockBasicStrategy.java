@@ -1,14 +1,14 @@
 package cs3500.reversi.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- Represents a mock strategy that returns a list of cells to flip that is the size of the sum of
- the row and column.
+ * Represents a mock strategy that returns a list of cells to flip that is the size of the sum of
+ * the row and column.
  */
 public class MockBasicStrategy implements ReversiModel {
   private int fakeScore = 0;
+
   @Override
   public boolean isLegalMove(int row, int col) {
     return true;
@@ -31,14 +31,14 @@ public class MockBasicStrategy implements ReversiModel {
 
   @Override
   public void pass() {
-
+    // do nothing, need to implement for interface
   }
 
   @Override
   public List<List<Hex>> getBoard() {
-    return List.of(List.of(new ReversiCell(0,0,0), new ReversiCell(0,0,0)),
-            List.of(new ReversiCell(0,0,0), new ReversiCell(0,0,0)),
-            List.of(new ReversiCell(0,0,0)));
+    return List.of(List.of(new ReversiCell(0, 0, 0), new ReversiCell(0, 0, 0)),
+            List.of(new ReversiCell(0, 0, 0), new ReversiCell(0, 0, 0)),
+            List.of(new ReversiCell(0, 0, 0)));
   }
 
   @Override

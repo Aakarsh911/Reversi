@@ -31,6 +31,10 @@ public class BasicReversi implements ReversiModel {
   private int numRows = 7; // number of rows in the board
 
 
+  /**
+   * Constructs a BasicReversi object with the same fields as the given BasicReversi object.
+   * @param original the BasicReversi object to copy
+   */
   public BasicReversi(BasicReversi original) {
     this.numRows = original.numRows;
     this.turn = original.turn;
@@ -49,6 +53,10 @@ public class BasicReversi implements ReversiModel {
     this.cellStates = new HashMap<>(original.cellStates);
   }
 
+  /**
+   * Constructs a BasicReversi object with the given number of rows.
+   * @param numRows the number of rows in the board
+   */
   public BasicReversi(int numRows) {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
@@ -175,7 +183,7 @@ public class BasicReversi implements ReversiModel {
         if (getColor(reversiCell) == color.toString()) {
           reversiCells.addAll(result);
           break;
-        } else if (getColor(reversiCell) == "EMPTY") {
+        } else if (getColor(reversiCell).equals("EMPTY")) {
           result.removeAll(result);
         } else {
           result.add(reversiCell);

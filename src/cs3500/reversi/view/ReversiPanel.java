@@ -1,16 +1,25 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.JPanel;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
+/**
+ * Represents the panel for the Reversi game.
+ */
 public class ReversiPanel extends JPanel {
   private final ReadOnlyModel model;
 
@@ -23,6 +32,10 @@ public class ReversiPanel extends JPanel {
   private int[] hoveredCell = new int[]{-1, -1};
 
 
+  /**
+   * Constructs a ReversiPanel.
+   * @param model the model to use
+   */
   public ReversiPanel(ReadOnlyModel model) {
     this.selectedCell[0] = -1;
     this.selectedCell[1] = -1;
@@ -111,7 +124,8 @@ public class ReversiPanel extends JPanel {
             else {
               g2d.setColor(new Color(0, 0, 0, 175));
             }
-            g2d.fillOval(hexagons.get(row).get(col).x - 10, hexagons.get(row).get(col).y - 10, 20, 20);
+            g2d.fillOval(hexagons.get(row).get(col).x - 10, hexagons.get(row).get(col).y - 10,
+                    20, 20);
           }
         }
       }

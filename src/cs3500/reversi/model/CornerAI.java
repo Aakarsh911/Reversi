@@ -33,12 +33,17 @@ public class CornerAI implements ReversiStrategy {
    */
   static List<List<Integer>> getCorners(ReadOnlyModel model) {
     ArrayList<Integer> corner1 = new ArrayList<>(Arrays.asList(0, 0));
-    ArrayList<Integer> corner2 = new ArrayList<>(Arrays.asList(0, (model.getBoard().size() - 1) / 2));
-    ArrayList<Integer> corner3 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2, 0));
-    ArrayList<Integer> corner4 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2, model.getBoard().size() - 1));
+    ArrayList<Integer> corner2 = new ArrayList<>(Arrays.asList(0,
+            (model.getBoard().size() - 1) / 2));
+    ArrayList<Integer> corner3 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2,
+            0));
+    ArrayList<Integer> corner4 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1) / 2,
+            model.getBoard().size() - 1));
     ArrayList<Integer> corner5 = new ArrayList<>(Arrays.asList((model.getBoard().size() - 1), 0));
-    ArrayList<Integer> corner6 = new ArrayList<>(Arrays.asList(model.getBoard().size() - 1, (model.getBoard().size() - 1) / 2));
-    List<List<Integer>> corners = new ArrayList<>(Arrays.asList(corner1, corner2, corner3, corner4, corner5, corner6));
+    ArrayList<Integer> corner6 = new ArrayList<>(Arrays.asList(model.getBoard().size() - 1,
+            (model.getBoard().size() - 1) / 2));
+    List<List<Integer>> corners = new ArrayList<>(Arrays.asList(corner1, corner2, corner3,
+            corner4, corner5, corner6));
     return corners;
   }
 }

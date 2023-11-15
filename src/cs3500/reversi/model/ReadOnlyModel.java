@@ -57,7 +57,7 @@ public interface ReadOnlyModel {
   boolean isLegalMove(int row, int col);
 
   /**
-   * checks if there is any legal move for the current player
+   * Checks if there is any legal move for the current player.
    */
   boolean anyLegalMovesForCurrentPlayer();
 

@@ -33,7 +33,8 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
             && col < board.getBoard().get(row).size();
   }
 
-  private static List<Integer> getMoveWithMostFlips(ReadOnlyModel board, ArrayList<ArrayList<Integer>>
+  private static List<Integer> getMoveWithMostFlips(ReadOnlyModel board,
+                                                    ArrayList<ArrayList<Integer>>
           possibleMoves, int maxFlips, List<Integer> bestMove, Player player) {
     for (ArrayList<Integer> move : possibleMoves) {
       ReversiModel copy = board.copy();
