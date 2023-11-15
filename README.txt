@@ -15,16 +15,19 @@ Key components:
     implementing the game logic. This interface extends the ReadOnlyModel interface.
     2.ReadOnlyModel: This is a read only version of the ReversiModel. It is used by the view to display the board,
     the score, and the current player.
-    3. ReversiView: This is the view interface that contains all the functions that BasicReversiView needs for
+    3. ReversiGraphicalView: This is the view interface that contains all the functions that BasicReversiView needs for
     displaying the board, the score, and the current player.
     4. Hex: This is the interface that contains all the functions that the ReversiCell class needs. This interface
     defines functions that are essential for setting up the board in the BasicReversi class.
+    5. ReversiStrategy: This is the interface for ReversiStrategy classes. This represents a strategy that will return either
+    the best move according to that strategy or Optional.empty() to indicate a pass.
+    6. ViewFeatures: This is the interface that represents the user's interaction with the game.
 
  Key subcomponents:
     1. BasicReversiModel: This is the model class that implements the ReversiModel interface. It contains all the
     functions that are needed to implement the game logic. This class also contains all the methods that are needed to
     render the game state and other information such as the score and the current player.
-    2. ReversiTextualView: This is the view class that contains the toString() method that displays the board, the score,
+    2. ReversiTextualView: This is a textual based view class that contains the toString() method that displays the board, the score,
     and the current player. This function calls the functions on a private model class to get information about the
     current state of the game.
     3. CellState: This is an enum that represents the state of a cell on the board. It can be either EMPTY, BLACK, or
@@ -33,12 +36,32 @@ Key components:
     the functions in the BasicReversi class work. This class gives crucial information about the cell such as its
     position, its state, and its neighbors. This class uses the cubic coordinate system to represent the position of
     the cell on the board.
+    5. ReversiFrame: This is the class that implements the ReversiGraphicalView interface. This class is responsible for
+    the visual representation of the game window and inner panel that represents the game using Java Swing.
+    6. ReversiPanel: This is a class that extends JPanel to visually represent the game. This class is responsible for
+    updating the view based on mouse clicks and any features listeners with any key presses.
+    7. SimpleHexagon: This is a class to represent a hexagon as a Path2D.double.
+    8. BasicAI: This is a class that implements the ReversiStrategy interface. This strategy will return the move that will
+    result in the highest score for the current player if there is one.
+    9. AvoidAdjacentCornerCellsAI: This is a class that implements the ReversiStrategy interface. This strategy will return
+    the move that will result in the highest score for the current player. This strategy will avoid placing a piece next to the corners.
+    10. CornerAI: This is a class that implements the ReversiStrategy interface. This strategy will return the move that will prioritize placing
+    a piece in the corners.
+    11. MiniMaxAI: This is a class that implements the ReversiStrategy interface. This strategy will return the move that will minimize the max score for
+    the opponent.
 
  Source organization:
     ReversiModel - reversi\src\model\ReversiModel
     ReadOnlyModel - reversi\src\model\ReadOnlyModel
-    ReversiView - reversi\src\view\ReversiView
+    ReversiGraphicalView - reversi\src\view\ReversiView
     Hex - reversi\src\model\Hex
+    ReversiStrategy - reversi\src\model\ReversiStrategy
 
 ***EXTRA CREDIT***: AvoidAdjacentAI, CornerAI, MiniMaxAI, and TryTwo classes are part of the extra credit. These classes are
 located in the reversi\src\model folder.
+
+Changes for Part 2:
+We changed the getColor method in the ReadOnly interface to return a String instead of a CellState to avoid exposing a concrete class.
+We also added a isLegalMove method to the interface
+We also added a method to check if there any legal moves left for the current player.
+We also added a method to return a mutable copy of the board.
