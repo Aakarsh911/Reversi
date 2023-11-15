@@ -109,4 +109,12 @@ public class ReversiStrategyTests {
             List.of(6, 3), List.of(6, 6), List.of(7, 4));
     Assert.assertEquals(checkList, model.getIterated());
   }
+
+  @Test
+  public void testBasicStrategy() {
+    BasicReversi model = new BasicReversi();
+    ReversiStrategy ai = new BasicAI();
+    List<Integer> move = ai.chooseMove(model, new Person("white")).get();
+    Assert.assertEquals(List.of(1, 2), move);
+  }
 }
