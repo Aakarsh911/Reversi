@@ -65,3 +65,6 @@ We changed the getColor method in the ReadOnly interface to return a String inst
 We also added a isLegalMove method to the interface
 We also added a method to check if there any legal moves left for the current player.
 We also added a method to return a mutable copy of the board.
+
+
+Hover: When the mouse hovers over a cell, the cell will be highlighted with the current player's color if it's a legal move. This was just to enhance the view a little bit.

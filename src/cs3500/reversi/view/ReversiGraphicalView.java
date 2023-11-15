@@ -2,6 +2,9 @@ package cs3500.reversi.view;
 
 import javax.swing.KeyStroke;
 
+/**
+ * Represents a graphical view for the Reversi game.
+ */
 public interface ReversiGraphicalView {
   /**
    * Sets the visibility of the view.

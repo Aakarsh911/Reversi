@@ -1,7 +1,5 @@
 package cs3500.reversi.view;
 
-import java.util.function.Consumer;
-
 /**
  * Represents the features that a view can have.
  */

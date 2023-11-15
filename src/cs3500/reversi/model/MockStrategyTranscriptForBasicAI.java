@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a mock model that is used to test the cells that the BasicAI strategy iterates through.
+ * Represents a mock model that is used to test the cells that the BasicAI.
+ * strategy iterates through.
  */
 public class MockStrategyTranscriptForBasicAI extends BasicReversi {
 

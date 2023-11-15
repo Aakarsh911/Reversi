@@ -27,7 +27,6 @@ public class ReversiStrategyTests {
     MockStrategyTranscript transcript = new MockStrategyTranscript();
     model.pass();
     ai.chooseMove(transcript, new Person("black"));
-    System.out.println(transcript.getIterated());
     // this test shows that the BasicAI resolves ties correctly as (2, 0) would also flip the
     // same number of cells as (1, 1) but because (1, 1) is the first move that flips the most
     // cells, it is chosen

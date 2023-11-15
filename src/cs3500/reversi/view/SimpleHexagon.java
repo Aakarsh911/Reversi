@@ -11,6 +11,12 @@ public class SimpleHexagon extends Path2D.Double {
   int x;
   int y;
 
+  /**
+   * Constructs a SimpleHexagon.
+   * @param x the x coordinate of the center of the hexagon
+   * @param y the y coordinate of the center of the hexagon
+   * @param radius the radius of the hexagon
+   */
   public SimpleHexagon(double x, double y, double radius) {
     this.isHighlighted = false;
     this.x = (int) x;

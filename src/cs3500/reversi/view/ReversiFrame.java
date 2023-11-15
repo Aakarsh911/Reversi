@@ -1,7 +1,7 @@
 package cs3500.reversi.view;
 
 import javax.swing.JFrame;
-import javax.swing.KeyStroke
+import javax.swing.KeyStroke;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
