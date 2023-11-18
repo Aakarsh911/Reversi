@@ -43,6 +43,7 @@ public class BasicReversi implements ReversiModel {
     this.pass = original.pass;
     this.whiteScore = original.whiteScore;
     this.blackScore = original.blackScore;
+    this.players.addAll(original.players);
 
     // Copy the board
     this.board = new ArrayList<>();

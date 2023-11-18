@@ -14,7 +14,6 @@ public class AIPlayer implements Player {
 
   private ViewFeatures featuresListener;
 
-  private boolean isTurn = false;
 
   private final ReadOnlyModel model;
 
@@ -30,7 +29,6 @@ public class AIPlayer implements Player {
 
   @Override
   public void notifyTurn() {
-  isTurn = true;
   this.makeMove();
   }
 
@@ -52,6 +50,5 @@ public class AIPlayer implements Player {
     else {
       featuresListener.pass();
     }
-    isTurn = false;
   }
 }

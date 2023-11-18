@@ -35,6 +35,16 @@ public class MockBasicStrategy implements ReversiModel {
   }
 
   @Override
+  public void addPlayer(Player p) {
+
+  }
+
+  @Override
+  public void startGame() {
+
+  }
+
+  @Override
   public List<List<Hex>> getBoard() {
     return List.of(List.of(new ReversiCell(0, 0, 0), new ReversiCell(0, 0, 0)),
             List.of(new ReversiCell(0, 0, 0), new ReversiCell(0, 0, 0)),
