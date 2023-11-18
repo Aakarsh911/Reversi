@@ -1,5 +1,7 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.view.ViewFeatures;
+
 /**
  * Represents a player in the game.
  */
@@ -14,4 +16,6 @@ public interface Player {
    * Notifies the player that it is their turn.
    */
   void notifyTurn();
+
+  void setFeaturesListener(ViewFeatures features);
 }

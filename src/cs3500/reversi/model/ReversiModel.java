@@ -17,4 +17,8 @@ public interface ReversiModel extends ReadOnlyModel {
    * Passes the turn.
    */
   void pass();
+
+  void addPlayer(Player p);
+
+  void startGame();
 }

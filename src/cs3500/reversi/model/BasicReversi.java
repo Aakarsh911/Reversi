@@ -30,6 +30,8 @@ public class BasicReversi implements ReversiModel {
   private int blackScore = 3; // number of black pieces on the board
   private int numRows = 7; // number of rows in the board
 
+  private final List<Player> players = new ArrayList<>();
+
 
   /**
    * Constructs a BasicReversi object with the same fields as the given BasicReversi object.
@@ -110,6 +112,18 @@ public class BasicReversi implements ReversiModel {
     }
   }
 
+  public void addPlayer(Player p) {
+    if (players.size() == 2) {
+      throw new IllegalStateException("Cannot add more than 2 players");
+    }
+    players.add(p);
+  }
+
+  @Override
+  public void startGame() {
+    players.get(0).notifyTurn();
+  }
+
   /**
    * Calculates the score of the game by correctly counting the number of white and black pieces.
    * and updating the whiteScore and blackScore fields.
@@ -149,6 +163,7 @@ public class BasicReversi implements ReversiModel {
     this.pass = 0;
     this.turn++;
     this.calculateScore();
+    this.players.get(turn % 2).notifyTurn();
   }
 
   /**
@@ -198,6 +213,7 @@ public class BasicReversi implements ReversiModel {
     this.turn++;
     this.pass++;
     calculateScore();
+    this.players.get(turn % 2).notifyTurn();
   }
 
   @Override

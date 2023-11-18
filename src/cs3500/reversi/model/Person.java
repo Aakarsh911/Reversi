@@ -1,11 +1,17 @@
 package cs3500.reversi.model;
 
+import cs3500.reversi.view.ViewFeatures;
+
 /**
  * Represents a person playing the game.
  */
 public class Person implements Player {
 
-  String color;
+  private final String color;
+
+  private boolean isTurn = false;
+
+
 
   public Person(String color) {
     this.color = color;
@@ -19,5 +25,10 @@ public class Person implements Player {
   @Override
   public String getColor() {
     return color;
+  }
+
+  @Override
+  public void setFeaturesListener(ViewFeatures features) {
+    //
   }
 }
