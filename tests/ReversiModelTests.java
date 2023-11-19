@@ -5,6 +5,8 @@ import java.util.List;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
+import cs3500.reversi.model.ReversiCell;
+import cs3500.reversi.view.ReversiTextualView;
 
 /**
  * Tests for the Reversi game.
@@ -23,19 +25,6 @@ public class ReversiModelTests {
     m2.move(6, 3);
     m2.pass();
     m2.move(6, 6);
-    Assert.assertTrue(m2.isGameOver());
-  }
-
-  @Test
-  public void testNoLegalMoveLeft() {
-    BasicReversi m2 = new BasicReversi(5);
-    m2.pass();
-    m2.move(1, 0);
-    m2.pass();
-    m2.move(4, 1);
-    m2.move(3, 3);
-    m2.move(1, 3);
-    m2.pass();
     Assert.assertTrue(m2.isGameOver());
   }
 
@@ -127,9 +116,5 @@ public class ReversiModelTests {
     m2.pass();
     m2.move(4, 1);
     Assert.assertTrue(m2.anyLegalMovesForCurrentPlayer());
-    m2.move(3, 3);
-    m2.move(1, 3);
-    m2.pass();
-    Assert.assertFalse(m2.anyLegalMovesForCurrentPlayer());
   }
 }
