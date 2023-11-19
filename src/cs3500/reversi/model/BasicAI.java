@@ -31,6 +31,9 @@ public class BasicAI implements ReversiStrategy {
         }
       }
     }
+    if (bestMove.isEmpty()) {
+      return Optional.empty();
+    }
     return Optional.of(bestMove);
   }
 }

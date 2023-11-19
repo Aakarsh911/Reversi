@@ -16,5 +16,4 @@ public interface ViewFeatures {
    * Sets the callback for when the a player passes.
    */
   void pass();
-
 }

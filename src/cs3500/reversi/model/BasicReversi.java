@@ -43,7 +43,6 @@ public class BasicReversi implements ReversiModel {
     this.pass = original.pass;
     this.whiteScore = original.whiteScore;
     this.blackScore = original.blackScore;
-    this.players.addAll(original.players);
 
     // Copy the board
     this.board = new ArrayList<>();
@@ -164,7 +163,12 @@ public class BasicReversi implements ReversiModel {
     this.pass = 0;
     this.turn++;
     this.calculateScore();
-    this.players.get(turn % 2).notifyTurn();
+    if (this.isGameOver()) {
+      return;
+    }
+    if (!players.isEmpty()) {
+      this.players.get(turn % 2).notifyTurn();
+    }
   }
 
   /**
@@ -214,7 +218,12 @@ public class BasicReversi implements ReversiModel {
     this.turn++;
     this.pass++;
     calculateScore();
-    this.players.get(turn % 2).notifyTurn();
+    if (this.isGameOver()) {
+      return;
+    }
+    if (!players.isEmpty()) {
+      this.players.get(turn % 2).notifyTurn();
+    }
   }
 
   @Override

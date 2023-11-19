@@ -20,11 +20,17 @@ public class ReversiController implements ViewFeatures {
 
   @Override
   public void move(int row, int col) {
+    if (model.isGameOver()) {
+      return;
+    }
     model.move(row, col);
   }
 
   @Override
   public void pass() {
+    if (model.isGameOver()) {
+      return;
+    }
     model.pass();
   }
 }
