@@ -9,10 +9,6 @@ public class Person implements Player {
 
   private final String color;
 
-  private boolean isTurn = false;
-
-
-
   public Person(String color) {
     this.color = color;
   }

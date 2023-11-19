@@ -28,7 +28,8 @@ public final class Reversi {
     ReversiGraphicalView view = new ReversiFrame(model);
     ReversiGraphicalView view2 = new ReversiFrame(model);
     Player player1 = new Person("white");
-    Player player2 = new AIPlayer(new TryTwo(new CornerAI(), new BasicAI()), "black", model);
+    //Player player2 = new AIPlayer(new TryTwo(new CornerAI(), new BasicAI()), "black", model);
+    Player player2 = new Person("black");
     ReversiController controller = new ReversiController(model, player1, view);
     ReversiController controller2 = new ReversiController(model, player2, view2);
     view.setHotKey(KeyStroke.getKeyStroke("M"), "move");

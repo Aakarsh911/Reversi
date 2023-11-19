@@ -1,7 +1,6 @@
 package cs3500.reversi.view;
 
-import javax.swing.JFrame;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
@@ -30,5 +29,10 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
   @Override
   public void setHotKey(KeyStroke key, String featureName) {
     this.panel.getInputMap().put(key, featureName);
+  }
+
+  @Override
+  public void showErrorMessage(String message) {
+    JOptionPane.showMessageDialog(this, message, "Message", JOptionPane.WARNING_MESSAGE);
   }
 }

@@ -29,7 +29,7 @@ public class AIPlayer implements Player {
 
   @Override
   public void notifyTurn() {
-  this.makeMove();
+    this.makeMove();
   }
 
   @Override

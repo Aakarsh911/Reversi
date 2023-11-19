@@ -23,12 +23,28 @@ public class ReversiController implements ViewFeatures {
     if (model.isGameOver()) {
       return;
     }
-    model.move(row, col);
+    if (!model.getTurn().toLowerCase().equals(player.getColor())) {
+      view.showErrorMessage("Not your turn!");
+      return;
+    }
+    try {
+      model.move(row, col);
+    }
+    catch (IllegalStateException e) {
+      view.showErrorMessage("Not a valid move for " + player.getColor() + "!");
+    }
+    catch (Exception e) {
+      view.showErrorMessage("No cell seleced!");
+    }
   }
 
   @Override
   public void pass() {
     if (model.isGameOver()) {
+      return;
+    }
+    if (!model.getTurn().toLowerCase().equals(player.getColor())) {
+      view.showErrorMessage("Not your turn!");
       return;
     }
     model.pass();

@@ -24,4 +24,11 @@ public interface ReversiGraphicalView {
    * @param featureName the name of the feature
    */
   void setHotKey(KeyStroke key, String featureName);
+
+
+  /**
+   * Shows an error message.
+   * @param message the message to show
+   */
+  void showErrorMessage(String message);
 }
