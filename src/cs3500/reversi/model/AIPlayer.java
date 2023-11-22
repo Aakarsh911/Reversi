@@ -47,7 +47,7 @@ public class AIPlayer implements Player {
 
   @Override
   public boolean isTurn() {
-  return isTurn;
+    return isTurn;
   }
 
   private void makeMove() {

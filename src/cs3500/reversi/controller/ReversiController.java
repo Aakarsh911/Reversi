@@ -28,15 +28,17 @@ public class ReversiController implements ViewFeatures {
       return;
     }
     try {
+      player.madeMove();
       model.move(row, col);
     }
     catch (IllegalStateException e) {
+      player.notifyTurn();
       view.showErrorMessage("Not a valid move for " + player.getColor() + "!");
     }
     catch (Exception e) {
+      player.notifyTurn();
       view.showErrorMessage("No cell seleced!");
     }
-    player.madeMove();
   }
 
   @Override
@@ -48,7 +50,7 @@ public class ReversiController implements ViewFeatures {
       view.showErrorMessage("Not your turn!");
       return;
     }
-    model.pass();
     player.madeMove();
+    model.pass();
   }
 }
