@@ -18,4 +18,8 @@ public interface Player {
   void notifyTurn();
 
   void setFeaturesListener(ViewFeatures features);
+
+  boolean isTurn();
+
+  void madeMove();
 }

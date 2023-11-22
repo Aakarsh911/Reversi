@@ -23,7 +23,7 @@ public class ReversiController implements ViewFeatures {
     if (model.isGameOver()) {
       return;
     }
-    if (!model.getTurn().toLowerCase().equals(player.getColor())) {
+    if (!player.isTurn()) {
       view.showErrorMessage("Not your turn!");
       return;
     }
@@ -36,6 +36,7 @@ public class ReversiController implements ViewFeatures {
     catch (Exception e) {
       view.showErrorMessage("No cell seleced!");
     }
+    player.madeMove();
   }
 
   @Override
@@ -43,10 +44,11 @@ public class ReversiController implements ViewFeatures {
     if (model.isGameOver()) {
       return;
     }
-    if (!model.getTurn().toLowerCase().equals(player.getColor())) {
+    if (!player.isTurn()) {
       view.showErrorMessage("Not your turn!");
       return;
     }
     model.pass();
+    player.madeMove();
   }
 }

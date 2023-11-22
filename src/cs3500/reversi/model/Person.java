@@ -9,13 +9,15 @@ public class Person implements Player {
 
   private final String color;
 
+  private boolean isTurn = false;
+
   public Person(String color) {
     this.color = color;
   }
 
   @Override
   public void notifyTurn() {
-    //TO-DO: Implement
+    this.isTurn = true;
   }
 
   @Override
@@ -26,5 +28,14 @@ public class Person implements Player {
   @Override
   public void setFeaturesListener(ViewFeatures features) {
     //
+  }
+  @Override
+  public boolean isTurn() {
+    return isTurn;
+  }
+
+  @Override
+  public void madeMove() {
+    isTurn = false;
   }
 }

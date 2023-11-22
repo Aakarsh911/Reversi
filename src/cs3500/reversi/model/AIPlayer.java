@@ -17,6 +17,8 @@ public class AIPlayer implements Player {
 
   private final ReadOnlyModel model;
 
+  private boolean isTurn = false;
+
   /**
    * Constructs an AI player with the given strategy.
    * @param strategy the strategy to use
@@ -29,6 +31,7 @@ public class AIPlayer implements Player {
 
   @Override
   public void notifyTurn() {
+    this.isTurn = true;
     this.makeMove();
   }
 
@@ -42,7 +45,12 @@ public class AIPlayer implements Player {
     this.featuresListener = features;
   }
 
-  public void makeMove() {
+  @Override
+  public boolean isTurn() {
+  return isTurn;
+  }
+
+  private void makeMove() {
     Optional<List<Integer>> move = strategy.chooseMove(model,this);
     if (move.isPresent()) {
       featuresListener.move(move.get().get(0), move.get().get(1));
@@ -50,5 +58,10 @@ public class AIPlayer implements Player {
     else {
       featuresListener.pass();
     }
+  }
+
+  @Override
+  public void madeMove() {
+    isTurn = false;
   }
 }
