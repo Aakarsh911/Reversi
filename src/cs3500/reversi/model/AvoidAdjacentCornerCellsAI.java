@@ -25,6 +25,9 @@ public class AvoidAdjacentCornerCellsAI implements ReversiStrategy {
     int maxFlips = Integer.MIN_VALUE;
     List<Integer> bestMove = getMoveWithMostFlips(model, possibleMoves,
             maxFlips, new ArrayList<>(), player);
+    if (bestMove.isEmpty()) {
+      return Optional.empty();
+    }
     return Optional.of(bestMove);
   }
 

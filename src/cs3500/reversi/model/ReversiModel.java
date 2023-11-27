@@ -18,7 +18,7 @@ public interface ReversiModel extends ReadOnlyModel {
    */
   void pass();
 
-  void addPlayer(Player p);
+  void addListener(ModelListener p);
 
   void startGame();
 }

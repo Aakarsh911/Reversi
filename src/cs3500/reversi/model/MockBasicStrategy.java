@@ -35,7 +35,7 @@ public class MockBasicStrategy implements ReversiModel {
   }
 
   @Override
-  public void addPlayer(Player p) {
+  public void addListener(ModelListener p) {
 
   }
 

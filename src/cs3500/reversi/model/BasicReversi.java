@@ -30,7 +30,7 @@ public class BasicReversi implements ReversiModel {
   private int blackScore = 3; // number of black pieces on the board
   private int numRows = 7; // number of rows in the board
 
-  private final List<Player> players = new ArrayList<>();
+  private final List<ModelListener> listeners = new ArrayList<>();
 
 
   /**
@@ -112,16 +112,16 @@ public class BasicReversi implements ReversiModel {
     }
   }
 
-  public void addPlayer(Player p) {
-    if (players.size() == 2) {
+  public void addListener(ModelListener m) {
+    if (listeners.size() == 2) {
       throw new IllegalStateException("Cannot add more than 2 players");
     }
-    players.add(p);
+    listeners.add(m);
   }
 
   @Override
   public void startGame() {
-    players.get(0).notifyTurn();
+    listeners.get(0).notifyTurn();
   }
 
   /**
@@ -166,8 +166,8 @@ public class BasicReversi implements ReversiModel {
     if (this.isGameOver()) {
       return;
     }
-    if (!players.isEmpty()) {
-      this.players.get(turn % 2).notifyTurn();
+    if (!listeners.isEmpty()) {
+      this.listeners.get(turn % 2).notifyTurn();
     }
   }
 
@@ -221,8 +221,8 @@ public class BasicReversi implements ReversiModel {
     if (this.isGameOver()) {
       return;
     }
-    if (!players.isEmpty()) {
-      this.players.get(turn % 2).notifyTurn();
+    if (!listeners.isEmpty()) {
+      this.listeners.get(turn % 2).notifyTurn();
     }
   }
 
