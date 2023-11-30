@@ -17,9 +17,10 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
 
   /**
    * Constructs a BasicReversiController.
-   * @param model the model
+   *
+   * @param model  the model
    * @param player the player
-   * @param view the view
+   * @param view   the view
    */
   public BasicReversiController(ReversiModel model, Player player, ReversiGraphicalView view) {
     this.model = model;
@@ -42,8 +43,7 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
     if (isSuccessful) {
       if (model.getTurn().equalsIgnoreCase(player.getColor())) {
         view.updateTurn("Your turn");
-      }
-      else {
+      } else {
         view.updateTurn("Opponent's turn");
       }
     }
@@ -56,13 +56,11 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
         throw new UnsupportedOperationException("Not implemented yet!");
       }
       model.move(row, col);
-    }
-    catch (IllegalStateException e) {
+    } catch (IllegalStateException e) {
       isSuccessful = false;
       player.notifyTurn();
       view.showErrorMessage("Not a valid move for " + player.getColor() + "!");
-    }
-    catch (UnsupportedOperationException e) {
+    } catch (UnsupportedOperationException e) {
       isSuccessful = false;
       player.notifyTurn();
       view.showErrorMessage("No cell seleced!");
@@ -84,8 +82,7 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
     model.pass();
     if (model.getTurn().equalsIgnoreCase(player.getColor())) {
       view.updateTurn("Your turn");
-    }
-    else {
+    } else {
       view.updateTurn("Opponent's turn");
     }
   }
@@ -94,8 +91,7 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
   public void notifyTurn() {
     if (model.getTurn().equalsIgnoreCase(player.getColor())) {
       view.updateTurn("Your turn");
-    }
-    else {
+    } else {
       view.updateTurn("Opponent's turn");
     }
     this.view.refresh();
@@ -103,7 +99,7 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
   }
 
   @Override
-  public void goNow(){
+  public void goNow() {
     this.player.setFeaturesListener(this);
     this.view.addFeaturesListener(this);
     this.model.addListener(this);
