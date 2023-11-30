@@ -25,15 +25,17 @@ public final class Reversi {
     ReversiModel model = new BasicReversi(11);
     ReversiGraphicalView view = new ReversiFrame(model);
     ReversiGraphicalView view2 = new ReversiFrame(model);
-    Player player1 = null;
-    Player player2 = null;
+    Player player1;
+    Player player2;
     if (args[0].equals("human")) {
       player1 = new Person("white");
+    } else {
+      player1 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[0].toUpperCase()), "white", model);
     }
     if (args[1].equals("human")) {
       player2 = new Person("black");
     } else {
-      player2 = new AIFactory().createAIPlayer(AiDifficulty.valueOf(args[1].toUpperCase()), "black", model);
+      player2 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[1].toUpperCase()), "black", model);
     }
     BasicReversiController controller = new BasicReversiController(model, player1, view);
     controller.go();

@@ -22,6 +22,12 @@ Key components:
     5. ReversiStrategy: This is the interface for ReversiStrategy classes. This represents a strategy that will return either
     the best move according to that strategy or Optional.empty() to indicate a pass.
     6. ViewFeatures: This is the interface that represents the user's interaction with the game.
+    7. ReversiController: This is the controller class that implements the ViewFeatures and ModelListener interfaces.
+    This class is responsible for mediating actions between a player and the model.
+    8. ModelListener: This is the interface that represents the model's interaction with the controller.
+    9. Player: This is an interface that represents the type of player.
+    10. Reversi: This is the main class responsible for running the game. This class contains the main method that
+    can take in command line arguments to run the game.
 
  Key subcomponents:
     1. BasicReversiModel: This is the model class that implements the ReversiModel interface. It contains all the
@@ -49,6 +55,12 @@ Key components:
     a piece in the corners.
     11. MiniMaxAI: This is a class that implements the ReversiStrategy interface. This strategy will return the move that will minimize the max score for
     the opponent.
+    12. BasicReversiController: This is a class that implements the ReversiController interface.
+    This class gets notified by the model when it is its turn to play. This class is responsible for
+    mediating actions between a player and the model.
+    13. Person: This is a class that implements the Player interface. This class represents a human player.
+    14. AIPlayer: This is a class that implements the Player interface. This class represents an AI player.
+    It will take in a strategy and then use that strategy to determine the best move.
 
  Source organization:
     ReversiModel - reversi\src\model\ReversiModel
@@ -56,6 +68,10 @@ Key components:
     ReversiGraphicalView - reversi\src\view\ReversiView
     Hex - reversi\src\model\Hex
     ReversiStrategy - reversi\src\model\ReversiStrategy
+    ViewFeatures - reversi\src\view\ViewFeatures
+    ModelListener - reversi\src\model\ModelListener
+    ReversiController - reversi\src\controller\ReversiController
+    Player - reversi\src\model\Player
 
 ***EXTRA CREDIT***: AvoidAdjacentAI, CornerAI, MiniMaxAI, and TryTwo classes are part of the extra credit. These classes are
 located in the reversi\src\model folder.
@@ -63,8 +79,16 @@ located in the reversi\src\model folder.
 Changes for Part 2:
 We changed the getColor method in the ReadOnly interface to return a String instead of a CellState to avoid exposing a concrete class.
 We also added a isLegalMove method to the interface
-We also added a method to check if there any legal moves left for the current player.
+We also added a method to check if there are any legal moves left for the current player.
 We also added a method to return a mutable copy of the board.
 
 
 Hover: When the mouse hovers over a cell, the cell will be highlighted with the current player's color if it's a legal move. This was just to enhance the view a little bit.
+
+Changes for Part 3:
+We changed our view so that when the window is resized the background will be resized as well and board centered accordingly.
+
+Command Line Args:
+Argument 1: Either "human" or the difficulty of the AI.
+Argument 2: Either "human" or the difficulty of the AI.
+The difficulty of the AI can be either "easy", "medium", "hard", or "extreme".
