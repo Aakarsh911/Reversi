@@ -70,7 +70,8 @@ public class ReversiPanel extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(model.getBoard().size() * 34 + 5, model.getBoard().size() * 31);
+    return new Dimension(model.getBoard().size() * 34 + 5 + this.getSize().width
+            , model.getBoard().size() * 31 + this.getSize().height);
   }
 
   public void addFeaturesListener(ViewFeatures features) {
@@ -91,8 +92,8 @@ public class ReversiPanel extends JPanel {
       ArrayList<SimpleHexagon> row = new ArrayList<>();
       for (int j = 0; j < model.getBoard().get(i).size(); j++) {
         k = Math.abs(model.getBoard().size() / 2 - i);
-        int x = k * 17 + 20 + (j * 34);
-        int y = 20 + (i * 30);
+        int x =  k * 17 + 17 + (j * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
+        int y = 15 + (i * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
         SimpleHexagon hex = new SimpleHexagon(x, y, 20);
         row.add(hex);
       }
@@ -101,6 +102,8 @@ public class ReversiPanel extends JPanel {
   }
 
   private void drawHexagons(Graphics2D g2d) {
+    hexagons.clear();
+    initHexagons();
     for (int row = 0; row < hexagons.size(); row++) {
       for (int col = 0; col < hexagons.get(row).size(); col++) {
         g2d.setColor(Color.LIGHT_GRAY);

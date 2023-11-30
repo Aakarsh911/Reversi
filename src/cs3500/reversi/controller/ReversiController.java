@@ -31,6 +31,18 @@ public class ReversiController implements ViewFeatures, ModelListener {
       view.showErrorMessage("Not your turn!");
       return;
     }
+    isSuccessful = tryMove(row, col, isSuccessful);
+    if (isSuccessful) {
+      if (model.getTurn().equalsIgnoreCase(player.getColor())) {
+        view.updateTurn("Your turn");
+      }
+      else {
+        view.updateTurn("Opponent's turn");
+      }
+    }
+  }
+
+  private boolean tryMove(int row, int col, boolean isSuccessful) {
     try {
       player.madeMove();
       if (row == -1 && col == -1) {
@@ -48,14 +60,7 @@ public class ReversiController implements ViewFeatures, ModelListener {
       player.notifyTurn();
       view.showErrorMessage("No cell seleced!");
     }
-    if (isSuccessful) {
-      if (model.getTurn().equalsIgnoreCase(player.getColor())) {
-        view.updateTurn("Your turn");
-      }
-      else {
-        view.updateTurn("Opponent's turn");
-      }
-    }
+    return isSuccessful;
   }
 
   @Override

@@ -48,7 +48,20 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
 
   @Override
   public void updateTurn(String s) {
-    this.turn.setText(s + " | W: " + model.getWhiteScore() + ", B: " + model.getBlackScore());
+    if (model.isGameOver()) {
+      if (model.getBlackScore() > model.getWhiteScore()) {
+        this.turn.setText("Game over! Black wins!");
+      }
+      else if (model.getBlackScore() < model.getWhiteScore()) {
+        this.turn.setText("Game over! White wins!");
+      }
+      else {
+        this.turn.setText("Game over! It's a tie!");
+      }
+    }
+    else {
+      this.turn.setText(s + " | W: " + model.getWhiteScore() + ", B: " + model.getBlackScore());
+    }
   }
 
   @Override
