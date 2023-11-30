@@ -4,6 +4,9 @@ import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ModelListener;
 import cs3500.reversi.model.ReversiModel;
 
+/**
+ * Represents a mock model for testing.
+ */
 public class MockModel implements ReversiModel {
   public StringBuilder log = new StringBuilder();
 
@@ -19,11 +22,13 @@ public class MockModel implements ReversiModel {
 
   @Override
   public void addListener(ModelListener p) {
+    // do nothing, need to implement for interface
 
   }
 
   @Override
   public void startGame() {
+    // do nothing, need to implement for interface
 
   }
 

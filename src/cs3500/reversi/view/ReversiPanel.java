@@ -12,7 +12,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.JPanel;
 
 import cs3500.reversi.model.ReadOnlyModel;
 

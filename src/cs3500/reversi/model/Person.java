@@ -3,8 +3,8 @@ package cs3500.reversi.model;
 import cs3500.reversi.view.ViewFeatures;
 
 /**
-
- Represents a person playing the game.*/
+ * Represents a person playing the game.
+ */
 public class Person implements Player {
 
   private final String color;
@@ -29,6 +29,7 @@ public class Person implements Player {
   public void setFeaturesListener(ViewFeatures features) {
     //
   }
+
   @Override
   public boolean isTurn() {
     return isTurn;

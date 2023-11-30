@@ -2,7 +2,6 @@ package cs3500.reversi.view;
 
 import javax.swing.KeyStroke;
 
-import cs3500.reversi.model.ReadOnlyModel;
 
 /**
  * Represents a graphical view for the Reversi game.

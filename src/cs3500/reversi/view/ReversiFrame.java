@@ -1,8 +1,11 @@
 package cs3500.reversi.view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
@@ -25,7 +28,8 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.panel = new ReversiPanel(model);
     this.add(panel, BorderLayout.CENTER);
-    this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: " + model.getBlackScore());
+    this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: "
+            + model.getBlackScore());
     turn.setLabelFor(panel);
     this.add(turn, BorderLayout.NORTH);
     this.pack();

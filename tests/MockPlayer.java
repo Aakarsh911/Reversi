@@ -1,6 +1,9 @@
 import cs3500.reversi.model.Player;
 import cs3500.reversi.view.ViewFeatures;
 
+/**
+ * Represents a mock player for testing.
+ */
 public class MockPlayer implements Player {
   public StringBuilder log = new StringBuilder();
 
@@ -11,7 +14,7 @@ public class MockPlayer implements Player {
 
   @Override
   public void setFeaturesListener(ViewFeatures features) {
-
+    // do nothing, need to implement for interface
   }
 
   @Override

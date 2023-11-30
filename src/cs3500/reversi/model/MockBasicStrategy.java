@@ -36,11 +36,13 @@ public class MockBasicStrategy implements ReversiModel {
 
   @Override
   public void addListener(ModelListener p) {
+    // do nothing, need to implement for interface
 
   }
 
   @Override
   public void startGame() {
+    // do nothing, need to implement for interface
 
   }
 

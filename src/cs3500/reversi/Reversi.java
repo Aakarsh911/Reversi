@@ -30,17 +30,19 @@ public final class Reversi {
     if (args[0].equals("human")) {
       player1 = new Person("white");
     } else {
-      player1 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[0].toUpperCase()), "white", model);
+      player1 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[0].toUpperCase()),
+              "white", model);
     }
     if (args[1].equals("human")) {
       player2 = new Person("black");
     } else {
-      player2 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[1].toUpperCase()), "black", model);
+      player2 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[1].toUpperCase()),
+              "black", model);
     }
     BasicReversiController controller = new BasicReversiController(model, player1, view);
-    controller.go();
+    controller.goNow();
     BasicReversiController controller2 = new BasicReversiController(model, player2, view2);
-    controller2.go();
+    controller2.goNow();
     view.setHotKey(KeyStroke.getKeyStroke("M"), "move");
     view.setHotKey(KeyStroke.getKeyStroke("P"), "pass");
     view2.setHotKey(KeyStroke.getKeyStroke("M"), "move");

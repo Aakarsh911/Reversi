@@ -112,6 +112,10 @@ public class BasicReversi implements ReversiModel {
     }
   }
 
+  /**
+   * Adds the given listener to the list of listeners.
+   * @param m the listener to add
+   */
   public void addListener(ModelListener m) {
     if (listeners.size() == 2) {
       throw new IllegalStateException("Cannot add more than 2 players");

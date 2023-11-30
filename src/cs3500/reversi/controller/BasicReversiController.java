@@ -6,11 +6,21 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ReversiGraphicalView;
 import cs3500.reversi.view.ViewFeatures;
 
+/**
+ * Represents a controller for the game of Reversi.
+ * This controller is responsible for handling user input and updating the model and view
+ */
 public class BasicReversiController implements ViewFeatures, ModelListener, ReversiController {
   private final ReversiModel model;
   private final Player player;
   private final ReversiGraphicalView view;
 
+  /**
+   * Constructs a BasicReversiController.
+   * @param model the model
+   * @param player the player
+   * @param view the view
+   */
   public BasicReversiController(ReversiModel model, Player player, ReversiGraphicalView view) {
     this.model = model;
     this.player = player;
@@ -93,7 +103,7 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
   }
 
   @Override
-  public void go(){
+  public void goNow(){
     this.player.setFeaturesListener(this);
     this.view.addFeaturesListener(this);
     this.model.addListener(this);

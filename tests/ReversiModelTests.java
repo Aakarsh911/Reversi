@@ -5,8 +5,7 @@ import java.util.List;
 
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Hex;
-import cs3500.reversi.model.ReversiCell;
-import cs3500.reversi.view.ReversiTextualView;
+
 
 /**
  * Tests for the Reversi game.

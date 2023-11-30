@@ -2,7 +2,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import cs3500.reversi.controller.BasicReversiController;
-import cs3500.reversi.controller.ReversiController;
 import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Person;
 import cs3500.reversi.model.Player;
@@ -10,6 +9,9 @@ import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ReversiFrame;
 import cs3500.reversi.view.ReversiGraphicalView;
 
+/**
+ * Tests for the BasicReversiController class.
+ */
 public class BasicReversiControllerTests {
   ReversiModel model = new BasicReversi();
   MockModel mock = new MockModel();

@@ -3,9 +3,16 @@ import cs3500.reversi.model.ModelListener;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.view.ViewFeatures;
 
+/**
+ * Represents a mock controller for testing.
+ */
 public class MockController implements ReversiController, ModelListener, ViewFeatures {
   public StringBuilder log = new StringBuilder();
 
+  /**
+   * Constructs a mock controller.
+   * @param model the model to use
+   */
   public MockController(ReversiModel model) {
     model.addListener(this);
   }
@@ -26,7 +33,7 @@ public class MockController implements ReversiController, ModelListener, ViewFea
   }
 
   @Override
-  public void go() {
+  public void goNow() {
     log.append("go() was called");
   }
 }
