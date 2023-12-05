@@ -35,7 +35,7 @@ public interface ReadonlyReversiModel {
    *
    * @return the board for the current game
    */
-  Board getBoard();
+  Board getBoardGame();
 
   /**
    * Finds out whose turn it is during the game.
