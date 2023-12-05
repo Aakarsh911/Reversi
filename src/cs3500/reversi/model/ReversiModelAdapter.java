@@ -78,4 +78,19 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   public void updateScore(Piece p, int score) {
 
   }
+
+  List<Integer> convertHex(TPRHex hex) {
+    List<Integer> result = new ArrayList<>();
+    List<List<Hex>> board = this.getBoard();
+    for (int i = 0; i < board.size(); i++) {
+      for (int j = 0; j < board.get(i).size(); j++) {
+        if (board.get(i).get(j).equals(hex)) {
+          result.add(i);
+          result.add(j);
+          return result;
+        }
+      }
+    }
+    return result;
+  }
 }
