@@ -83,14 +83,21 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   @Override
   public void move(int row, int col) {
     super.move(row, col);
-//    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
-//    for (Hex h : cellsToFlip) {
-//      this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
-//    }
-//    this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
-//    System.out.println("here");
-    this.model.move(row, col);
-    this.board.move(row, col);
+    Piece turn;
+    if (this.model.getTurn().equalsIgnoreCase("black")) {
+      turn = Piece.BLACK;
+    } else {
+      turn = Piece.WHITE;
+    }
+    this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
+    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
+    System.out.println(getCurrentTurn());
+    for (Hex h : cellsToFlip) {
+      this.board.placePieceAt(turn, new HexAdapter(h));
+    }
+
+    System.out.println("here");
+    //this.board.move(row, col);
   }
 
   @Override
