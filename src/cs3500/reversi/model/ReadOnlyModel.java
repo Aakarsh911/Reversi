@@ -11,6 +11,7 @@ public interface ReadOnlyModel {
    * @return the board
    */
   List<List<Hex>> getBoard();
+  List<Hex> getCellsToFlip(int row, int col);
 
   /**
    * gets the state of a given cell.

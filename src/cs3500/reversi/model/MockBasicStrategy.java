@@ -54,6 +54,11 @@ public class MockBasicStrategy implements ReversiModel {
   }
 
   @Override
+  public List<Hex> getCellsToFlip(int row, int col) {
+    return null;
+  }
+
+  @Override
   public String getColor(Hex h) {
     return null;
   }

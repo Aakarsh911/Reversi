@@ -25,8 +25,8 @@ public class ProviderStrategy1 implements ReversiStrategy {
     else {
       piece = Piece.WHITE;
     }
-    List<Integer> coord = this.model.convertHex(strategy.chooseMove(this.model, piece));
-    if (coord.size() == 0) {
+    List<Integer> coord = this.model.convertHex(strategy.chooseMove(new ReversiModelAdapter(model), piece));
+    if (coord.isEmpty()) {
       return Optional.empty();
     }
     else {

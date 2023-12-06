@@ -16,6 +16,10 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
 
   private final Board board = new BoardAdapter();
 
+  private final cs3500.reversi.model.ReversiModel model;
+  public ReversiModelAdapter(ReadOnlyModel model) {
+    this.model = model.copy();
+  }
 
   @Override
   public int getSize() {
@@ -25,7 +29,7 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   @Override
   public boolean canMove(Piece piece, TPRHex location) throws IllegalArgumentException {
     List<Integer> coord = this.convertHex(location);
-    return this.isLegalMove(coord.get(0), coord.get(1));
+    return this.model.isLegalMove(coord.get(0), coord.get(1));
   }
 
   @Override
@@ -35,19 +39,19 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
 
   @Override
   public Piece getCurrentTurn() {
-    return this.getTurn().equalsIgnoreCase("black") ? Piece.BLACK : Piece.WHITE;
+    return this.model.getTurn().equalsIgnoreCase("black") ? Piece.BLACK : Piece.WHITE;
   }
 
   @Override
   public Set<List<TPRHex>> getAllValidMoves(Piece color) {
     Set<List<TPRHex>> result = new HashSet<>();
-    List<List<Hex>> board = this.getBoard();
+    List<List<Hex>> board = this.model.getBoard();
     for (int i = 0; i < board.size(); i++) {
       for (int j = 0; j < board.get(i).size(); j++) {
-        if (this.isLegalMove(i, j)) {
+        if (this.model.isLegalMove(i, j)) {
           List<TPRHex> move = new ArrayList<>();
           move.add(new HexAdapter(board.get(i).get(j)));
-          for (Hex h : this.getCellsToFlip(i, j)) {
+          for (Hex h : this.model.getCellsToFlip(i, j)) {
             move.add(new HexAdapter(h));
           }
           System.out.println(move);
@@ -61,17 +65,17 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   @Override
   public int getScore(Piece color) {
     if (color == Piece.BLACK) {
-      return this.getBlackScore();
+      return this.model.getBlackScore();
     } else {
-      return this.getWhiteScore();
+      return this.model.getWhiteScore();
     }
   }
 
   @Override
   public void movePiece(Piece piece, TPRHex location) throws IllegalStateException, IllegalArgumentException {
     List<Integer> coord = this.convertHex(location);
-    if (super.getTurn().equalsIgnoreCase(piece.toString())) {
-      this.move(coord.get(0), coord.get(1));
+    if (this.model.getTurn().equalsIgnoreCase(piece.toString())) {
+      this.model.move(coord.get(0), coord.get(1));
     }
     else {
       throw new IllegalStateException("Not your turn!");
@@ -80,7 +84,7 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
 
   @Override
   public void passTurn(Piece player) {
-    super.pass();
+    this.model.pass();
   }
 
   @Override
