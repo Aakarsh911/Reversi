@@ -9,8 +9,11 @@ import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Person;
 import cs3500.reversi.model.Player;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.model.ReversiModelAdapter;
+import cs3500.reversi.provider.view.gui.TPRFrame;
 import cs3500.reversi.view.ReversiFrame;
 import cs3500.reversi.view.ReversiGraphicalView;
+import cs3500.reversi.view.ReversiViewAdapter;
 
 /**
  * Represents the main class for the Reversi game.
@@ -22,9 +25,9 @@ public final class Reversi {
    * @param args the arguments for the game
    **/
   public static void main(String[] args) {
-    ReversiModel model = new BasicReversi(7);
+    ReversiModelAdapter model = new ReversiModelAdapter(7);
     ReversiGraphicalView view = new ReversiFrame(model);
-    ReversiGraphicalView view2 = new ReversiFrame(model);
+    ReversiGraphicalView view2 = new ReversiViewAdapter(model);
     Player player1;
     Player player2;
     if (args[0].equals("human")) {
@@ -43,10 +46,6 @@ public final class Reversi {
     controller.goNow();
     BasicReversiController controller2 = new BasicReversiController(model, player2, view2);
     controller2.goNow();
-    view.setHotKey(KeyStroke.getKeyStroke("M"), "move");
-    view.setHotKey(KeyStroke.getKeyStroke("P"), "pass");
-    view2.setHotKey(KeyStroke.getKeyStroke("M"), "move");
-    view2.setHotKey(KeyStroke.getKeyStroke("P"), "pass");
     model.startGame();
     view.setVisible(true);
     view2.setVisible(true);

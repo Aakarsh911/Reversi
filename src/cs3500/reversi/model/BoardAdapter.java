@@ -51,8 +51,15 @@ public class BoardAdapter extends BasicReversi implements Board {
   @Override
   public Piece getPieceAt(TPRHex hex) throws IllegalArgumentException {
     HexAdapter hexAdapter = new HexAdapter(hex);
-    return this.getColor(hexAdapter).equalsIgnoreCase("black") ? Piece.BLACK
-            : Piece.WHITE;
+    String color = this.getColor(hexAdapter).toLowerCase();
+    switch (color) {
+      case "black":
+        return Piece.BLACK;
+      case "white":
+        return Piece.WHITE;
+      default:
+        return null;
+    }
   }
 
   @Override

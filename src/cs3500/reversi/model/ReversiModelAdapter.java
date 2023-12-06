@@ -17,6 +17,16 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   private final Board board = new BoardAdapter();
 
   private final cs3500.reversi.model.ReversiModel model;
+
+  public ReversiModelAdapter() {
+    super();
+    this.model = new BasicReversi();
+  }
+
+  public ReversiModelAdapter(int size) {
+    super(size);
+    this.model = new BasicReversi(size);
+  }
   public ReversiModelAdapter(ReadOnlyModel model) {
     this.model = model.copy();
   }

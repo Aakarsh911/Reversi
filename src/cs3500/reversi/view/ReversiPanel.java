@@ -12,8 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.AbstractAction;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
@@ -43,6 +42,8 @@ public class ReversiPanel extends JPanel {
     this.model = model;
     this.initHexagons();
     MouseEventsListener listener = new MouseEventsListener();
+    this.getInputMap().put(KeyStroke.getKeyStroke("M"), "move");
+    this.getInputMap().put(KeyStroke.getKeyStroke("P"), "pass");
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
     this.getActionMap().put("move", new AbstractAction() {

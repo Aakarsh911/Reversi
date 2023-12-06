@@ -41,11 +41,6 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
   }
 
   @Override
-  public void setHotKey(KeyStroke key, String featureName) {
-    this.panel.getInputMap().put(key, featureName);
-  }
-
-  @Override
   public void showErrorMessage(String message) {
     JOptionPane.showMessageDialog(this, message, "Message", JOptionPane.WARNING_MESSAGE);
   }

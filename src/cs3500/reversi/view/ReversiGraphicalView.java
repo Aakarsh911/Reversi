@@ -19,12 +19,6 @@ public interface ReversiGraphicalView {
    */
   void addFeaturesListener(ViewFeatures features);
 
-  /**
-   * Sets the hot key for a feature.
-   * @param key the key to press
-   * @param featureName the name of the feature
-   */
-  void setHotKey(KeyStroke key, String featureName);
 
 
   /**
