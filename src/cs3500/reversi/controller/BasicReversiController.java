@@ -32,6 +32,7 @@ public class BasicReversiController implements ViewFeatures, ModelListener, Reve
 
   @Override
   public void move(int row, int col) {
+    view.refresh();
     boolean isSuccessful = true;
     if (model.isGameOver()) {
       view.showErrorMessage("Game is over!");

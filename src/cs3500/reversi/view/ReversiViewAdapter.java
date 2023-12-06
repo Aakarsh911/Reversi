@@ -41,6 +41,7 @@ public class ReversiViewAdapter implements ReversiGraphicalView {
 
   @Override
   public void refresh() {
+    System.out.println("refreshing");
     frame.refresh();
   }
 }

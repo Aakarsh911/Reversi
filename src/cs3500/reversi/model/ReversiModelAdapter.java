@@ -14,7 +14,7 @@ import cs3500.reversi.provider.model.TPRHex;
 public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
 
 
-  private final Board board = new BoardAdapter();
+  private final BoardAdapter board = new BoardAdapter();
 
   private final cs3500.reversi.model.ReversiModel model;
 
@@ -83,12 +83,14 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   @Override
   public void move(int row, int col) {
     super.move(row, col);
-    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
-    for (Hex h : cellsToFlip) {
-      this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
-    }
-    this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
-    System.out.println("here");
+//    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
+//    for (Hex h : cellsToFlip) {
+//      this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
+//    }
+//    this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
+//    System.out.println("here");
+    this.model.move(row, col);
+    this.board.move(row, col);
   }
 
   @Override
