@@ -23,7 +23,7 @@ public class BasicReversi implements ReversiModel {
   /**
    * INVARIANT: cellStates.size() is always equal to the total number of cells in board
    */
-  protected final Map<Hex, CellState> cellStates; // map of cells to their states
+  protected Map<Hex, CellState> cellStates; // map of cells to their states
   private int turn = 0; // which player's turn it is
   private int pass = 0; // number of consecutive passes
   private int whiteScore = 3; // number of white pieces on the board

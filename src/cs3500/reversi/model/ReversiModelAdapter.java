@@ -64,7 +64,6 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
           for (Hex h : this.model.getCellsToFlip(i, j)) {
             move.add(new HexAdapter(h));
           }
-          System.out.println(move);
           result.add(move);
         }
       }
@@ -82,10 +81,23 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   }
 
   @Override
+  public void move(int row, int col) {
+    super.move(row, col);
+    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
+    for (Hex h : cellsToFlip) {
+      this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
+    }
+    this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
+    System.out.println("here");
+  }
+
+  @Override
   public void movePiece(Piece piece, TPRHex location) throws IllegalStateException, IllegalArgumentException {
     List<Integer> coord = this.convertHex(location);
     if (this.model.getTurn().equalsIgnoreCase(piece.toString())) {
       this.model.move(coord.get(0), coord.get(1));
+      // also make the move on the board field so that it gets updated
+      this.board.placePieceAt(piece, location);
     }
     else {
       throw new IllegalStateException("Not your turn!");
@@ -130,5 +142,10 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
       }
     }
     return result;
+  }
+
+  TPRHex convertHex(List<Integer> coord) {
+    List<List<Hex>> board = this.getBoard();
+    return new HexAdapter(board.get(coord.get(0)).get(coord.get(1)));
   }
 }

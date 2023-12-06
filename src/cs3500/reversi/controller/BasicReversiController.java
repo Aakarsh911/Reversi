@@ -2,7 +2,9 @@ package cs3500.reversi.controller;
 
 import cs3500.reversi.model.ModelListener;
 import cs3500.reversi.model.Player;
+import cs3500.reversi.model.ReadOnlyModel;
 import cs3500.reversi.model.ReversiModel;
+import cs3500.reversi.provider.model.ReadonlyReversiModel;
 import cs3500.reversi.view.ReversiGraphicalView;
 import cs3500.reversi.view.ViewFeatures;
 
