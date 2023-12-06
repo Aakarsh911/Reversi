@@ -38,7 +38,6 @@ public class TakeCorners implements TPRStrategy {
         return hex;
       }
     }
-      return new AsManyPieces(this.model).chooseMove(model, pieceToMove);
-
+    return new AsManyPieces(this.model).chooseMove(model, pieceToMove);
   }
 }
