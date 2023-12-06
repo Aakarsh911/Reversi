@@ -22,7 +22,7 @@ public final class Reversi {
    * @param args the arguments for the game
    **/
   public static void main(String[] args) {
-    ReversiModel model = new BasicReversi(11);
+    ReversiModel model = new BasicReversi(7);
     ReversiGraphicalView view = new ReversiFrame(model);
     ReversiGraphicalView view2 = new ReversiFrame(model);
     Player player1;

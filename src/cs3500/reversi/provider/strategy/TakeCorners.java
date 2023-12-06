@@ -20,7 +20,7 @@ public class TakeCorners implements TPRStrategy {
    * @param model ReadonlyReversiModel to enact the strategy on
    */
   public TakeCorners(ReadonlyReversiModel model) {
-    board = model.getBoard();
+    board = model.getBoardGame();
     this.size = model.getSize();
     this.model = model;
   }

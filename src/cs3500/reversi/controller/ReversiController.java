@@ -7,6 +7,6 @@ public interface ReversiController {
   /**
    * Sets up the controller and begins the game.
    */
-  public void goNow();
+  void goNow();
 
 }

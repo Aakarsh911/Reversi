@@ -1,5 +1,6 @@
 package cs3500.reversi.model;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,9 @@ public class AIPlayer implements Player {
 
   private void makeMove() {
     Optional<List<Integer>> move = strategy.chooseMove(model,this);
+    System.out.println(move);
     if (move.isPresent()) {
+      System.out.println(model.isLegalMove(move.get().get(0), move.get().get(1)));
       featuresListener.move(move.get().get(0), move.get().get(1));
     }
     else {

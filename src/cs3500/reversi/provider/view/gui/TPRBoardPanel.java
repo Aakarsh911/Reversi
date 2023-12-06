@@ -91,7 +91,7 @@ public class TPRBoardPanel extends JPanel implements TPRPanel {
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.transform(logicalToPhysical());
 
-    for (TPRHex hex : model.getBoard().getKeys()) {
+    for (TPRHex hex : model.getBoardGame().getKeys()) {
       TPRBoardCell currentHexCell = new TPRBoardCell(hex.getQ(), hex.getR(), getCellSize());
 
       drawOutlineOfHex(g2d, currentHexCell);
@@ -104,12 +104,12 @@ public class TPRBoardPanel extends JPanel implements TPRPanel {
   }
 
   private void drawPieceAtCell(Graphics2D g2d, int q, int r, TPRBoardCell currentHexCell) {
-    if (model.getBoard().getPieceAt(q, r) != null) {
-      if (model.getBoard().getPieceAt(q, r) == Piece.BLACK) {
+    if (model.getBoardGame().getPieceAt(q, r) != null) {
+      if (model.getBoardGame().getPieceAt(q, r) == Piece.BLACK) {
         //draw a black circle at the cell
         drawPieceAtCell(g2d, currentHexCell.getHexagonCoordinateQ(),
                 currentHexCell.getHexagonCoordinateR(), currentHexCell.getSize(), Color.BLACK);
-      } else if (model.getBoard().getPieceAt(q, r) == Piece.WHITE) {
+      } else if (model.getBoardGame().getPieceAt(q, r) == Piece.WHITE) {
         //draw a white circle at the cell
         drawPieceAtCell(g2d, currentHexCell.getHexagonCoordinateQ(),
                 currentHexCell.getHexagonCoordinateR(), currentHexCell.getSize(), Color.WHITE);
@@ -178,7 +178,7 @@ public class TPRBoardPanel extends JPanel implements TPRPanel {
       if (Math.abs(q) <= model.getSize() && Math.abs(r) <= model.getSize()
               && Math.abs(-q - r) <= model.getSize()) {
         //cannot select cell if a piece is present
-        if (model.getBoard().getPieceAt(q, r) == null) {
+        if (model.getBoardGame().getPieceAt(q, r) == null) {
           currentCellSelected = new TPRBoardCell(q, r, getCellSize());
 
           drawOutlineOfHex(g2d, currentCellSelected);
@@ -196,7 +196,7 @@ public class TPRBoardPanel extends JPanel implements TPRPanel {
 
       //if clicking on cell other than selected one then highlight if there is no piece
       //aka not selecting the same cell and not selecting off the board
-      if (model.getBoard().getPieceAt(q, r) == null
+      if (model.getBoardGame().getPieceAt(q, r) == null
               && !currentCellSelected.equals(new TPRBoardCell(q, r, getCellSize()))
               && Math.abs(q) <= model.getSize() && Math.abs(r) <= model.getSize()
               && Math.abs(-q - r) <= model.getSize()) {

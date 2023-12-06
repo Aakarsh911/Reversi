@@ -21,10 +21,16 @@ public class AIFactory {
     } else if (diff == AiDifficulty.HARD) {
       strat = new TryTwo(new CornerAI(), new TryTwo(new AvoidAdjacentCornerCellsAI(),
               new BasicAI()));
-    } else {
+    } else if (diff == AiDifficulty.EXTREME) {
       strat = new TryTwo(new CornerAI(),
               new TryTwo(new AvoidAdjacentCornerCellsAI(), new TryTwo(new MiniMaxAI(),
                       new BasicAI())));
+    }
+    else if (diff == AiDifficulty.PS1) {
+      strat = new ProviderStrategy1(new ReversiModelAdapter());
+    }
+    else {
+      throw new IllegalArgumentException("Invalid difficulty");
     }
     return new AIPlayer(strat, color, model);
   }
