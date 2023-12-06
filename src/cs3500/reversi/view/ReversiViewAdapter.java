@@ -1,5 +1,6 @@
 package cs3500.reversi.view;
 
+import cs3500.reversi.model.ViewFeaturesAdapter;
 import cs3500.reversi.provider.model.Piece;
 import cs3500.reversi.provider.model.ReadonlyReversiModel;
 import cs3500.reversi.provider.view.gui.TPRFrame;
@@ -20,7 +21,8 @@ public class ReversiViewAdapter implements ReversiGraphicalView {
 
   @Override
   public void addFeaturesListener(ViewFeatures features) {
-
+    ViewFeaturesAdapter adapter = new ViewFeaturesAdapter(features, model.getSize());
+    frame.addPlayerListener(adapter);
   }
 
 
