@@ -6,11 +6,12 @@ import java.util.Optional;
 import cs3500.reversi.provider.model.Piece;
 import cs3500.reversi.provider.strategy.AsManyPieces;
 
-public class ProviderStrategy1 implements ReversiStrategy {
+public class ProviderStrategy2 implements ReversiStrategy {
+
   private final ReversiModelAdapter model;
   private final AsManyPieces strategy;
 
-  public ProviderStrategy1(ReversiModelAdapter model) {
+  public ProviderStrategy2(ReversiModelAdapter model) {
     this.model = model;
     this.strategy = new AsManyPieces(this.model);
   }

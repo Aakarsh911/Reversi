@@ -29,6 +29,9 @@ public class AIFactory {
     else if (diff == AiDifficulty.PS1) {
       strat = new ProviderStrategy1(new ReversiModelAdapter(model));
     }
+    else if (diff == AiDifficulty.PS2) {
+      strat = new ProviderStrategy2(new ReversiModelAdapter(model));
+    }
     else {
       throw new IllegalArgumentException("Invalid difficulty");
     }
