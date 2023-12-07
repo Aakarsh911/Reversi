@@ -10,13 +10,27 @@ import cs3500.reversi.provider.model.Board;
 import cs3500.reversi.provider.model.Piece;
 import cs3500.reversi.provider.model.TPRHex;
 
+/**
+ * Represents an adapter for the provider's Board interface.
+ */
 public class BoardAdapter extends BasicReversi implements Board {
+
+  /**
+   * Constructs a BoardAdapter.
+   */
   public BoardAdapter() {
     super();
   }
+
+  /**
+   * Constructs a BoardAdapter.
+   *
+   * @param board the board to adapt
+   */
   public BoardAdapter(BoardAdapter board) {
     super(board);
   }
+
   @Override
   public boolean hasPieceAt(TPRHex hex) throws IllegalArgumentException {
     return !this.getColor(new HexAdapter(hex)).equalsIgnoreCase("empty");
@@ -85,7 +99,7 @@ public class BoardAdapter extends BasicReversi implements Board {
   @Override
   public List<TPRHex> getCorners() {
     List<Hex> oldCorners = CornerAI.getCorners(this).stream()
-            .map( h -> this.getBoard().get(h.get(0)).get(h.get(1))).collect(Collectors.toList());
+            .map(h -> this.getBoard().get(h.get(0)).get(h.get(1))).collect(Collectors.toList());
     List<TPRHex> newCorners = new ArrayList<>();
     for (Hex h : oldCorners) {
       newCorners.add(new HexAdapter(h));

@@ -1,3 +1,8 @@
+Provider Features:
+We were able to integrate the provider's strategy into our codebase.
+We were able to integrate the provider's view into our codebase, with a few bugs from their code.
+The added commandline arguments to our codebase are: ps1 and ps2 to represent the provider's strategies.
+
 Overview: This is a codebase that implements a hexagonal Reversi game. The game assumes that the only possible board
 sizes are odd and are greater than 3. This codebase is designed in a way that it can be extended to allow to a single
 player mode against an AI.

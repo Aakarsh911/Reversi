@@ -5,16 +5,36 @@ import java.util.List;
 
 import cs3500.reversi.provider.model.TPRHex;
 
+/**
+ * Adapts a Hex to a TPRHex.
+ */
 public class HexAdapter extends ReversiCell implements TPRHex {
 
+  /**
+   * Constructs a HexAdapter.
+   *
+   * @param q the q coordinate
+   * @param r the r coordinate
+   * @param s the s coordinate
+   */
   public HexAdapter(int q, int r, int s) {
     super(q, r, s);
   }
 
+  /**
+   * Constructs a HexAdapter.
+   *
+   * @param hex the hex to adapt
+   */
   public HexAdapter(Hex hex) {
     super(hex.getQ(), hex.getR(), hex.getS());
   }
 
+  /**
+   * Constructs a HexAdapter.
+   *
+   * @param hex the hex to adapt
+   */
   public HexAdapter(TPRHex hex) {
     super(hex.getQ(), hex.getR(), hex.getS());
   }

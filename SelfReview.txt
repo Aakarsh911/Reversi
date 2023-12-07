@@ -1,0 +1,12 @@
+After receiving the code from our providers and trying to adapt our code to work with theirs,
+we realised that some of the functionality that we had built in to our implementation to try and be more flexible,
+actually made it more difficult to integrate with the code from our providers. This was because the functionality we had built in
+was not necessary for our view to function and did not need to be something that we abstracted out.
+The main example of this in our code was that we implemented a way to set the hotkey for the features of the view.
+This was unnecessary and had to be removed in order to integrate with the code from our providers.
+Fortunately, this did not create any issues for our customers and just required a bit of explanation.
+
+Our overall experience with our providers was fine. We had a few issues with communication in the middle of the project,
+with some of the changes we had requested, but that was resolved peacefully and we were able to continue working with them.
+They were able implement the main changes that we requested, which were necessary to integrate with their code.
+But not some of the bugs in their view, which we just had to live with.

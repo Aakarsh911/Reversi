@@ -1,0 +1,27 @@
+Design Critique:
+With the initial code that we received there were many issues with their code being too tightly coupled making their interfaces very inflexible.
+But after several rounds of changes from them, they were able to make their code more flexible by relying more on interfaces instead of concrete classes.
+The only inconvenience that we experienced while trying to reuse their code to adapt to my own was that they had separated their model into two different classes,
+one for the actual board of the game and one that was a wrapper for the board that contained the logic for the game. This made it a bit difficult to reuse their code
+because we did not use that design in our code, so when adapting our code to their interface we had to make sure that we were updating the information in both classes.
+
+Implementation Critique:
+For the classes that we were given, there were several issues with their implementation of the view. The first issue was that the cell highlighting did not always
+match the actual cell that was clicked on. We believe this is due to them manually calculating the cell that was clicked on instead of using the built in methods.
+The second issue was that the if you were to click outside of the board, the view would throw an error.
+None of these issues were able to be fixed by them before the deadline.
+
+Documentation Critique:
+Pretty much all of their JavaDoc comments were very well written and easy to understand. The only issue that we had with their comments was with one method in their
+Hex class that we needed clarification on because it seemed to be doing something similar to another method in the same class. But after asking them about it,
+they were able to clarify that the method was used for a different purpose than the other method. Other than that, their comments were very helpful in understanding
+their code.
+
+Final Suggestions:
+We would suggest that they try to make their code more flexible by relying more on interfaces instead of concrete classes in the future.
+This will make it easier for other people to reuse their code and adapt it to their own needs. We would also suggest that they look at how they are
+calculating the cell that was clicked on in their view because it does not always match the cell that was actually clicked on. We would also suggest that they
+look at how they are handling clicks outside of the board because it throws an error when you click outside of the board. To fix this, they could use the built in
+contains method to check if the click was inside the cell or not. Lastly we would suggest that they avoid using null as much as they did in their code, because
+we ran into several null pointer exceptions when trying to reuse their code. To fix this, they could use the Optional class
+or extend their design to include a better notion of being empty.

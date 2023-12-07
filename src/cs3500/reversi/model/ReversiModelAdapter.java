@@ -11,22 +11,31 @@ import cs3500.reversi.provider.model.Piece;
 import cs3500.reversi.provider.model.ReversiModel;
 import cs3500.reversi.provider.model.TPRHex;
 
-public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
+/**
+ * Represents an adapter for the provider's ReversiModel interface.
+ */
+public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.ReversiModel {
 
 
   private final BoardAdapter board = new BoardAdapter();
 
   private final cs3500.reversi.model.ReversiModel model;
 
-  public ReversiModelAdapter() {
-    super();
-    this.model = new BasicReversi();
-  }
 
+  /**
+   * Constructs a ReversiModelAdapter.
+   *
+   * @param size the size of the board
+   */
   public ReversiModelAdapter(int size) {
-    super(size);
     this.model = new BasicReversi(size);
   }
+
+  /**
+   * Constructs a ReversiModelAdapter.
+   *
+   * @param model the model to adapt
+   */
   public ReversiModelAdapter(ReadOnlyModel model) {
     this.model = model.copy();
   }
@@ -40,6 +49,11 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   public boolean canMove(Piece piece, TPRHex location) throws IllegalArgumentException {
     List<Integer> coord = this.convertHex(location);
     return this.model.isLegalMove(coord.get(0), coord.get(1));
+  }
+
+  @Override
+  public boolean isGameOver() {
+    return model.isGameOver();
   }
 
   @Override
@@ -74,30 +88,35 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
   @Override
   public int getScore(Piece color) {
     if (color == Piece.BLACK) {
-      return this.model.getBlackScore();
+      return this.getBlackScore();
     } else {
-      return this.model.getWhiteScore();
+      return this.getWhiteScore();
     }
   }
 
   @Override
   public void move(int row, int col) {
-    super.move(row, col);
-    Piece turn;
-    if (this.model.getTurn().equalsIgnoreCase("black")) {
-      turn = Piece.BLACK;
-    } else {
-      turn = Piece.WHITE;
+    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
+    for (Hex h : cellsToFlip) {
+      this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
     }
     this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
-    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
-    System.out.println(getCurrentTurn());
-    for (Hex h : cellsToFlip) {
-      this.board.placePieceAt(turn, new HexAdapter(h));
-    }
+    this.model.move(row, col);
+  }
 
-    System.out.println("here");
-    //this.board.move(row, col);
+  @Override
+  public void pass() {
+    this.model.pass();
+  }
+
+  @Override
+  public void addListener(ModelListener p) {
+    this.model.addListener(p);
+  }
+
+  @Override
+  public void startGame() {
+    model.startGame();
   }
 
   @Override
@@ -107,8 +126,7 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
       this.model.move(coord.get(0), coord.get(1));
       // also make the move on the board field so that it gets updated
       this.board.placePieceAt(piece, location);
-    }
-    else {
+    } else {
       throw new IllegalStateException("Not your turn!");
     }
   }
@@ -138,9 +156,15 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
     // unnecessary
   }
 
+  /**
+   * Converts a TPRHex to a List of Integers representing the coordinates of the hex on our board.
+   *
+   * @param hex the TPRHex to convert
+   * @return the List of Integers representing the coordinates of the hex in row,col format
+   */
   List<Integer> convertHex(TPRHex hex) {
     List<Integer> result = new ArrayList<>();
-    List<List<Hex>> board = this.getBoard();
+    List<List<Hex>> board = this.model.getBoard();
     for (int i = 0; i < board.size(); i++) {
       for (int j = 0; j < board.get(i).size(); j++) {
         if (board.get(i).get(j).equals(hex)) {
@@ -153,8 +177,53 @@ public class ReversiModelAdapter extends BasicReversi implements ReversiModel {
     return result;
   }
 
-  TPRHex convertHex(List<Integer> coord) {
-    List<List<Hex>> board = this.getBoard();
-    return new HexAdapter(board.get(coord.get(0)).get(coord.get(1)));
+  @Override
+  public List<List<Hex>> getBoard() {
+    return model.getBoard();
+  }
+
+  @Override
+  public List<Hex> getCellsToFlip(int row, int col) {
+    return model.getCellsToFlip(row, col);
+  }
+
+  @Override
+  public String getColor(Hex h) {
+    return model.getColor(h);
+  }
+
+  @Override
+  public String getTurn() {
+    return model.getTurn();
+  }
+
+  @Override
+  public int getWhiteScore() {
+    return model.getWhiteScore();
+  }
+
+  @Override
+  public int getBlackScore() {
+    return model.getBlackScore();
+  }
+
+  @Override
+  public int getNumRows() {
+    return model.getNumRows();
+  }
+
+  @Override
+  public boolean isLegalMove(int row, int col) {
+    return model.isLegalMove(row, col);
+  }
+
+  @Override
+  public boolean anyLegalMovesForCurrentPlayer() {
+    return model.anyLegalMovesForCurrentPlayer();
+  }
+
+  @Override
+  public cs3500.reversi.model.ReversiModel copy() {
+    return new ReversiModelAdapter(this.model.copy());
   }
 }

@@ -49,7 +49,6 @@ public class ReversiPanel extends JPanel {
     this.getActionMap().put("move", new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("move");
         if (!featuresList.isEmpty()) {
           for (ViewFeatures features : featuresList) {
             features.move(selectedCell[0], selectedCell[1]);
@@ -60,7 +59,6 @@ public class ReversiPanel extends JPanel {
     this.getActionMap().put("pass", new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("pass");
         if (!featuresList.isEmpty()) {
           for (ViewFeatures features : featuresList) {
             features.pass();
