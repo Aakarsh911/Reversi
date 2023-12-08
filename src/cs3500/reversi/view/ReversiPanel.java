@@ -160,7 +160,7 @@ public class ReversiPanel extends JPanel {
     }
   }
 
-  private class MouseEventsListener extends MouseAdapter {
+ private class MouseEventsListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {

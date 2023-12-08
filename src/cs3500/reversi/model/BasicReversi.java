@@ -60,9 +60,7 @@ public class BasicReversi implements ReversiModel {
    * @param numRows the number of rows in the board
    */
   public BasicReversi(int numRows) {
-    if (numRows % 2 == 0 || numRows <= 3) {
-      throw new IllegalArgumentException("numRows must be odd and more than 3");
-    }
+    constExceptions(numRows);
     this.numRows = numRows;
     board = new ArrayList<>();
     // rowNum here represents the row number
@@ -73,6 +71,12 @@ public class BasicReversi implements ReversiModel {
     cellStates = new HashMap<>();
     initCells(numRows);
     initColors();
+  }
+
+  void constExceptions(int numRows) {
+    if (numRows % 2 == 0 || numRows <= 3) {
+      throw new IllegalArgumentException("numRows must be odd and more than 3");
+    }
   }
 
   /**
@@ -184,6 +188,7 @@ public class BasicReversi implements ReversiModel {
    */
   @Override
   public List<Hex> getCellsToFlip(int x, int y) {
+    System.out.println("row: " + x + " col: " + y);
     Hex h = board.get(x).get(y);
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
     List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
@@ -299,7 +304,7 @@ public class BasicReversi implements ReversiModel {
    * @param hex   the direction to check
    * @return whether the given cell is the opposite color of the given direction
    */
-  private boolean isOpposite(CellState state, Hex hex) {
+  protected boolean isOpposite(CellState state, Hex hex) {
     if (state == CellState.WHITE) {
       return cellStates.get(hex) == CellState.BLACK;
     } else if (state == CellState.BLACK) {
