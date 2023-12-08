@@ -1,16 +1,12 @@
 package cs3500.reversi;
 
-import javax.swing.KeyStroke;
 
 import cs3500.reversi.controller.BasicReversiController;
 import cs3500.reversi.model.AIFactory;
 import cs3500.reversi.model.AiDifficulty;
-import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Person;
 import cs3500.reversi.model.Player;
-import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.ReversiModelAdapter;
-import cs3500.reversi.provider.view.gui.TPRFrame;
 import cs3500.reversi.view.ReversiFrame;
 import cs3500.reversi.view.ReversiGraphicalView;
 import cs3500.reversi.view.ReversiViewAdapter;

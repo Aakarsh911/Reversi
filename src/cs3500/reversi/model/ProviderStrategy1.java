@@ -6,10 +6,18 @@ import java.util.Optional;
 import cs3500.reversi.provider.model.Piece;
 import cs3500.reversi.provider.strategy.AsManyPieces;
 
+/**
+ * Adapts the AsManyPieces strategy to a ReversiStrategy.
+ */
 public class ProviderStrategy1 implements ReversiStrategy {
   private final ReversiModelAdapter model;
   private final AsManyPieces strategy;
 
+  /**
+   * Constructs a ProviderStrategy1.
+   *
+   * @param model the model to use
+   */
   public ProviderStrategy1(ReversiModelAdapter model) {
     this.model = model;
     this.strategy = new AsManyPieces(this.model);
@@ -20,15 +28,14 @@ public class ProviderStrategy1 implements ReversiStrategy {
     Piece piece;
     if (player.getColor().equalsIgnoreCase("black")) {
       piece = Piece.BLACK;
-    }
-    else {
+    } else {
       piece = Piece.WHITE;
     }
-    List<Integer> coord = this.model.convertHex(strategy.chooseMove(new ReversiModelAdapter(model), piece));
+    List<Integer> coord = this.model.convertHex(strategy.chooseMove(new ReversiModelAdapter(model),
+            piece));
     if (coord.isEmpty()) {
       return Optional.empty();
-    }
-    else {
+    } else {
       return Optional.of(coord);
     }
   }

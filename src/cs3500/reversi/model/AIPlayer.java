@@ -1,6 +1,5 @@
 package cs3500.reversi.model;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 import java.util.Optional;
 

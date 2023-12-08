@@ -8,13 +8,16 @@ import java.util.List;
 public interface ReadOnlyModel {
   /**
    * gets the board.
+   *
    * @return the board
    */
   List<List<Hex>> getBoard();
+
   List<Hex> getCellsToFlip(int row, int col);
 
   /**
    * gets the state of a given cell.
+   *
    * @param h the cell to get the state of
    * @return the state of the given cell
    */
@@ -22,36 +25,42 @@ public interface ReadOnlyModel {
 
   /**
    * gets which player's turn it is.
+   *
    * @return which player's turn it is
    */
   String getTurn();
 
   /**
    * checks if the game is over.
+   *
    * @return whether or not the game is over
    */
   boolean isGameOver();
 
   /**
    * gets the score of the white player.
+   *
    * @return the score of the game
    */
   int getWhiteScore();
 
   /**
    * gets the score of the black player.
+   *
    * @return the score of the game
    */
   int getBlackScore();
 
   /**
    * gets the number of rows in the board.
+   *
    * @return the number of rows in the board
    */
   int getNumRows();
 
   /**
    * checks if a given move is legal.
+   *
    * @param row the row of the move
    * @param col the column of the move
    */
@@ -64,6 +73,7 @@ public interface ReadOnlyModel {
 
   /**
    * Creates a copy of this BasicReversi.
+   *
    * @return a copy of this BasicReversi
    */
   ReversiModel copy();

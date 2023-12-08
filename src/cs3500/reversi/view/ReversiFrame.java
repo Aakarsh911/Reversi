@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
 
 import cs3500.reversi.model.ReadOnlyModel;
 

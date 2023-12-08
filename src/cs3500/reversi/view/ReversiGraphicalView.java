@@ -1,6 +1,5 @@
 package cs3500.reversi.view;
 
-import javax.swing.KeyStroke;
 
 
 /**

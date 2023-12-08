@@ -113,11 +113,11 @@ public class TPRBoardCell extends Path2D.Double {
    *
    * @return the current hexagon q coordinate
    */
-  public int getHexagonCoordinateR(){
+  public int getHexagonCoordinateR() {
     return this.r;
   }
 
-  public double getSize(){
+  public double getSize() {
     return this.size;
   }
 }

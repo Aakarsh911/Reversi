@@ -100,7 +100,8 @@ public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.R
     for (Hex h : cellsToFlip) {
       this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
     }
-    this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(this.model.getBoard().get(row).get(col)));
+    this.board.placePieceAt(this.getCurrentTurn(),
+            new HexAdapter(this.model.getBoard().get(row).get(col)));
     this.model.move(row, col);
   }
 
@@ -120,7 +121,8 @@ public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.R
   }
 
   @Override
-  public void movePiece(Piece piece, TPRHex location) throws IllegalStateException, IllegalArgumentException {
+  public void movePiece(Piece piece, TPRHex location) throws IllegalStateException,
+          IllegalArgumentException {
     List<Integer> coord = this.convertHex(location);
     if (this.model.getTurn().equalsIgnoreCase(piece.toString())) {
       this.model.move(coord.get(0), coord.get(1));

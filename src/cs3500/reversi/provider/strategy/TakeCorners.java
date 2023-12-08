@@ -11,7 +11,6 @@ import cs3500.reversi.provider.model.TPRHex;
  */
 public class TakeCorners implements TPRStrategy {
   private final Board board;
-  private final int size;
   private final ReadonlyReversiModel model;
 
   /**
@@ -21,7 +20,7 @@ public class TakeCorners implements TPRStrategy {
    */
   public TakeCorners(ReadonlyReversiModel model) {
     board = model.getBoardGame();
-    this.size = model.getSize();
+    int size = model.getSize();
     this.model = model;
   }
 
@@ -33,8 +32,8 @@ public class TakeCorners implements TPRStrategy {
     //make method in AsManyPieces that takes in a list of possible moves and returns the one
     //with highest score
 
-    for(TPRHex hex : board.getCorners()){
-      if(board.getPieceAt(hex) == null){
+    for (TPRHex hex : board.getCorners()) {
+      if (board.getPieceAt(hex) == null) {
         return hex;
       }
     }

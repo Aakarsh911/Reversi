@@ -12,7 +12,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
@@ -28,7 +30,9 @@ public class ReversiPanel extends JPanel {
 
 
   private final int[] selectedCell = new int[2];
-  private int[] hoveredCell = new int[]{-1, -1};
+  private final int[] hoveredCell = new int[]{-1, -1};
+
+  private boolean hintMode = false;
 
 
   /**
@@ -44,6 +48,7 @@ public class ReversiPanel extends JPanel {
     MouseEventsListener listener = new MouseEventsListener();
     this.getInputMap().put(KeyStroke.getKeyStroke("M"), "move");
     this.getInputMap().put(KeyStroke.getKeyStroke("P"), "pass");
+    this.getInputMap().put(KeyStroke.getKeyStroke("H"), "hint");
     this.addMouseListener(listener);
     this.addMouseMotionListener(listener);
     this.getActionMap().put("move", new AbstractAction() {
@@ -64,6 +69,12 @@ public class ReversiPanel extends JPanel {
             features.pass();
           }
         }
+      }
+    });
+    this.getActionMap().put("hint", new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        hintMode = !hintMode;
       }
     });
   }
@@ -141,6 +152,11 @@ public class ReversiPanel extends JPanel {
       g2d.fill(hexagons.get(selectedCell[0]).get(selectedCell[1]));
       g2d.setColor(Color.BLACK);
       g2d.draw(hexagons.get(selectedCell[0]).get(selectedCell[1]));
+      if (hintMode) {
+        g2d.drawString(model.getCellsToFlip(selectedCell[0], selectedCell[1]).size() + "",
+                hexagons.get(selectedCell[0]).get(selectedCell[1]).x - 5,
+                hexagons.get(selectedCell[0]).get(selectedCell[1]).y + 5);
+      }
     }
   }
 
