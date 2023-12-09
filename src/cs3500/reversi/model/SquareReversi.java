@@ -2,7 +2,10 @@ package cs3500.reversi.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+
+import cs3500.reversi.Reversi;
 
 public class SquareReversi extends BasicReversi {
   private List<List<Hex>> board;
@@ -23,6 +26,18 @@ public class SquareReversi extends BasicReversi {
     this.initCells(numRows);
     this.initBoard();
   }
+
+  /**
+   * Constructs a SquareReversi.
+   *
+   *
+   */
+  public SquareReversi(SquareReversi model) {
+    super(model);
+    this.cellStates = new HashMap<>(model.cellStates);
+    this.board = new ArrayList<>(model.board);
+  }
+
 
   @Override
   void constExceptions(int numRows) {
@@ -143,5 +158,10 @@ public class SquareReversi extends BasicReversi {
   public boolean isGameOver() {
     return this.getWhiteScore() + this.getBlackScore() == this.getNumRows() * this.getNumRows()
             || this.getWhiteScore() == 0 || this.getBlackScore() == 0 || super.isGameOver();
+  }
+
+  @Override
+  public ReversiModel copy() {
+    return new SquareReversi(this);
   }
 }
