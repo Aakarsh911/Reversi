@@ -28,41 +28,52 @@ public final class Reversi {
    * @param args the arguments for the game
    **/
   public static void main(String[] args) {
-    ReversiModelAdapter model = new ReversiModelAdapter(7);
-    ReversiGraphicalView view = new ReversiFrame(model);
-    ReversiGraphicalView view2 = new ReversiFrame(model);
-    ReversiModel sqModel = new SquareReversi(10);
-    ReversiGraphicalView view3 = new SquareFrame(sqModel);
-    ReversiGraphicalView view4 = new SquareFrame(sqModel);
-    Player player1 = null;
-    Player player2 = null;
-    ReversiView sqView = new SquareReversiTextualView(sqModel);
-    System.out.println(sqView.toString());
-    if (args[0].equals("human")) {
-      player1 = new Person("white");
-    } else {
-      player1 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[0].toUpperCase()),
-              "white", sqModel);
+    if (args.length < 2) {
+      throw new IllegalArgumentException("Must have 2 arguments");
     }
-    if (args[1].equals("human")) {
-      player2 = new Person("black");
+
+    ReversiModel model;
+    ReversiGraphicalView view;
+    ReversiGraphicalView view2;
+
+    if (args.length > 2 && args[2].equals("square")) {
+      if (args.length > 3) {
+        model = new SquareReversi(Integer.parseInt(args[3]));
+      } else {
+        model = new SquareReversi();
+      }
+      view = new SquareFrame(model);
+      view2 = new SquareFrame(model);
+    } else if (args.length > 2) {
+      model = new BasicReversi(Integer.parseInt(args[2]));
+      view = new ReversiFrame(model);
+      view2 = new ReversiFrame(model);
     } else {
-      player2 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args[1].toUpperCase()),
-              "black", sqModel);
+      model = new BasicReversi();
+      view = new ReversiFrame(model);
+      view2 = new ReversiFrame(model);
     }
+    Player player1;
+    Player player2;
+    player1 = createPlayer(args[0], model);
+    player2 = createPlayer(args[1], model);
     BasicReversiController controller = new BasicReversiController(model, player1, view);
     controller.goNow();
     BasicReversiController controller2 = new BasicReversiController(model, player2, view2);
     controller2.goNow();
     model.startGame();
-    BasicReversiController controller3 = new BasicReversiController(sqModel, player1, view3);
-    controller3.goNow();
-    BasicReversiController controller4 = new BasicReversiController(sqModel, player2, view4);
-    controller4.goNow();
-    sqModel.startGame();
-//    view.setVisible(true);
-//    view2.setVisible(true);
-    view3.setVisible(true);
-    view4.setVisible(true);
+    view.setVisible(true);
+    view2.setVisible(true);
+  }
+
+  private static Player createPlayer(String args, ReversiModel model) {
+    Player player1;
+    if (args.equals("human")) {
+      player1 = new Person("white");
+    } else {
+      player1 = AIFactory.createAIPlayer(AiDifficulty.valueOf(args.toUpperCase()),
+              "white", model);
+    }
+    return player1;
   }
 }

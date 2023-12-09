@@ -14,7 +14,9 @@ public class SquareReversi extends BasicReversi {
    * Constructs a SquareReversi.
    */
   public SquareReversi() {
-    super();
+    super(8);
+    this.initCells(8);
+    this.initBoard();
   }
 
   /**
