@@ -188,7 +188,6 @@ public class BasicReversi implements ReversiModel {
    */
   @Override
   public List<Hex> getCellsToFlip(int x, int y) {
-    System.out.println("row: " + x + " col: " + y);
     Hex h = board.get(x).get(y);
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
     List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))

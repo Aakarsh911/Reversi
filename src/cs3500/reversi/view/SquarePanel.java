@@ -62,6 +62,7 @@ public class SquarePanel extends JPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         hintMode = !hintMode;
+        repaint();
       }
     });
   }
@@ -110,11 +111,32 @@ public class SquarePanel extends JPanel {
         }
       }
     }
+    if (hoveredCell[0] != -1 && hoveredCell[1] != -1 && model.isLegalMove(hoveredCell[0], hoveredCell[1])) {
+      if (model.getTurn().equals("White")) {
+        g2d.setColor(new Color(255, 255, 255, 150));
+      }
+      else {
+        g2d.setColor(new Color(0, 0, 0, 150));
+      }
+      g2d.fillOval(squares.get(hoveredCell[0]).get(hoveredCell[1]).x + 5,
+              squares.get(hoveredCell[0]).get(hoveredCell[1]).y + 5, 20, 20);
+    }
     g2d.setColor(Color.CYAN);
     if (selectedCell[0] != -1 && selectedCell[1] != -1) {
       g2d.fill(squares.get(selectedCell[0]).get(selectedCell[1]));
       g2d.setColor(Color.BLACK);
       g2d.draw(squares.get(selectedCell[0]).get(selectedCell[1]));
+      if (hintMode) {
+        String output = "";
+        if (!model.isLegalMove(selectedCell[0], selectedCell[1])) {
+          output = "0";
+        } else {
+          output = model.getCellsToFlip(selectedCell[0], selectedCell[1]).size() + "";
+        }
+        g2d.drawString(output,
+                squares.get(selectedCell[0]).get(selectedCell[1]).x + 10,
+                squares.get(selectedCell[0]).get(selectedCell[1]).y + 20);
+      }
     }
   }
   private class MouseEventsListener extends MouseAdapter {
@@ -144,20 +166,20 @@ public class SquarePanel extends JPanel {
       repaint();
     }
 
-//    @Override
-//    public void mouseMoved(MouseEvent e) {
-//      hoveredCell[0] = -1;
-//      hoveredCell[1] = -1;
-//
-//      for (int i = 0; i < squares.size(); i++) {
-//        for (int j = 0; j < squares.get(i).size(); j++) {
-//          if (squares.get(i).get(j).contains(e.getPoint())) {
-//            hoveredCell[0] = i;
-//            hoveredCell[1] = j;
-//          }
-//        }
-//      }
-//      repaint();
-//    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+      hoveredCell[0] = -1;
+      hoveredCell[1] = -1;
+
+      for (int i = 0; i < squares.size(); i++) {
+        for (int j = 0; j < squares.get(i).size(); j++) {
+          if (squares.get(i).get(j).contains(e.getPoint())) {
+            hoveredCell[0] = i;
+            hoveredCell[1] = j;
+          }
+        }
+      }
+      repaint();
+    }
   }
 }

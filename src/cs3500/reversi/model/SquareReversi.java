@@ -1,7 +1,6 @@
 package cs3500.reversi.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,8 +22,6 @@ public class SquareReversi extends BasicReversi {
     super(numRows);
     this.initCells(numRows);
     this.initBoard();
-    System.out.println(this.board.size());
-    System.out.println(this.board.get(5).size());
   }
 
   @Override
@@ -108,7 +105,8 @@ public class SquareReversi extends BasicReversi {
 
   @Override
   public boolean isLegalMove(int row, int col) {
-    return this.getCellsToFlip(row, col).size() > 0;
+    return this.getCellsToFlip(row, col).size() > 0 && this.getColor(this.board.get(row).get(col))
+            .equals("EMPTY");
   }
 
   private boolean isSame(CellState state, CellState cellState) {
@@ -144,6 +142,6 @@ public class SquareReversi extends BasicReversi {
   @Override
   public boolean isGameOver() {
     return this.getWhiteScore() + this.getBlackScore() == this.getNumRows() * this.getNumRows()
-            || this.getWhiteScore() == 0 || this.getBlackScore() == 0;
+            || this.getWhiteScore() == 0 || this.getBlackScore() == 0 || super.isGameOver();
   }
 }
