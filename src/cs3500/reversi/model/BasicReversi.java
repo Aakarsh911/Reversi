@@ -30,7 +30,7 @@ public class BasicReversi implements ReversiModel {
   private int blackScore = 3; // number of black pieces on the board
   private int numRows = 7; // number of rows in the board
 
-  private final List<ModelListener> listeners = new ArrayList<>();
+  protected final List<ModelListener> listeners = new ArrayList<>();
 
 
   /**
@@ -136,7 +136,7 @@ public class BasicReversi implements ReversiModel {
    * Calculates the score of the game by correctly counting the number of white and black pieces.
    * and updating the whiteScore and blackScore fields.
    */
-  private void calculateScore() {
+  protected void calculateScore() {
     int white = 0;
     int black = 0;
     for (Hex h : cellStates.keySet()) {
@@ -279,7 +279,9 @@ public class BasicReversi implements ReversiModel {
    * @param y     the y coordinate of the piece
    * @param color the color of the piece
    */
-  private void placePiece(int x, int y, CellState color) {
+  protected void placePiece(int x, int y, CellState color) {
+    System.out.println(this.board.size());
+    System.out.println(this.board.get(x).size());
     this.cellStates.replace(this.board.get(x).get(y), color);
   }
 
@@ -319,7 +321,7 @@ public class BasicReversi implements ReversiModel {
    *
    * @param h the hex to flip
    */
-  private void flipPiece(Hex h) {
+  protected void flipPiece(Hex h) {
     this.cellStates.replace(h, cellStates.get(h)
             == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
   }

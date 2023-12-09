@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SquareReversi extends BasicReversi {
-
   private List<List<Hex>> board;
   /**
    * Constructs a SquareReversi.
@@ -49,54 +48,60 @@ public class SquareReversi extends BasicReversi {
         this.cellStates.put(new ReversiCell(i, j, 0), CellState.EMPTY);
       }
     }
-    this.cellStates.put(new ReversiCell(numRows / 2 + 1, numRows / 2 + 1, 0), CellState.BLACK);
+    this.cellStates.put(new ReversiCell(numRows / 2 - 1, numRows / 2 - 1, 0), CellState.BLACK);
     this.cellStates.put(new ReversiCell(numRows / 2, numRows / 2, 0), CellState.BLACK);
-    this.cellStates.put(new ReversiCell(numRows / 2 + 1, numRows / 2, 0), CellState.WHITE);
-    this.cellStates.put(new ReversiCell(numRows / 2, numRows / 2 + 1, 0), CellState.WHITE);
+    this.cellStates.put(new ReversiCell((numRows / 2) - 1, numRows / 2, 0), CellState.WHITE);
+    this.cellStates.put(new ReversiCell(numRows / 2, (numRows / 2) - 1, 0), CellState.WHITE);
   }
 
   @Override
   public List<Hex> getCellsToFlip(int row, int col) {
     List<Hex> flippedCells = new ArrayList<>();
-    CellState currentPlayer = cellStates.get(new ReversiCell(row, col, 0));
-
-    // Check in all eight directions for potential flips
-    int[] directions = {-1, 0, 1};
-    for (int dRow : directions) {
-      for (int dCol : directions) {
-        if (dRow == 0 && dCol == 0) {
-          continue; // Skip the current cell
-        }
-
-        List<Hex> cellsInDirection = new ArrayList<>();
-        int r = row + dRow;
-        int c = col + dCol;
-
-        // Move in the current direction until an edge is reached or an opponent's piece is found
-        while (isValidCell(r, c)
-                && cellStates.containsKey(new ReversiCell(r, c, 0))
-                && cellStates.get(new ReversiCell(r, c, 0)) != CellState.EMPTY
-                && cellStates.get(new ReversiCell(r, c, 0)) != currentPlayer) {
-          cellsInDirection.add(new ReversiCell(r, c, 0));
-          r += dRow;
-          c += dCol;
-        }
-
-        // If the last piece in the direction is the player's own piece, flip the pieces in between
-        if (this.isValidCell(r, c)
-                && cellStates.containsKey(new ReversiCell(r, c, 0))
-                && cellStates.get(new ReversiCell(r, c, 0)) == currentPlayer) {
-          flippedCells.addAll(cellsInDirection);
-        }
-      }
-    }
-
+    int r = row;
+    int c = col;
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, 0, -1));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, -1, 0));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, 1, 0));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, 0, 1));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, -1, -1));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, -1, 1));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, 1, -1));
+    flippedCells.addAll(getCellsToFlipInDirection(r, c, 1, 1));
+    System.out.println("done");
     return flippedCells;
   }
 
-  private boolean isValidCell(int row, int col) {
-    return row >= 0 && row < this.getNumRows() && col >= 0 && col < this.getNumRows();
+  private List<Hex> getCellsToFlipInDirection(int row, int col, int i, int j) {
+    int r = row + i;
+    int c = col + j;
+    List<Hex> temp = new ArrayList<>();
+    List<Hex> flippedCells = new ArrayList<>();
+    int turn = this.getTurn().equals("White") ? 0 : 1;
+    CellState currentPlayer = turn == 0 ? CellState.WHITE : CellState.BLACK;
+    while (r >= 0 && r < this.getNumRows() && c >= 0 && c < this.getNumRows()) {
+      if (isSame(cellStates.get(new ReversiCell(r, c, 0)), CellState.EMPTY)) {
+        break;
+      } else if (!isSame(cellStates.get(new ReversiCell(r, c, 0)), currentPlayer)) {
+        temp.add(new ReversiCell(r, c, 0));
+      } else {
+        flippedCells.addAll(temp);
+        break;
+      }
+      r += i;
+      c += j;
+    }
+    if (currentPlayer == CellState.WHITE) {
+      currentPlayer = CellState.BLACK;
+    } else {
+      currentPlayer = CellState.WHITE;
+    }
+    if (flippedCells.size() > 0) {
+      flippedCells.add(new ReversiCell(row, col, 0));
+      this.cellStates.put(new ReversiCell(row, col, 0), currentPlayer);
+    }
+    return flippedCells;
   }
+
 
   @Override
   public List<List<Hex>> getBoard() {
@@ -108,7 +113,39 @@ public class SquareReversi extends BasicReversi {
     return this.getCellsToFlip(row, col).size() > 0;
   }
 
-  private boolean isOpposite(CellState state, CellState cellState) {
-    return state != cellState && state != CellState.EMPTY;
+  private boolean isSame(CellState state, CellState cellState) {
+    return state == cellState;
+  }
+
+  @Override
+  public int getWhiteScore() {
+    int score = 0;
+    for (int i = 0; i < this.getNumRows(); i++) {
+      for (int j = 0; j < this.getNumRows(); j++) {
+        if (this.getColor(this.board.get(i).get(j)).equals("WHITE")) {
+          score++;
+        }
+      }
+    }
+    return score;
+  }
+
+  @Override
+  public int getBlackScore() {
+    int score = 0;
+    for (int i = 0; i < this.getNumRows(); i++) {
+      for (int j = 0; j < this.getNumRows(); j++) {
+        if (this.getColor(this.board.get(i).get(j)).equals("BLACK")) {
+          score++;
+        }
+      }
+    }
+    return score;
+  }
+
+  @Override
+  public boolean isGameOver() {
+    return this.getWhiteScore() + this.getBlackScore() == this.getNumRows() * this.getNumRows()
+            || this.getWhiteScore() == 0 || this.getBlackScore() == 0;
   }
 }

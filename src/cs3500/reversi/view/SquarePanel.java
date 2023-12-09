@@ -40,6 +40,8 @@ public class SquarePanel extends JPanel {
         if (!featuresList.isEmpty()) {
           for (ViewFeatures features : featuresList) {
             features.move(selectedCell[0], selectedCell[1]);
+            selectedCell[0] = -1;
+            selectedCell[1] = -1;
           }
         }
       }
@@ -95,10 +97,10 @@ public class SquarePanel extends JPanel {
         g2d.draw(squares.get(i).get(j));
         if (model.getColor(model.getBoard().get(i).get(j)).equals("BLACK")) {
           g2d.setColor(Color.BLACK);
-          g2d.fillOval(squares.get(i).get(j).x - 25, squares.get(i).get(j).y - 25, 20, 20);
+          g2d.fillOval(squares.get(i).get(j).x + 5, squares.get(i).get(j).y + 5, 20, 20);
         } else if (model.getColor(model.getBoard().get(i).get(j)).equals("WHITE")) {
           g2d.setColor(Color.WHITE);
-          g2d.fillOval(squares.get(i).get(j).x - 25, squares.get(i).get(j).y - 25, 20, 20);
+          g2d.fillOval(squares.get(i).get(j).x + 5, squares.get(i).get(j).y + 5, 20, 20);
         }
       }
     }
@@ -136,20 +138,20 @@ public class SquarePanel extends JPanel {
       repaint();
     }
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-      hoveredCell[0] = -1;
-      hoveredCell[1] = -1;
-
-      for (int i = 0; i < squares.size(); i++) {
-        for (int j = 0; j < squares.get(i).size(); j++) {
-          if (squares.get(i).get(j).contains(e.getPoint())) {
-            hoveredCell[0] = i;
-            hoveredCell[1] = j;
-          }
-        }
-      }
-      repaint();
-    }
+//    @Override
+//    public void mouseMoved(MouseEvent e) {
+//      hoveredCell[0] = -1;
+//      hoveredCell[1] = -1;
+//
+//      for (int i = 0; i < squares.size(); i++) {
+//        for (int j = 0; j < squares.get(i).size(); j++) {
+//          if (squares.get(i).get(j).contains(e.getPoint())) {
+//            hoveredCell[0] = i;
+//            hoveredCell[1] = j;
+//          }
+//        }
+//      }
+//      repaint();
+//    }
   }
 }
