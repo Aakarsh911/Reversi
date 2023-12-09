@@ -6,12 +6,15 @@ import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
+/**
+ * Represents a panel of squares for Reversi.
+ */
 public class SquareFrame extends JFrame implements ReversiGraphicalView {
-  private final SquarePanel panel;
+  private final SquarePanel panel; // the panel to draw on
 
-  private final JLabel turn;
+  private final JLabel turn; // the label for whose turn it is
 
-  private final ReadOnlyModel model;
+  private final ReadOnlyModel model; // the model to use
 
   /**
    * Constructs a ReversiFrame.
@@ -36,7 +39,8 @@ public class SquareFrame extends JFrame implements ReversiGraphicalView {
 
   @Override
   public void showErrorMessage(String message) {
-    JOptionPane.showMessageDialog(this, message, "Message", JOptionPane.WARNING_MESSAGE);
+    JOptionPane.showMessageDialog(this, message
+            , "Message", JOptionPane.WARNING_MESSAGE);
   }
 
   @Override

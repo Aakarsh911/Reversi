@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,9 @@ import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
+/**
+ * Represents a panel of squares for Reversi.
+ */
 public class SquarePanel extends JPanel {
   /**
    * Constructs a ReversiPanel.
@@ -104,22 +106,25 @@ public class SquarePanel extends JPanel {
         g2d.draw(squares.get(i).get(j));
         if (model.getColor(model.getBoard().get(i).get(j)).equals("BLACK")) {
           g2d.setColor(Color.BLACK);
-          g2d.fillOval(squares.get(i).get(j).x + 5, squares.get(i).get(j).y + 5, 20, 20);
+          g2d.fillOval(squares.get(i).get(j).getX() + 5,
+                  squares.get(i).get(j).getY() + 5, 20, 20);
         } else if (model.getColor(model.getBoard().get(i).get(j)).equals("WHITE")) {
           g2d.setColor(Color.WHITE);
-          g2d.fillOval(squares.get(i).get(j).x + 5, squares.get(i).get(j).y + 5, 20, 20);
+          g2d.fillOval(squares.get(i).get(j).getX() + 5,
+                  squares.get(i).get(j).getY() + 5, 20, 20);
         }
       }
     }
-    if (hoveredCell[0] != -1 && hoveredCell[1] != -1 && model.isLegalMove(hoveredCell[0], hoveredCell[1])) {
+    if (hoveredCell[0] != -1 && hoveredCell[1] != -1
+            && model.isLegalMove(hoveredCell[0], hoveredCell[1])) {
       if (model.getTurn().equals("White")) {
         g2d.setColor(new Color(255, 255, 255, 150));
       }
       else {
         g2d.setColor(new Color(0, 0, 0, 150));
       }
-      g2d.fillOval(squares.get(hoveredCell[0]).get(hoveredCell[1]).x + 5,
-              squares.get(hoveredCell[0]).get(hoveredCell[1]).y + 5, 20, 20);
+      g2d.fillOval(squares.get(hoveredCell[0]).get(hoveredCell[1]).getX() + 5,
+              squares.get(hoveredCell[0]).get(hoveredCell[1]).getY() + 5, 20, 20);
     }
     g2d.setColor(Color.CYAN);
     if (selectedCell[0] != -1 && selectedCell[1] != -1) {
@@ -134,8 +139,8 @@ public class SquarePanel extends JPanel {
           output = model.getCellsToFlip(selectedCell[0], selectedCell[1]).size() + "";
         }
         g2d.drawString(output,
-                squares.get(selectedCell[0]).get(selectedCell[1]).x + 10,
-                squares.get(selectedCell[0]).get(selectedCell[1]).y + 20);
+                squares.get(selectedCell[0]).get(selectedCell[1]).getX() + 10,
+                squares.get(selectedCell[0]).get(selectedCell[1]).getY() + 20);
       }
     }
   }

@@ -31,7 +31,7 @@ public final class Reversi {
     ReversiModelAdapter model = new ReversiModelAdapter(7);
     ReversiGraphicalView view = new ReversiFrame(model);
     ReversiGraphicalView view2 = new ReversiFrame(model);
-    ReversiModel sqModel = new SquareReversi(8);
+    ReversiModel sqModel = new SquareReversi(10);
     ReversiGraphicalView view3 = new SquareFrame(sqModel);
     ReversiGraphicalView view4 = new SquareFrame(sqModel);
     Player player1 = null;

@@ -73,10 +73,23 @@ public class BasicReversi implements ReversiModel {
     initColors();
   }
 
+  /**
+   * Ensures numRows is odd and more than 3.
+   * @param numRows the number of rows in the board
+   * @throws IllegalArgumentException if numRows is even or less than or equal to 3
+   */
   void constExceptions(int numRows) {
     if (numRows % 2 == 0 || numRows <= 3) {
       throw new IllegalArgumentException("numRows must be odd and more than 3");
     }
+  }
+
+  /**
+   * Gets the number of passes.
+   * @return the number of passes
+   */
+  protected int getPasses() {
+    return this.pass;
   }
 
   /**

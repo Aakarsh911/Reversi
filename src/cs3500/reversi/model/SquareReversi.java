@@ -5,8 +5,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import cs3500.reversi.Reversi;
-
+/**
+ * Represents a SquareReversi game.
+ */
 public class SquareReversi extends BasicReversi {
   private List<List<Hex>> board;
   /**
@@ -41,7 +42,7 @@ public class SquareReversi extends BasicReversi {
 
   @Override
   void constExceptions(int numRows) {
-    if (numRows % 2 != 0) {
+    if (numRows % 2 != 0 || numRows < 6) {
       throw new IllegalArgumentException("Number of rows must be even.");
     }
   }
@@ -68,10 +69,14 @@ public class SquareReversi extends BasicReversi {
         this.cellStates.put(new ReversiCell(i, j, 0), CellState.EMPTY);
       }
     }
-    this.cellStates.put(new ReversiCell(numRows / 2 - 1, numRows / 2 - 1, 0), CellState.BLACK);
-    this.cellStates.put(new ReversiCell(numRows / 2, numRows / 2, 0), CellState.BLACK);
-    this.cellStates.put(new ReversiCell((numRows / 2) - 1, numRows / 2, 0), CellState.WHITE);
-    this.cellStates.put(new ReversiCell(numRows / 2, (numRows / 2) - 1, 0), CellState.WHITE);
+    this.cellStates.put(new ReversiCell(numRows / 2 - 1,
+            numRows / 2 - 1, 0), CellState.BLACK);
+    this.cellStates.put(new ReversiCell(numRows / 2,
+            numRows / 2, 0), CellState.BLACK);
+    this.cellStates.put(new ReversiCell((numRows / 2) - 1,
+            numRows / 2, 0), CellState.WHITE);
+    this.cellStates.put(new ReversiCell(numRows / 2,
+            (numRows / 2) - 1, 0), CellState.WHITE);
   }
 
   @Override
@@ -90,6 +95,15 @@ public class SquareReversi extends BasicReversi {
     return flippedCells;
   }
 
+  /**
+   * Gets the cells to flip in a given direction.
+   *
+   * @param row the row of the cell
+   * @param col the column of the cell
+   * @param i   the row direction
+   * @param j   the column direction
+   * @return the cells to flip in a given direction
+   */
   private List<Hex> getCellsToFlipInDirection(int row, int col, int i, int j) {
     int r = row + i;
     int c = col + j;
@@ -124,6 +138,13 @@ public class SquareReversi extends BasicReversi {
             .equals("EMPTY");
   }
 
+  /**
+   * Checks if two cell states are the same.
+   *
+   * @param state     the first cell state
+   * @param cellState the second cell state
+   * @return whether the two cell states are the same
+   */
   private boolean isSame(CellState state, CellState cellState) {
     return state == cellState;
   }
@@ -157,7 +178,7 @@ public class SquareReversi extends BasicReversi {
   @Override
   public boolean isGameOver() {
     return this.getWhiteScore() + this.getBlackScore() == this.getNumRows() * this.getNumRows()
-            || this.getWhiteScore() == 0 || this.getBlackScore() == 0 || super.isGameOver();
+            || this.getWhiteScore() == 0 || this.getBlackScore() == 0 || this.getPasses() == 2;
   }
 
   @Override
