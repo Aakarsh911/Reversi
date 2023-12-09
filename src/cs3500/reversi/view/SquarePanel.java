@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class SquarePanel extends JPanel {
   public SquarePanel(ReadOnlyModel model) {
     this.model = model;
     this.squares = new ArrayList<>();
+    setDoubleBuffered(true);
     this.initSquares();
     MouseEventsListener listener = new MouseEventsListener();
     this.getInputMap().put(KeyStroke.getKeyStroke("M"), "move");
@@ -64,11 +66,14 @@ public class SquarePanel extends JPanel {
     });
   }
 
+
   private void initSquares() {
     for (int i = 0; i < model.getNumRows(); i++) {
       ArrayList<SquareCell> row = new ArrayList<>();
       for (int j = 0; j < model.getNumRows(); j++) {
-        row.add(new SquareCell(30*i, 30*j, 30));
+        int x = 30*i + this.getSize().width/2 - model.getBoard().size() * 15;
+        int y = 30*j + this.getSize().height/2 - model.getBoard().size() * 15;
+        row.add(new SquareCell(x, y, 30));
       }
       squares.add(row);
     }
@@ -80,15 +85,16 @@ public class SquarePanel extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(model.getBoard().size() * 34 + 5 + this.getSize().width
-            , model.getBoard().size() * 31 + this.getSize().height);
+    return new Dimension(400, 400);
   }
 
   @Override
   public void paintComponent(Graphics g) {
+    squares.clear();
+    initSquares();
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.setColor(Color.DARK_GRAY);
-    g2d.fill(new Rectangle(getPreferredSize()));
+    g2d.fill(new Rectangle(getSize()));
     for (int i = 0; i < model.getNumRows(); i++) {
       for (int j = 0; j < model.getNumRows(); j++) {
         g2d.setColor(Color.LIGHT_GRAY);

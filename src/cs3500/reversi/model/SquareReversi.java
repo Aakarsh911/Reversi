@@ -2,6 +2,7 @@ package cs3500.reversi.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SquareReversi extends BasicReversi {
@@ -22,6 +23,8 @@ public class SquareReversi extends BasicReversi {
     super(numRows);
     this.initCells(numRows);
     this.initBoard();
+    System.out.println(this.board.size());
+    System.out.println(this.board.get(5).size());
   }
 
   @Override
@@ -40,6 +43,11 @@ public class SquareReversi extends BasicReversi {
       }
       this.board.add(row);
     }
+  }
+
+  @Override
+  protected void placePiece(int x, int y, CellState color) {
+    this.cellStates.replace(this.board.get(x).get(y), color);
   }
 
   private void initCells(int numRows) {
@@ -67,7 +75,6 @@ public class SquareReversi extends BasicReversi {
     flippedCells.addAll(getCellsToFlipInDirection(r, c, -1, 1));
     flippedCells.addAll(getCellsToFlipInDirection(r, c, 1, -1));
     flippedCells.addAll(getCellsToFlipInDirection(r, c, 1, 1));
-    System.out.println("done");
     return flippedCells;
   }
 
@@ -90,22 +97,13 @@ public class SquareReversi extends BasicReversi {
       r += i;
       c += j;
     }
-    if (currentPlayer == CellState.WHITE) {
-      currentPlayer = CellState.BLACK;
-    } else {
-      currentPlayer = CellState.WHITE;
-    }
-    if (flippedCells.size() > 0) {
-      flippedCells.add(new ReversiCell(row, col, 0));
-      this.cellStates.put(new ReversiCell(row, col, 0), currentPlayer);
-    }
     return flippedCells;
   }
 
 
   @Override
   public List<List<Hex>> getBoard() {
-    return this.board;
+    return Collections.unmodifiableList(this.board);
   }
 
   @Override

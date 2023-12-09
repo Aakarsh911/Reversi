@@ -280,8 +280,6 @@ public class BasicReversi implements ReversiModel {
    * @param color the color of the piece
    */
   protected void placePiece(int x, int y, CellState color) {
-    System.out.println(this.board.size());
-    System.out.println(this.board.get(x).size());
     this.cellStates.replace(this.board.get(x).get(y), color);
   }
 
