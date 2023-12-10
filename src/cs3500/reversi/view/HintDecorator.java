@@ -8,12 +8,14 @@ import javax.swing.*;
 
 import cs3500.reversi.model.ReadOnlyModel;
 
-public class HintDecorator extends JPanel {
-  private final ReversiViewPanel panel;
+public class HintDecorator extends ReversiPanel {
+  private final ReversiPanel panel;
   private boolean hintMode = false;
   private final ReadOnlyModel model;
+  private final HintDecorator self = this;
 
-  public HintDecorator(ReversiViewPanel panel, ReadOnlyModel model) {
+  public HintDecorator(ReversiPanel panel, ReadOnlyModel model) {
+    super(model);
     this.panel = panel;
     this.model = model;
     this.getInputMap().put(KeyStroke.getKeyStroke("H"), "hint");
@@ -22,22 +24,33 @@ public class HintDecorator extends JPanel {
       public void actionPerformed(ActionEvent e) {
         System.out.println("hint");
         hintMode = !hintMode;
-        repaint();
+        self.paintComponent(self.getGraphics());
       }
     });
   }
 
+  public void changeHintMode() {
+    hintMode = !hintMode;
+  }
 
+  @Override
+  public Dimension getPreferredSize() {
+    return panel.getPreferredSize();
+  }
 
   @Override
   public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    panel.paintComponent(g);
-    List<Integer> selectedCell = panel.getSelectedCell();
+    super.paintComponent(g);
+    panel.setSelectCell(this.getSelectedCell().get(0), this.getSelectedCell().get(1));
+    List<Integer> selectedCell = this.getSelectedCell();
     if (hintMode) {
-      g2d.drawString(model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "",
-              selectedCell.get(0) - 5,
-              selectedCell.get(1) + 5);
+      g2d.setColor(Color.BLACK);
+      int k = Math.abs(model.getBoard().size() / 2 - selectedCell.get(0));
+      int x = k * 17 + 17 + (selectedCell.get(1) * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
+      int y = 15 + (selectedCell.get(0) * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
+      System.out.println(x + " " + y);
+      g2d.drawString(model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "", x - 5, y + 5);
     }
   }
 }

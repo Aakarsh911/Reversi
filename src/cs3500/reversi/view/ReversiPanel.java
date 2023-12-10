@@ -16,6 +16,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ReadOnlyModel;
 
 /**
@@ -31,6 +32,8 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
 
   private final int[] selectedCell = new int[2];
   private final int[] hoveredCell = new int[]{-1, -1};
+
+  private HintDecorator decorator;
 
 
   /**
@@ -70,12 +73,22 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
         }
       }
     });
+    this.getActionMap().put("hint", new AbstractAction() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        decorator.changeHintMode();
+      }
+    });
   }
 
   @Override
   public Dimension getPreferredSize() {
     return new Dimension(model.getBoard().size() * 34 + 5 + this.getSize().width
             , model.getBoard().size() * 31 + this.getSize().height);
+  }
+
+  public void setDecorator(HintDecorator decorator) {
+    this.decorator = decorator;
   }
 
   @Override
@@ -94,12 +107,21 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
     this.featuresList.add(features);
   }
 
+  protected ArrayList<ArrayList<SimpleHexagon>> getHexagons() {
+    return new ArrayList<>(this.hexagons);
+  }
+
   @Override
   public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.setColor(Color.DARK_GRAY);
     g2d.fill(new Rectangle(getPreferredSize()));
     drawHexagons(g2d);
+  }
+
+  public void setSelectCell(int row, int col) {
+    selectedCell[0] = row;
+    selectedCell[1] = col;
   }
 
   private void initHexagons() {

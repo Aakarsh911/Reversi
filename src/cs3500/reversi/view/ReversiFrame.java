@@ -25,7 +25,9 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.panel = new ReversiPanel(model);
     this.add(panel, BorderLayout.CENTER);
-    this.getLayeredPane().add(new HintDecorator(panel, model));
+    HintDecorator decorator = new HintDecorator(panel, model);
+    this.panel.setDecorator(decorator);
+    this.add(decorator, 1);
     this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: "
             + model.getBlackScore());
     this.add(turn, BorderLayout.NORTH);
