@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class SquareReversi extends BasicReversi {
   private List<List<BoardPiece>> board;
+
   /**
    * Constructs a SquareReversi.
    */
@@ -32,8 +33,6 @@ public class SquareReversi extends BasicReversi {
 
   /**
    * Constructs a SquareReversi.
-   *
-   *
    */
   public SquareReversi(SquareReversi model) {
     super(model);

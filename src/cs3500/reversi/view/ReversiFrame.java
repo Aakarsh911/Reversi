@@ -2,7 +2,9 @@ package cs3500.reversi.view;
 
 import java.awt.BorderLayout;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import cs3500.reversi.model.ReadOnlyModel;
 

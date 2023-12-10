@@ -62,10 +62,13 @@ public class HintDecorator extends ReversiPanel {
     if (hintMode && selectedCell.get(0) != -1 && selectedCell.get(1) != -1) {
       g2d.setColor(Color.BLACK);
       int k = Math.abs(model.getBoard().size() / 2 - selectedCell.get(0));
-      int x = k * 17 + 17 + (selectedCell.get(1) * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
-      int y = 15 + (selectedCell.get(0) * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
+      int x = k * 17 + 17 + (selectedCell.get(1) * 34)
+              + this.getSize().width / 2 - model.getBoard().size() * 17;
+      int y = 15 + (selectedCell.get(0) * 30)
+              + this.getSize().height / 2 - model.getBoard().size() * 15;
       String output = "0";
-      if (!model.getColor(model.getBoard().get(selectedCell.get(0)).get(selectedCell.get(1))).equals("EMPTY")) {
+      if (!model.getColor(model.getBoard().get(selectedCell.get(0))
+              .get(selectedCell.get(1))).equals("EMPTY")) {
         output = "";
       } else if (model.isLegalMove(selectedCell.get(0), selectedCell.get(1))) {
         output = model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "";

@@ -3,7 +3,7 @@ package cs3500.reversi.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * Represents a panel for the Reversi game.

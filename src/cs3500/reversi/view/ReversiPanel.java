@@ -89,15 +89,6 @@ public class ReversiPanel extends ReversiViewPanel {
     this.decorator = decorator;
   }
 
-  /**
-   * Sets the hint mode.
-   *
-   * @param hintMode the hint mode
-   */
-  public void setHintMode(boolean hintMode) {
-    this.decorator.setHintMode(hintMode);
-    this.decorator.repaint();
-  }
 
   @Override
   public List<Integer> getSelectedCell() {
@@ -179,11 +170,6 @@ public class ReversiPanel extends ReversiViewPanel {
       g2d.fill(hexagons.get(selectedCell[0]).get(selectedCell[1]));
       g2d.setColor(Color.BLACK);
       g2d.draw(hexagons.get(selectedCell[0]).get(selectedCell[1]));
-//      if (hintMode) {
-//        g2d.drawString(model.getCellsToFlip(selectedCell[0], selectedCell[1]).size() + "",
-//                hexagons.get(selectedCell[0]).get(selectedCell[1]).x - 5,
-//                hexagons.get(selectedCell[0]).get(selectedCell[1]).y + 5);
-//      }
     }
   }
 

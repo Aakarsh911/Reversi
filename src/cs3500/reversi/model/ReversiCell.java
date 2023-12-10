@@ -55,7 +55,8 @@ public class ReversiCell implements BoardPiece {
 
   @Override
   public BoardPiece getDirection(BoardPiece boardPiece) {
-    return new ReversiCell(boardPiece.getQ() - this.q, boardPiece.getR() - this.r, boardPiece.getS() - this.s);
+    return new ReversiCell(boardPiece.getQ() - this.q, boardPiece.getR() - this.r,
+            boardPiece.getS() - this.s);
   }
 
   @Override
@@ -74,11 +75,13 @@ public class ReversiCell implements BoardPiece {
   }
 
   @Override
-  public List<BoardPiece> cellsInDirection(BoardPiece boardPiece, Map<BoardPiece, CellState> cellStates) {
+  public List<BoardPiece> cellsInDirection(BoardPiece boardPiece, Map<BoardPiece,
+          CellState> cellStates) {
     List<BoardPiece> cells = new ArrayList<>();
     int counter = 1; // counter to keep track of how many cells have been added
     while (cellStates.containsKey(new ReversiCell(this.q + boardPiece.getQ()
-            * counter, this.r + boardPiece.getR() * counter, this.s + boardPiece.getS() * counter))) {
+            * counter, this.r + boardPiece.getR() * counter,
+            this.s + boardPiece.getS() * counter))) {
       cells.add(new ReversiCell(this.q + boardPiece.getQ() * counter,
               this.r + boardPiece.getR() * counter, this.s + boardPiece.getS() * counter));
       counter++;
