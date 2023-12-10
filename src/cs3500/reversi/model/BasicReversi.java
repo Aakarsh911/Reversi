@@ -19,11 +19,11 @@ public class BasicReversi implements ReversiModel {
   /**
    * INVARIANT: board.size() is always odd and more than 3
    */
-  private final ArrayList<ArrayList<Hex>> board; // list of rows
+  private final ArrayList<ArrayList<BoardPiece>> board; // list of rows
   /**
    * INVARIANT: cellStates.size() is always equal to the total number of cells in board
    */
-  protected Map<Hex, CellState> cellStates; // map of cells to their states
+  protected Map<BoardPiece, CellState> cellStates; // map of cells to their states
   private int turn = 0; // which player's turn it is
   private int pass = 0; // number of consecutive passes
   private int whiteScore = 3; // number of white pieces on the board
@@ -47,7 +47,7 @@ public class BasicReversi implements ReversiModel {
     // Copy the board
     this.board = new ArrayList<>();
     for (int i = 0; i < original.board.size(); i++) {
-      ArrayList<Hex> row = new ArrayList<>(original.board.get(i));
+      ArrayList<BoardPiece> row = new ArrayList<>(original.board.get(i));
       this.board.add(row);
     }
 
@@ -65,7 +65,7 @@ public class BasicReversi implements ReversiModel {
     board = new ArrayList<>();
     // rowNum here represents the row number
     for (int rowNum = 0; rowNum < numRows; rowNum++) {
-      ArrayList<Hex> row = new ArrayList<>();
+      ArrayList<BoardPiece> row = new ArrayList<>();
       board.add(row);
     }
     cellStates = new HashMap<>();
@@ -94,7 +94,7 @@ public class BasicReversi implements ReversiModel {
   public BasicReversi() {
     board = new ArrayList<>();
     for (int i = 0; i < numRows; i++) {
-      ArrayList<Hex> row = new ArrayList<>();
+      ArrayList<BoardPiece> row = new ArrayList<>();
       board.add(row);
     }
     cellStates = new HashMap<>();
@@ -144,7 +144,7 @@ public class BasicReversi implements ReversiModel {
   protected void calculateScore() {
     int white = 0;
     int black = 0;
-    for (Hex h : cellStates.keySet()) {
+    for (BoardPiece h : cellStates.keySet()) {
       if (cellStates.get(h) == CellState.WHITE) {
         white++;
       } else if (cellStates.get(h) == CellState.BLACK) {
@@ -167,7 +167,7 @@ public class BasicReversi implements ReversiModel {
 
   @Override
   public void move(int x, int y) {
-    List<Hex> cellsToFlip = getCellsToFlip(x, y);
+    List<BoardPiece> cellsToFlip = getCellsToFlip(x, y);
     if (!isLegalMove(x, y)) {
       throw new IllegalStateException("Not a legal move");
     }
@@ -192,12 +192,12 @@ public class BasicReversi implements ReversiModel {
    * @return the cells to flip
    */
   @Override
-  public List<Hex> getCellsToFlip(int x, int y) {
-    Hex h = board.get(x).get(y);
+  public List<BoardPiece> getCellsToFlip(int x, int y) {
+    BoardPiece h = board.get(x).get(y);
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
-    List<Hex> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
+    List<BoardPiece> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
             .collect(Collectors.toList());
-    List<List<Hex>> lines = validNeighbors.stream().map(n -> h.cellsInDirection(h.getDirection(n)
+    List<List<BoardPiece>> lines = validNeighbors.stream().map(n -> h.cellsInDirection(h.getDirection(n)
             , cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
   }
@@ -209,11 +209,11 @@ public class BasicReversi implements ReversiModel {
    * @param color the color of the player
    * @return the cells to flip
    */
-  private List<Hex> checkCellsToFlip(List<List<Hex>> lines, CellState color) {
-    List<Hex> reversiCells = new ArrayList<>();
-    for (List<Hex> line : lines) {
-      List<Hex> result = new ArrayList<>();
-      for (Hex reversiCell : line) {
+  private List<BoardPiece> checkCellsToFlip(List<List<BoardPiece>> lines, CellState color) {
+    List<BoardPiece> reversiCells = new ArrayList<>();
+    for (List<BoardPiece> line : lines) {
+      List<BoardPiece> result = new ArrayList<>();
+      for (BoardPiece reversiCell : line) {
         if (getColor(reversiCell) == color.toString()) {
           reversiCells.addAll(result);
           break;
@@ -256,8 +256,8 @@ public class BasicReversi implements ReversiModel {
       this.calculateScore();
       return true;
     }
-    for (ArrayList<Hex> hexes : board) {
-      numCells += hexes.size();
+    for (ArrayList<BoardPiece> boardPieces : board) {
+      numCells += boardPieces.size();
     }
     return pass == 2 || whiteScore == 0 || blackScore == 0
             || numCells == whiteScore + blackScore;
@@ -268,7 +268,7 @@ public class BasicReversi implements ReversiModel {
    *
    * @return the board
    */
-  public List<List<Hex>> getBoard() {
+  public List<List<BoardPiece>> getBoard() {
     return Collections.unmodifiableList(board);
   }
 
@@ -278,7 +278,7 @@ public class BasicReversi implements ReversiModel {
    * @param h the cell to get the state of
    * @return the state of the given cell
    */
-  public String getColor(Hex h) {
+  public String getColor(BoardPiece h) {
     return this.cellStates.get(h).toString();
   }
 
@@ -313,14 +313,14 @@ public class BasicReversi implements ReversiModel {
    * Checks if the given cell is the opposite color of the given color.
    *
    * @param state the color to check
-   * @param hex   the direction to check
+   * @param boardPiece   the direction to check
    * @return whether the given cell is the opposite color of the given direction
    */
-  protected boolean isOpposite(CellState state, Hex hex) {
+  protected boolean isOpposite(CellState state, BoardPiece boardPiece) {
     if (state == CellState.WHITE) {
-      return cellStates.get(hex) == CellState.BLACK;
+      return cellStates.get(boardPiece) == CellState.BLACK;
     } else if (state == CellState.BLACK) {
-      return cellStates.get(hex) == CellState.WHITE;
+      return cellStates.get(boardPiece) == CellState.WHITE;
     } else {
       return false;
     }
@@ -331,7 +331,7 @@ public class BasicReversi implements ReversiModel {
    *
    * @param h the hex to flip
    */
-  protected void flipPiece(Hex h) {
+  protected void flipPiece(BoardPiece h) {
     this.cellStates.replace(h, cellStates.get(h)
             == CellState.WHITE ? CellState.BLACK : CellState.WHITE);
   }

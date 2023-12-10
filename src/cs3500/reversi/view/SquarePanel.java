@@ -163,7 +163,7 @@ public class SquarePanel extends ReversiViewPanel {
               selectedCell[0] = i;
               selectedCell[1] = j;
             }
-            System.out.println("Clicked on " + i + " " + j);
+            System.out.println("Clicked on " + j + " " + i);
           }
         }
       }

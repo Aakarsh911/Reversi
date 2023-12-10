@@ -25,7 +25,7 @@ public class ViewFeaturesAdapter implements PlayerActionObserver {
 
   @Override
   public void move(List<Integer> hexCoordinates) {
-    List<Integer> move = model.convertHex(new HexAdapter(hexCoordinates.get(0),
+    List<Integer> move = model.convertHex(new BoardPieceAdapter(hexCoordinates.get(0),
             hexCoordinates.get(1), -hexCoordinates.get(0) - hexCoordinates.get(1)));
     features.move(move.get(0), move.get(1));
   }

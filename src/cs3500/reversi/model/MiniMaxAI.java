@@ -13,7 +13,7 @@ public class MiniMaxAI implements ReversiStrategy {
 
   @Override
   public Optional<List<Integer>> chooseMove(ReadOnlyModel model, Player player) {
-    List<List<Hex>> board = model.getBoard();
+    List<List<BoardPiece>> board = model.getBoard();
     ArrayList<ArrayList<Integer>> possibleMoves = new ArrayList<>();
     // Find all possible moves
     for (int rowNum = 0; rowNum < board.size(); rowNum++) {

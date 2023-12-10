@@ -1,6 +1,6 @@
 package cs3500.reversi.view;
 
-import cs3500.reversi.model.Hex;
+import cs3500.reversi.model.BoardPiece;
 import cs3500.reversi.model.ReadOnlyModel;
 import cs3500.reversi.model.ReversiModel;
 
@@ -32,7 +32,7 @@ public class ReversiTextualView implements ReversiView {
     return this.model.hashCode();
   }
 
-  private String drawCell(Hex c) {
+  private String drawCell(BoardPiece c) {
     String ans = "";
     if (model.getColor(c).equals("EMPTY")) {
       ans += "_ ";

@@ -11,9 +11,9 @@ public interface ReadOnlyModel {
    *
    * @return the board
    */
-  List<List<Hex>> getBoard();
+  List<List<BoardPiece>> getBoard();
 
-  List<Hex> getCellsToFlip(int row, int col);
+  List<BoardPiece> getCellsToFlip(int row, int col);
 
   /**
    * gets the state of a given cell.
@@ -21,7 +21,7 @@ public interface ReadOnlyModel {
    * @param h the cell to get the state of
    * @return the state of the given cell
    */
-  String getColor(Hex h);
+  String getColor(BoardPiece h);
 
   /**
    * gets which player's turn it is.

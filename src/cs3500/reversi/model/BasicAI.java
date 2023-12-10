@@ -12,7 +12,7 @@ public class BasicAI implements ReversiStrategy {
   @Override
   public Optional<List<Integer>> chooseMove(ReadOnlyModel model, Player player) {
     ArrayList<Integer> bestMove = new ArrayList<>();
-    List<List<Hex>> board = model.getBoard();
+    List<List<BoardPiece>> board = model.getBoard();
     int bestScore = Integer.MIN_VALUE;
     for (int rowNum = 0; rowNum < board.size(); rowNum++) {
       for (int colNum = 0; colNum < board.get(rowNum).size(); colNum++) {

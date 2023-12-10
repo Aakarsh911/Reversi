@@ -97,6 +97,9 @@ Command Line Args:
 Argument 1: Either "human" or the difficulty of the AI.
 Argument 2: Either "human" or the difficulty of the AI.
 The difficulty of the AI can be either "easy", "medium", "hard", or "extreme".
+Optional Argument 3: "square" to play the square version of the game.
+Optional Argument 4: size of the board. Must be an odd number greater than 3 for the hexagonal version of the game,
+or an even number for the square version of the game.
 
 
 **EXTRA CREDIT**

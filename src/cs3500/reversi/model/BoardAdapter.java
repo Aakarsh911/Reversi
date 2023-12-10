@@ -33,26 +33,26 @@ public class BoardAdapter extends BasicReversi implements Board {
 
   @Override
   public boolean hasPieceAt(TPRHex hex) throws IllegalArgumentException {
-    return !this.getColor(new HexAdapter(hex)).equalsIgnoreCase("empty");
+    return !this.getColor(new BoardPieceAdapter(hex)).equalsIgnoreCase("empty");
   }
 
   @Override
   public Set<TPRHex> getKeys() {
-    Set<Hex> oldKeys = this.cellStates.keySet();
+    Set<BoardPiece> oldKeys = this.cellStates.keySet();
     Set<TPRHex> newKeys = new HashSet<>();
-    for (Hex h : oldKeys) {
-      newKeys.add(new HexAdapter(h.getQ(), h.getR(), h.getS()));
+    for (BoardPiece h : oldKeys) {
+      newKeys.add(new BoardPieceAdapter(h.getQ(), h.getR(), h.getS()));
     }
     return newKeys;
   }
 
   @Override
   public List<TPRHex> getStraightLine(TPRHex location, TPRHex direction) {
-    List<Hex> oldList = new HexAdapter(location).cellsInDirection(new HexAdapter(direction),
+    List<BoardPiece> oldList = new BoardPieceAdapter(location).cellsInDirection(new BoardPieceAdapter(direction),
             this.cellStates);
     List<TPRHex> newList = new ArrayList<>();
-    for (Hex h : oldList) {
-      newList.add(new HexAdapter(h));
+    for (BoardPiece h : oldList) {
+      newList.add(new BoardPieceAdapter(h));
     }
     return newList;
   }
@@ -64,11 +64,11 @@ public class BoardAdapter extends BasicReversi implements Board {
 
   @Override
   public Piece getPieceAt(TPRHex hex) throws IllegalArgumentException {
-    HexAdapter hexAdapter = new HexAdapter(hex);
-    if (!this.cellStates.containsKey(hexAdapter)) {
+    BoardPieceAdapter boardPieceAdapter = new BoardPieceAdapter(hex);
+    if (!this.cellStates.containsKey(boardPieceAdapter)) {
       throw new IllegalArgumentException("Invalid hexagonal position");
     }
-    String color = this.getColor(hexAdapter).toLowerCase();
+    String color = this.getColor(boardPieceAdapter).toLowerCase();
     switch (color) {
       case "black":
         return Piece.BLACK;
@@ -81,16 +81,16 @@ public class BoardAdapter extends BasicReversi implements Board {
 
   @Override
   public Piece getPieceAt(int q, int r) throws IllegalArgumentException {
-    HexAdapter hexAdapter = new HexAdapter(q, r, -q - r);
-    return this.getPieceAt(hexAdapter);
+    BoardPieceAdapter boardPieceAdapter = new BoardPieceAdapter(q, r, -q - r);
+    return this.getPieceAt(boardPieceAdapter);
   }
 
   @Override
   public void placePieceAt(Piece piece, TPRHex hex) {
-    HexAdapter hexAdapter = new HexAdapter(hex);
+    BoardPieceAdapter boardPieceAdapter = new BoardPieceAdapter(hex);
     CellState state = piece == Piece.BLACK ? CellState.BLACK : CellState.WHITE;
-    if (this.cellStates.containsKey(hexAdapter)) {
-      this.cellStates.replace(hexAdapter, state);
+    if (this.cellStates.containsKey(boardPieceAdapter)) {
+      this.cellStates.replace(boardPieceAdapter, state);
     } else {
       throw new IllegalArgumentException("Invalid hexagonal position");
     }
@@ -98,11 +98,11 @@ public class BoardAdapter extends BasicReversi implements Board {
 
   @Override
   public List<TPRHex> getCorners() {
-    List<Hex> oldCorners = CornerAI.getCorners(this).stream()
+    List<BoardPiece> oldCorners = CornerAI.getCorners(this).stream()
             .map(h -> this.getBoard().get(h.get(0)).get(h.get(1))).collect(Collectors.toList());
     List<TPRHex> newCorners = new ArrayList<>();
-    for (Hex h : oldCorners) {
-      newCorners.add(new HexAdapter(h));
+    for (BoardPiece h : oldCorners) {
+      newCorners.add(new BoardPieceAdapter(h));
     }
     return newCorners;
   }

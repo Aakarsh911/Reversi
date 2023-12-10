@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Represents a hexagonal cell in the game of Reversi.
  */
-public class ReversiCell implements Hex {
+public class ReversiCell implements BoardPiece {
   private final int q; // q coordinate from the cube coordinate system
   private final int r; // r coordinate from the cube coordinate system
   private final int s; // s coordinate from the cube coordinate system
@@ -44,7 +44,7 @@ public class ReversiCell implements Hex {
   }
 
   @Override
-  public List<Hex> neighbors() {
+  public List<BoardPiece> neighbors() {
     return Arrays.asList(new ReversiCell(this.q, this.r + 1, this.s - 1),
             new ReversiCell(this.q, this.r   - 1 , this.s + 1),
             new ReversiCell(this.q   + 1 , this.r, this.s - 1) ,
@@ -54,8 +54,8 @@ public class ReversiCell implements Hex {
   }
 
   @Override
-  public Hex getDirection(Hex hex) {
-    return new ReversiCell(hex.getQ() - this.q, hex.getR() - this.r, hex.getS() - this.s);
+  public BoardPiece getDirection(BoardPiece boardPiece) {
+    return new ReversiCell(boardPiece.getQ() - this.q, boardPiece.getR() - this.r, boardPiece.getS() - this.s);
   }
 
   @Override
@@ -74,13 +74,13 @@ public class ReversiCell implements Hex {
   }
 
   @Override
-  public List<Hex> cellsInDirection(Hex hex, Map<Hex, CellState> cellStates) {
-    List<Hex> cells = new ArrayList<>();
+  public List<BoardPiece> cellsInDirection(BoardPiece boardPiece, Map<BoardPiece, CellState> cellStates) {
+    List<BoardPiece> cells = new ArrayList<>();
     int counter = 1; // counter to keep track of how many cells have been added
-    while (cellStates.containsKey(new ReversiCell(this.q + hex.getQ()
-            * counter, this.r + hex.getR() * counter, this.s + hex.getS() * counter))) {
-      cells.add(new ReversiCell(this.q + hex.getQ() * counter,
-              this.r + hex.getR() * counter, this.s + hex.getS() * counter));
+    while (cellStates.containsKey(new ReversiCell(this.q + boardPiece.getQ()
+            * counter, this.r + boardPiece.getR() * counter, this.s + boardPiece.getS() * counter))) {
+      cells.add(new ReversiCell(this.q + boardPiece.getQ() * counter,
+              this.r + boardPiece.getR() * counter, this.s + boardPiece.getS() * counter));
       counter++;
     }
     return cells;

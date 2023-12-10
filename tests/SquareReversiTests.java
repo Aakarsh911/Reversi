@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.List;
 
 import cs3500.reversi.model.BasicReversi;
-import cs3500.reversi.model.Hex;
+import cs3500.reversi.model.BoardPiece;
 import cs3500.reversi.model.ReversiModel;
 import cs3500.reversi.model.SquareReversi;
 
@@ -50,10 +50,10 @@ public class SquareReversiTests {
 
   @Test
   public void testGetBoard() {
-    List<List<Hex>> board = m.getBoard();
+    List<List<BoardPiece>> board = m.getBoard();
     Assert.assertEquals(8, board.size());
     BasicReversi m2 = new SquareReversi(10);
-    List<List<Hex>> board2 = m2.getBoard();
+    List<List<BoardPiece>> board2 = m2.getBoard();
     Assert.assertEquals(10, board2.size());
   }
 

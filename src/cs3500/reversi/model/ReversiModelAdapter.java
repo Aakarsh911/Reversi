@@ -69,14 +69,14 @@ public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.R
   @Override
   public Set<List<TPRHex>> getAllValidMoves(Piece color) {
     Set<List<TPRHex>> result = new HashSet<>();
-    List<List<Hex>> board = this.model.getBoard();
+    List<List<BoardPiece>> board = this.model.getBoard();
     for (int i = 0; i < board.size(); i++) {
       for (int j = 0; j < board.get(i).size(); j++) {
         if (this.model.isLegalMove(i, j)) {
           List<TPRHex> move = new ArrayList<>();
-          move.add(new HexAdapter(board.get(i).get(j)));
-          for (Hex h : this.model.getCellsToFlip(i, j)) {
-            move.add(new HexAdapter(h));
+          move.add(new BoardPieceAdapter(board.get(i).get(j)));
+          for (BoardPiece h : this.model.getCellsToFlip(i, j)) {
+            move.add(new BoardPieceAdapter(h));
           }
           result.add(move);
         }
@@ -96,12 +96,12 @@ public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.R
 
   @Override
   public void move(int row, int col) {
-    List<Hex> cellsToFlip = this.model.getCellsToFlip(row, col);
-    for (Hex h : cellsToFlip) {
-      this.board.placePieceAt(this.getCurrentTurn(), new HexAdapter(h));
+    List<BoardPiece> cellsToFlip = this.model.getCellsToFlip(row, col);
+    for (BoardPiece h : cellsToFlip) {
+      this.board.placePieceAt(this.getCurrentTurn(), new BoardPieceAdapter(h));
     }
     this.board.placePieceAt(this.getCurrentTurn(),
-            new HexAdapter(this.model.getBoard().get(row).get(col)));
+            new BoardPieceAdapter(this.model.getBoard().get(row).get(col)));
     this.model.move(row, col);
   }
 
@@ -166,7 +166,7 @@ public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.R
    */
   List<Integer> convertHex(TPRHex hex) {
     List<Integer> result = new ArrayList<>();
-    List<List<Hex>> board = this.model.getBoard();
+    List<List<BoardPiece>> board = this.model.getBoard();
     for (int i = 0; i < board.size(); i++) {
       for (int j = 0; j < board.get(i).size(); j++) {
         if (board.get(i).get(j).equals(hex)) {
@@ -180,17 +180,17 @@ public class ReversiModelAdapter implements ReversiModel, cs3500.reversi.model.R
   }
 
   @Override
-  public List<List<Hex>> getBoard() {
+  public List<List<BoardPiece>> getBoard() {
     return model.getBoard();
   }
 
   @Override
-  public List<Hex> getCellsToFlip(int row, int col) {
+  public List<BoardPiece> getCellsToFlip(int row, int col) {
     return model.getCellsToFlip(row, col);
   }
 
   @Override
-  public String getColor(Hex h) {
+  public String getColor(BoardPiece h) {
     return model.getColor(h);
   }
 

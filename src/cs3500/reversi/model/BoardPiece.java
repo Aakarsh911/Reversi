@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Represents a hexagonal cell in the game of Reversi.
  */
-public interface Hex {
+public interface BoardPiece {
   /**
    * Renders the game.
    *
@@ -19,24 +19,24 @@ public interface Hex {
    *
    * @return the neighbors of this cell
    */
-  List<Hex> neighbors();
+  List<BoardPiece> neighbors();
 
   /**
    * Gets the direction of this cell.
    *
-   * @param hex the cell to get the direction of
+   * @param boardPiece the cell to get the direction of
    * @return the direction of this cell
    */
-  Hex getDirection(Hex hex);
+  BoardPiece getDirection(BoardPiece boardPiece);
 
   /**
    * Gets all the cells in a given direction from this cell.
    *
-   * @param hex     the cell to get the direction of
+   * @param boardPiece     the cell to get the direction of
    * @param board the board to get the cells from
    * @return the cells in a given direction from this cell
    */
-  List<Hex> cellsInDirection(Hex hex, Map<Hex, CellState> board);
+  List<BoardPiece> cellsInDirection(BoardPiece boardPiece, Map<BoardPiece, CellState> board);
 
   /**
    * Gets the q coordinate of this cell.

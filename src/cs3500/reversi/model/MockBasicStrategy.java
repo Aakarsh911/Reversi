@@ -47,19 +47,19 @@ public class MockBasicStrategy implements ReversiModel {
   }
 
   @Override
-  public List<List<Hex>> getBoard() {
+  public List<List<BoardPiece>> getBoard() {
     return List.of(List.of(new ReversiCell(0, 0, 0), new ReversiCell(0, 0, 0)),
             List.of(new ReversiCell(0, 0, 0), new ReversiCell(0, 0, 0)),
             List.of(new ReversiCell(0, 0, 0)));
   }
 
   @Override
-  public List<Hex> getCellsToFlip(int row, int col) {
+  public List<BoardPiece> getCellsToFlip(int row, int col) {
     return null;
   }
 
   @Override
-  public String getColor(Hex h) {
+  public String getColor(BoardPiece h) {
     return null;
   }
 

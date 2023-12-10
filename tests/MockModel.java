@@ -1,6 +1,6 @@
 import java.util.List;
 
-import cs3500.reversi.model.Hex;
+import cs3500.reversi.model.BoardPiece;
 import cs3500.reversi.model.ModelListener;
 import cs3500.reversi.model.ReversiModel;
 
@@ -33,17 +33,17 @@ public class MockModel implements ReversiModel {
   }
 
   @Override
-  public List<List<Hex>> getBoard() {
+  public List<List<BoardPiece>> getBoard() {
     return null;
   }
 
   @Override
-  public List<Hex> getCellsToFlip(int row, int col) {
+  public List<BoardPiece> getCellsToFlip(int row, int col) {
     return null;
   }
 
   @Override
-  public String getColor(Hex h) {
+  public String getColor(BoardPiece h) {
     return null;
   }
 

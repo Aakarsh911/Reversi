@@ -9,7 +9,7 @@ import java.util.List;
  * Represents a SquareReversi game.
  */
 public class SquareReversi extends BasicReversi {
-  private List<List<Hex>> board;
+  private List<List<BoardPiece>> board;
   /**
    * Constructs a SquareReversi.
    */
@@ -52,7 +52,7 @@ public class SquareReversi extends BasicReversi {
   private void initBoard() {
     this.board = new ArrayList<>();
     for (int i = 0; i < this.getNumRows(); i++) {
-      List<Hex> row = new ArrayList<>();
+      List<BoardPiece> row = new ArrayList<>();
       for (int j = 0; j < this.getNumRows(); j++) {
         row.add(new ReversiCell(i, j, 0));
       }
@@ -82,8 +82,8 @@ public class SquareReversi extends BasicReversi {
   }
 
   @Override
-  public List<Hex> getCellsToFlip(int row, int col) {
-    List<Hex> flippedCells = new ArrayList<>();
+  public List<BoardPiece> getCellsToFlip(int row, int col) {
+    List<BoardPiece> flippedCells = new ArrayList<>();
     int r = row;
     int c = col;
     flippedCells.addAll(getCellsToFlipInDirection(r, c, 0, -1));
@@ -106,11 +106,11 @@ public class SquareReversi extends BasicReversi {
    * @param j   the column direction
    * @return the cells to flip in a given direction
    */
-  private List<Hex> getCellsToFlipInDirection(int row, int col, int i, int j) {
+  private List<BoardPiece> getCellsToFlipInDirection(int row, int col, int i, int j) {
     int r = row + i;
     int c = col + j;
-    List<Hex> temp = new ArrayList<>();
-    List<Hex> flippedCells = new ArrayList<>();
+    List<BoardPiece> temp = new ArrayList<>();
+    List<BoardPiece> flippedCells = new ArrayList<>();
     int turn = this.getTurn().equals("White") ? 0 : 1;
     CellState currentPlayer = turn == 0 ? CellState.WHITE : CellState.BLACK;
     while (r >= 0 && r < this.getNumRows() && c >= 0 && c < this.getNumRows()) {
@@ -130,7 +130,7 @@ public class SquareReversi extends BasicReversi {
 
 
   @Override
-  public List<List<Hex>> getBoard() {
+  public List<List<BoardPiece>> getBoard() {
     return Collections.unmodifiableList(this.board);
   }
 
