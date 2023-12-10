@@ -77,6 +77,7 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         decorator.changeHintMode();
+        decorator.repaint();
       }
     });
   }

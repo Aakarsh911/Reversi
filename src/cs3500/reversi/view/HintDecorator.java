@@ -44,12 +44,14 @@ public class HintDecorator extends ReversiPanel {
     super.paintComponent(g);
     panel.setSelectCell(this.getSelectedCell().get(0), this.getSelectedCell().get(1));
     List<Integer> selectedCell = this.getSelectedCell();
+    if (selectedCell.get(0) == -1 && selectedCell.get(1) == -1) {
+      hintMode = false;
+    }
     if (hintMode) {
       g2d.setColor(Color.BLACK);
       int k = Math.abs(model.getBoard().size() / 2 - selectedCell.get(0));
       int x = k * 17 + 17 + (selectedCell.get(1) * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
       int y = 15 + (selectedCell.get(0) * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
-      System.out.println(x + " " + y);
       g2d.drawString(model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "", x - 5, y + 5);
     }
   }
