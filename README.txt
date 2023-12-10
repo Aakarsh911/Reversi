@@ -97,3 +97,9 @@ Command Line Args:
 Argument 1: Either "human" or the difficulty of the AI.
 Argument 2: Either "human" or the difficulty of the AI.
 The difficulty of the AI can be either "easy", "medium", "hard", or "extreme".
+
+
+**EXTRA CREDIT**
+We implemented all the parts of extra credit for assignment 9. We made the highlighting work and then made the model for the square version of the game. Then we made our controller and our strategies work with our new square model.
+The files that we changed or added for extra credit are:
+SquareReversi.java, SquarePanel.java, HintDecorator.java, SquareReversiTextualView.java, SquareCell.java, ReversiFrame.java, ReversiPanel.java, and all the Square reversi test classes.
