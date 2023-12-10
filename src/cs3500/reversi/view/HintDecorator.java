@@ -33,6 +33,10 @@ public class HintDecorator extends ReversiPanel {
     hintMode = !hintMode;
   }
 
+  public void setHintMode(boolean hintMode) {
+    this.hintMode = hintMode;
+  }
+
   @Override
   public Dimension getPreferredSize() {
     return panel.getPreferredSize();
@@ -52,7 +56,11 @@ public class HintDecorator extends ReversiPanel {
       int k = Math.abs(model.getBoard().size() / 2 - selectedCell.get(0));
       int x = k * 17 + 17 + (selectedCell.get(1) * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
       int y = 15 + (selectedCell.get(0) * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
-      g2d.drawString(model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "", x - 5, y + 5);
+      String output = "0";
+      if (model.isLegalMove(selectedCell.get(0), selectedCell.get(1))) {
+        output = model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "";
+      }
+      g2d.drawString(output, x - 5, y + 5);
     }
   }
 }

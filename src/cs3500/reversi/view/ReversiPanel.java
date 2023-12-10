@@ -61,6 +61,7 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
             features.move(selectedCell[0], selectedCell[1]);
           }
         }
+        setHintMode(false);
       }
     });
     this.getActionMap().put("pass", new AbstractAction() {
@@ -71,6 +72,7 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
             features.pass();
           }
         }
+        setHintMode(false);
       }
     });
     this.getActionMap().put("hint", new AbstractAction() {
@@ -90,6 +92,11 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
 
   public void setDecorator(HintDecorator decorator) {
     this.decorator = decorator;
+  }
+
+  public void setHintMode(boolean hintMode) {
+    this.decorator.setHintMode(hintMode);
+    this.decorator.repaint();
   }
 
   @Override

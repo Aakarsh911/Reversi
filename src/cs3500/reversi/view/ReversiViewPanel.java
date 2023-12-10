@@ -15,7 +15,5 @@ public interface ReversiViewPanel {
 
   void paintComponent(Graphics g);
 
-  void repaint();
-
   Dimension getPreferredSize();
 }
