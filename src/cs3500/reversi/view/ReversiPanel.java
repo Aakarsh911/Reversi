@@ -59,7 +59,6 @@ public class ReversiPanel extends ReversiViewPanel {
             features.move(selectedCell[0], selectedCell[1]);
           }
         }
-        setHintMode(false);
       }
     });
     this.getActionMap().put("pass", new AbstractAction() {
@@ -70,7 +69,6 @@ public class ReversiPanel extends ReversiViewPanel {
             features.pass();
           }
         }
-        setHintMode(false);
       }
     });
     this.getActionMap().put("hint", new AbstractAction() {
