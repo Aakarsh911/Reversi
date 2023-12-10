@@ -15,17 +15,18 @@ import cs3500.reversi.model.ReadOnlyModel;
  * Represents a panel of squares for Reversi.
  */
 public class SquarePanel extends ReversiViewPanel {
-  /**
-   * Constructs a ReversiPanel.
-   *
-   * @param model the model to use
-   */
   ReadOnlyModel model;
   ArrayList<ArrayList<SquareCell>> squares;
   private final int[] selectedCell = new int[]{-1, -1};
   private final int[] hoveredCell = new int[]{-1, -1};
 
   private boolean hintMode = false;
+
+  /**
+   * Constructs a SquarePanel.
+   *
+   * @param model the model to use
+   */
   public SquarePanel(ReadOnlyModel model) {
     this.model = model;
     this.squares = new ArrayList<>();
@@ -79,8 +80,8 @@ public class SquarePanel extends ReversiViewPanel {
     for (int i = 0; i < model.getNumRows(); i++) {
       ArrayList<SquareCell> row = new ArrayList<>();
       for (int j = 0; j < model.getNumRows(); j++) {
-        int x = 30*i + this.getSize().width/2 - model.getBoard().size() * 15;
-        int y = 30*j + this.getSize().height/2 - model.getBoard().size() * 15;
+        int x = 30 * i + this.getSize().width / 2 - model.getBoard().size() * 15;
+        int y = 30 * j + this.getSize().height / 2 - model.getBoard().size() * 15;
         row.add(new SquareCell(x, y, 30));
       }
       squares.add(row);
@@ -121,8 +122,7 @@ public class SquarePanel extends ReversiViewPanel {
             && model.isLegalMove(hoveredCell[0], hoveredCell[1])) {
       if (model.getTurn().equals("White")) {
         g2d.setColor(new Color(255, 255, 255, 150));
-      }
-      else {
+      } else {
         g2d.setColor(new Color(0, 0, 0, 150));
       }
       g2d.fillOval(squares.get(hoveredCell[0]).get(hoveredCell[1]).getX() + 5,
@@ -146,6 +146,7 @@ public class SquarePanel extends ReversiViewPanel {
       }
     }
   }
+
   private class MouseEventsListener extends MouseAdapter {
 
     @Override

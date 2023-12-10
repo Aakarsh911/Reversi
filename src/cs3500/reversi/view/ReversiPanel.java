@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import cs3500.reversi.model.Hex;
 import cs3500.reversi.model.ReadOnlyModel;
 
 /**
@@ -86,10 +84,16 @@ public class ReversiPanel extends ReversiViewPanel {
             , model.getBoard().size() * 31 + this.getSize().height);
   }
 
+  @Override
   public void setDecorator(HintDecorator decorator) {
     this.decorator = decorator;
   }
 
+  /**
+   * Sets the hint mode.
+   *
+   * @param hintMode the hint mode
+   */
   public void setHintMode(boolean hintMode) {
     this.decorator.setHintMode(hintMode);
     this.decorator.repaint();
@@ -106,9 +110,6 @@ public class ReversiPanel extends ReversiViewPanel {
     return List.of(-1, -1);
   }
 
-  protected ArrayList<ArrayList<SimpleHexagon>> getHexagons() {
-    return new ArrayList<>(this.hexagons);
-  }
 
   @Override
   public void paintComponent(Graphics g) {
@@ -117,6 +118,7 @@ public class ReversiPanel extends ReversiViewPanel {
     g2d.fill(new Rectangle(getPreferredSize()));
     drawHexagons(g2d);
   }
+
 
   public void setSelectCell(int row, int col) {
     selectedCell[0] = row;

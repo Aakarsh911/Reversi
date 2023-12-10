@@ -32,5 +32,8 @@ public interface ReversiGraphicalView {
    */
   void updateTurn(String s);
 
+  /**
+   * Refreshes the view.
+   */
   void refresh();
 }

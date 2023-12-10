@@ -136,7 +136,7 @@ public class SquareReversi extends BasicReversi {
 
   @Override
   public boolean isLegalMove(int row, int col) {
-    return this.getCellsToFlip(row, col).size() > 0 && this.getColor(this.board.get(row).get(col))
+    return !this.getCellsToFlip(row, col).isEmpty() && this.getColor(this.board.get(row).get(col))
             .equals("EMPTY");
   }
 

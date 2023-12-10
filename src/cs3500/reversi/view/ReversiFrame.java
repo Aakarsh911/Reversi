@@ -28,12 +28,17 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
     HintDecorator decorator = new HintDecorator(panel, model);
     this.panel.setDecorator(decorator);
     this.add(decorator, 1);
-    this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: "
+    this.turn = new JLabel("W: " + model.getWhiteScore() + ", B: "
             + model.getBlackScore());
     this.add(turn, BorderLayout.NORTH);
     this.pack();
   }
 
+  /**
+   * Constructs a ReversiFrame.
+   * @param model the model to use
+   * @param isSquare whether the board is square or not
+   */
   public ReversiFrame(ReadOnlyModel model, boolean isSquare) {
     this.model = model;
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +53,7 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
     }
     this.add(panel, BorderLayout.CENTER);
 
-    this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: "
+    this.turn = new JLabel("W: " + model.getWhiteScore() + ", B: "
             + model.getBlackScore());
     this.add(turn, BorderLayout.NORTH);
     this.pack();
@@ -78,7 +83,7 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
       }
     }
     else {
-      this.turn.setText(s + " | W: " + model.getWhiteScore() + ", B: " + model.getBlackScore());
+      this.turn.setText("W: " + model.getWhiteScore() + ", B: " + model.getBlackScore());
     }
   }
 

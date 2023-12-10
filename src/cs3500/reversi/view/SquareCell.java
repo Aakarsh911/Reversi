@@ -2,11 +2,21 @@ package cs3500.reversi.view;
 
 import java.awt.geom.Path2D;
 
+/**
+ * Represents a square cell.
+ */
 public class SquareCell extends Path2D.Double {
   private final int sideLength;
   private final int x;
   private final int y;
 
+  /**
+   * Constructs a square cell.
+   *
+   * @param x          the x coordinate of the square
+   * @param y          the y coordinate of the square
+   * @param sideLength the side length of the square
+   */
   public SquareCell(int x, int y, int sideLength) {
     this.x = x;
     this.y = y;
@@ -24,6 +34,7 @@ public class SquareCell extends Path2D.Double {
 
   /**
    * Gets the side length of the square.
+   *
    * @return the side length of the square
    */
   public int getSideLength() {
@@ -32,6 +43,7 @@ public class SquareCell extends Path2D.Double {
 
   /**
    * Gets the x coordinate of the square.
+   *
    * @return the x coordinate of the square
    */
   public int getX() {
@@ -40,6 +52,7 @@ public class SquareCell extends Path2D.Double {
 
   /**
    * Gets the y coordinate of the square.
+   *
    * @return the y coordinate of the square
    */
   public int getY() {

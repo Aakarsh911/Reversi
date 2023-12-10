@@ -2,6 +2,9 @@ package cs3500.reversi.view;
 
 import cs3500.reversi.model.ReversiModel;
 
+/**
+ * Represents a textual view for the Reversi game.
+ */
 public class SquareReversiTextualView implements ReversiView {
   private final ReversiModel model;
 
