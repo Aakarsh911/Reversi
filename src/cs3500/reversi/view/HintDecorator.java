@@ -45,6 +45,8 @@ public class HintDecorator extends ReversiPanel {
   @Override
   public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
+    g2d.setColor(Color.DARK_GRAY);
+    g2d.fill(new Rectangle(this.getSize()));
     super.paintComponent(g);
     panel.setSelectCell(this.getSelectedCell().get(0), this.getSelectedCell().get(1));
     List<Integer> selectedCell = this.getSelectedCell();
