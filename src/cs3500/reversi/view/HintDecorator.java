@@ -17,13 +17,6 @@ public class HintDecorator extends ReversiPanel {
     super(model);
     this.panel = panel;
     this.model = model;
-    this.getInputMap().put(KeyStroke.getKeyStroke("H"), "hint");
-    this.getActionMap().put("hint", new AbstractAction() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        hintMode = !hintMode;
-      }
-    });
   }
 
   public void changeHintMode() {
@@ -56,7 +49,10 @@ public class HintDecorator extends ReversiPanel {
       int x = k * 17 + 17 + (selectedCell.get(1) * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
       int y = 15 + (selectedCell.get(0) * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
       String output = "0";
-      if (model.isLegalMove(selectedCell.get(0), selectedCell.get(1))) {
+      if (!model.getColor(model.getBoard().get(selectedCell.get(0)).get(selectedCell.get(1))).equals("EMPTY")) {
+        output = "";
+      }
+      else if (model.isLegalMove(selectedCell.get(0), selectedCell.get(1))) {
         output = model.getCellsToFlip(selectedCell.get(0), selectedCell.get(1)).size() + "";
       }
       g2d.drawString(output, x - 5, y + 5);
