@@ -10,7 +10,7 @@ import cs3500.reversi.model.ReadOnlyModel;
  * Represents a JFrame for the Reversi game window.
  */
 public class ReversiFrame extends JFrame implements ReversiGraphicalView {
-  private final ReversiPanel panel;
+  private final ReversiViewPanel panel;
 
   private final JLabel turn;
 
@@ -28,6 +28,26 @@ public class ReversiFrame extends JFrame implements ReversiGraphicalView {
     HintDecorator decorator = new HintDecorator(panel, model);
     this.panel.setDecorator(decorator);
     this.add(decorator, 1);
+    this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: "
+            + model.getBlackScore());
+    this.add(turn, BorderLayout.NORTH);
+    this.pack();
+  }
+
+  public ReversiFrame(ReadOnlyModel model, boolean isSquare) {
+    this.model = model;
+    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    if (isSquare) {
+      this.panel = new SquarePanel(model);
+    }
+    else {
+      this.panel = new ReversiPanel(model);
+      HintDecorator decorator = new HintDecorator(panel, model);
+      this.panel.setDecorator(decorator);
+      this.add(decorator, 1);
+    }
+    this.add(panel, BorderLayout.CENTER);
+
     this.turn = new JLabel("Opponent's turn | W: " + model.getWhiteScore() + ", B: "
             + model.getBlackScore());
     this.add(turn, BorderLayout.NORTH);

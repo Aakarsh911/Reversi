@@ -9,12 +9,11 @@ import javax.swing.*;
 import cs3500.reversi.model.ReadOnlyModel;
 
 public class HintDecorator extends ReversiPanel {
-  private final ReversiPanel panel;
+  private final ReversiViewPanel panel;
   private boolean hintMode = false;
   private final ReadOnlyModel model;
-  private final HintDecorator self = this;
 
-  public HintDecorator(ReversiPanel panel, ReadOnlyModel model) {
+  public HintDecorator(ReversiViewPanel panel, ReadOnlyModel model) {
     super(model);
     this.panel = panel;
     this.model = model;
@@ -22,9 +21,7 @@ public class HintDecorator extends ReversiPanel {
     this.getActionMap().put("hint", new AbstractAction() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("hint");
         hintMode = !hintMode;
-        self.paintComponent(self.getGraphics());
       }
     });
   }
@@ -45,6 +42,8 @@ public class HintDecorator extends ReversiPanel {
   @Override
   public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
+    g2d.setColor(Color.DARK_GRAY);
+    g2d.fill(new Rectangle(this.getSize()));
     super.paintComponent(g);
     panel.setSelectCell(this.getSelectedCell().get(0), this.getSelectedCell().get(1));
     List<Integer> selectedCell = this.getSelectedCell();

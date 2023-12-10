@@ -8,15 +8,9 @@ import cs3500.reversi.model.BasicReversi;
 import cs3500.reversi.model.Person;
 import cs3500.reversi.model.Player;
 import cs3500.reversi.model.ReversiModel;
-import cs3500.reversi.model.ReversiModelAdapter;
 import cs3500.reversi.model.SquareReversi;
 import cs3500.reversi.view.ReversiFrame;
 import cs3500.reversi.view.ReversiGraphicalView;
-import cs3500.reversi.view.ReversiTextualView;
-import cs3500.reversi.view.ReversiView;
-import cs3500.reversi.view.ReversiViewAdapter;
-import cs3500.reversi.view.SquareFrame;
-import cs3500.reversi.view.SquareReversiTextualView;
 
 /**
  * Represents the main class for the Reversi game.
@@ -42,8 +36,8 @@ public final class Reversi {
       } else {
         model = new SquareReversi();
       }
-      view = new SquareFrame(model);
-      view2 = new SquareFrame(model);
+      view = new ReversiFrame(model, true);
+      view2 = new ReversiFrame(model, true);
     } else if (args.length > 2) {
       model = new BasicReversi(Integer.parseInt(args[2]));
       view = new ReversiFrame(model);

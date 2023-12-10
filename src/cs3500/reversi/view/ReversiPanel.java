@@ -22,10 +22,8 @@ import cs3500.reversi.model.ReadOnlyModel;
 /**
  * Represents the panel for the Reversi game.
  */
-public class ReversiPanel extends JPanel implements ReversiViewPanel {
+public class ReversiPanel extends ReversiViewPanel {
   private final ReadOnlyModel model;
-
-  private final List<ViewFeatures> featuresList = new ArrayList<>();
 
   private final ArrayList<ArrayList<SimpleHexagon>> hexagons = new ArrayList<>();
 
@@ -108,11 +106,6 @@ public class ReversiPanel extends JPanel implements ReversiViewPanel {
       return cell;
     }
     return List.of(-1, -1);
-  }
-
-  @Override
-  public void addFeaturesListener(ViewFeatures features) {
-    this.featuresList.add(features);
   }
 
   protected ArrayList<ArrayList<SimpleHexagon>> getHexagons() {

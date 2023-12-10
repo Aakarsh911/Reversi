@@ -1,19 +1,27 @@
 package cs3500.reversi.view;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface ReversiViewPanel {
+import javax.swing.*;
 
-  /**
-   * Adds a features listener to the view.
-   * @param features the features listener to add
-   */
-  void addFeaturesListener(ViewFeatures features);
+public abstract class ReversiViewPanel extends JPanel {
 
-  List<Integer> getSelectedCell();
+  protected final List<ViewFeatures> featuresList = new ArrayList<>();
 
-  void paintComponent(Graphics g);
+  public void addFeaturesListener(ViewFeatures features){
+    featuresList.add(features);
+  }
 
-  Dimension getPreferredSize();
+  public abstract List<Integer> getSelectedCell();
+
+  public void setDecorator(HintDecorator decorator){
+    // do nothing
+  }
+
+  public void setSelectCell(int row, int col) {
+    // do nothing
+  }
+
 }
