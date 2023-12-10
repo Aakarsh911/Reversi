@@ -3,9 +3,9 @@ package cs3500.reversi.view;
 import java.awt.geom.Path2D;
 
 public class SquareCell extends Path2D.Double {
-  private int sideLength;
-  private int x;
-  private int y;
+  private final int sideLength;
+  private final int x;
+  private final int y;
 
   public SquareCell(int x, int y, int sideLength) {
     this.x = x;

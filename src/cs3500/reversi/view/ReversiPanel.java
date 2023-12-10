@@ -21,7 +21,7 @@ import cs3500.reversi.model.ReadOnlyModel;
 /**
  * Represents the panel for the Reversi game.
  */
-public class ReversiPanel extends JPanel {
+public class ReversiPanel extends JPanel implements ReversiViewPanel {
   private final ReadOnlyModel model;
 
   private final List<ViewFeatures> featuresList = new ArrayList<>();
@@ -32,11 +32,10 @@ public class ReversiPanel extends JPanel {
   private final int[] selectedCell = new int[2];
   private final int[] hoveredCell = new int[]{-1, -1};
 
-  private boolean hintMode = false;
-
 
   /**
    * Constructs a ReversiPanel.
+   *
    * @param model the model to use
    */
   public ReversiPanel(ReadOnlyModel model) {
@@ -71,12 +70,6 @@ public class ReversiPanel extends JPanel {
         }
       }
     });
-    this.getActionMap().put("hint", new AbstractAction() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        hintMode = !hintMode;
-      }
-    });
   }
 
   @Override
@@ -85,12 +78,24 @@ public class ReversiPanel extends JPanel {
             , model.getBoard().size() * 31 + this.getSize().height);
   }
 
+  @Override
+  public List<Integer> getSelectedCell() {
+    if (selectedCell[0] != -1 && selectedCell[1] != -1) {
+      List<Integer> cell = new ArrayList<>();
+      cell.add(selectedCell[0]);
+      cell.add(selectedCell[1]);
+      return cell;
+    }
+    return List.of(-1, -1);
+  }
+
+  @Override
   public void addFeaturesListener(ViewFeatures features) {
     this.featuresList.add(features);
   }
 
   @Override
-  protected void paintComponent(Graphics g) {
+  public void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
     g2d.setColor(Color.DARK_GRAY);
     g2d.fill(new Rectangle(getPreferredSize()));
@@ -103,7 +108,7 @@ public class ReversiPanel extends JPanel {
       ArrayList<SimpleHexagon> row = new ArrayList<>();
       for (int j = 0; j < model.getBoard().get(i).size(); j++) {
         k = Math.abs(model.getBoard().size() / 2 - i);
-        int x =  k * 17 + 17 + (j * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
+        int x = k * 17 + 17 + (j * 34) + this.getSize().width / 2 - model.getBoard().size() * 17;
         int y = 15 + (i * 30) + this.getSize().height / 2 - model.getBoard().size() * 15;
         SimpleHexagon hex = new SimpleHexagon(x, y, 20);
         row.add(hex);
@@ -133,8 +138,7 @@ public class ReversiPanel extends JPanel {
           if (model.isLegalMove(hoveredCell[0], hoveredCell[1])) {
             if (model.getTurn().equals("White")) {
               g2d.setColor(new Color(255, 255, 255, 175));
-            }
-            else {
+            } else {
               g2d.setColor(new Color(0, 0, 0, 175));
             }
             g2d.fillOval(hexagons.get(row).get(col).x - 10, hexagons.get(row).get(col).y - 10,
@@ -152,15 +156,15 @@ public class ReversiPanel extends JPanel {
       g2d.fill(hexagons.get(selectedCell[0]).get(selectedCell[1]));
       g2d.setColor(Color.BLACK);
       g2d.draw(hexagons.get(selectedCell[0]).get(selectedCell[1]));
-      if (hintMode) {
-        g2d.drawString(model.getCellsToFlip(selectedCell[0], selectedCell[1]).size() + "",
-                hexagons.get(selectedCell[0]).get(selectedCell[1]).x - 5,
-                hexagons.get(selectedCell[0]).get(selectedCell[1]).y + 5);
-      }
+//      if (hintMode) {
+//        g2d.drawString(model.getCellsToFlip(selectedCell[0], selectedCell[1]).size() + "",
+//                hexagons.get(selectedCell[0]).get(selectedCell[1]).x - 5,
+//                hexagons.get(selectedCell[0]).get(selectedCell[1]).y + 5);
+//      }
     }
   }
 
- private class MouseEventsListener extends MouseAdapter {
+  private class MouseEventsListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {

@@ -14,7 +14,7 @@ import cs3500.reversi.model.ReadOnlyModel;
 /**
  * Represents a panel of squares for Reversi.
  */
-public class SquarePanel extends JPanel {
+public class SquarePanel extends JPanel implements ReversiViewPanel{
   /**
    * Constructs a ReversiPanel.
    *
@@ -69,6 +69,12 @@ public class SquarePanel extends JPanel {
     });
   }
 
+  @Override
+  public List<Integer> getSelectedCell() {
+    return List.of(squares.get(selectedCell[0]).get(selectedCell[1]).getX(),
+            squares.get(selectedCell[0]).get(selectedCell[1]).getY());
+  }
+
 
   private void initSquares() {
     for (int i = 0; i < model.getNumRows(); i++) {
@@ -82,6 +88,7 @@ public class SquarePanel extends JPanel {
     }
   }
 
+  @Override
   public void addFeaturesListener(ViewFeatures features) {
     this.featuresList.add(features);
   }
