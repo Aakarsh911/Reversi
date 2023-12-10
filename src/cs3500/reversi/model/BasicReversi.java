@@ -85,14 +85,6 @@ public class BasicReversi implements ReversiModel {
   }
 
   /**
-   * Gets the number of passes.
-   * @return the number of passes
-   */
-  protected int getPasses() {
-    return this.pass;
-  }
-
-  /**
    * Constructs a BasicReversi object with 7 rows.
    * Ensures numRows is odd and more than 3.
    * Adds cells to the board and adds them to cellStates simultaneously to ensure invariant.
@@ -246,6 +238,14 @@ public class BasicReversi implements ReversiModel {
     if (!listeners.isEmpty()) {
       this.listeners.get(turn % 2).notifyTurn();
     }
+  }
+
+  /**
+   * Gets the number of passes.
+   * @return the number of passes
+   */
+  protected int getPasses() {
+    return this.pass;
   }
 
   @Override
