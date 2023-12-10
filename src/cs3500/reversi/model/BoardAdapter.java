@@ -48,7 +48,8 @@ public class BoardAdapter extends BasicReversi implements Board {
 
   @Override
   public List<TPRHex> getStraightLine(TPRHex location, TPRHex direction) {
-    List<BoardPiece> oldList = new BoardPieceAdapter(location).cellsInDirection(new BoardPieceAdapter(direction),
+    List<BoardPiece> oldList = new BoardPieceAdapter(location).cellsInDirection(
+            new BoardPieceAdapter(direction),
             this.cellStates);
     List<TPRHex> newList = new ArrayList<>();
     for (BoardPiece h : oldList) {

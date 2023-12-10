@@ -197,7 +197,8 @@ public class BasicReversi implements ReversiModel {
     CellState color = turn % 2 == 0 ? CellState.WHITE : CellState.BLACK;
     List<BoardPiece> validNeighbors = h.neighbors().stream().filter(n -> isOpposite(color, n))
             .collect(Collectors.toList());
-    List<List<BoardPiece>> lines = validNeighbors.stream().map(n -> h.cellsInDirection(h.getDirection(n)
+    List<List<BoardPiece>> lines = validNeighbors.stream().map(n ->
+            h.cellsInDirection(h.getDirection(n)
             , cellStates)).collect(Collectors.toList());
     return checkCellsToFlip(lines, color);
   }
